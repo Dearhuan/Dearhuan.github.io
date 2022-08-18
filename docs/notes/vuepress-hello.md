@@ -196,3 +196,6 @@ jobs:
 ```js
 更新并提交Markdown/手动run workflow
 ```
+
+### 部署完成后生成的gh-pages分支及目录
+![vuepress-ghpage](/images/vuepress-ghpage.png)
