@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.49">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <link rel="icon" href="/images/logo.jpg"><title>Hello</title><meta name="description" content="">
+    <link rel="modulepreload" href="/assets/app.2c120ac4.js"><link rel="modulepreload" href="/assets/404.html.9f5328a8.js"><link rel="modulepreload" href="/assets/404.html.7d858b3d.js"><link rel="prefetch" href="/assets/index.html.d1200975.js"><link rel="prefetch" href="/assets/postcss-px-to-viewport.html.b3121a26.js"><link rel="prefetch" href="/assets/jsTool.html.ff0bfb94.js"><link rel="prefetch" href="/assets/sentry.html.451cf6c9.js"><link rel="prefetch" href="/assets/snippets.html.372e7e2e.js"><link rel="prefetch" href="/assets/index.html.7b6d193f.js"><link rel="prefetch" href="/assets/postcss-px-to-viewport.html.8adf2de1.js"><link rel="prefetch" href="/assets/jsTool.html.613b6b78.js"><link rel="prefetch" href="/assets/sentry.html.ebc95fff.js"><link rel="prefetch" href="/assets/snippets.html.203fd1b6.js"><link rel="prefetch" href="/assets/404.576c1bcf.js"><link rel="prefetch" href="/assets/Layout.4a16bfc9.js">
+    <link rel="stylesheet" href="/assets/style.f4d22aab.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><main class="page"><div class="theme-default-content"><h1>404</h1><blockquote>There&#39;s nothing here.</blockquote><a href="/" class="">Take me home</a></div></main></div><!----><!--]--></div>
+    <script type="module" src="/assets/app.2c120ac4.js" defer></script>
+  </body>
+</html>
