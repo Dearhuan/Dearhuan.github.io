@@ -7,23 +7,25 @@ description: 页面的描述
 
 ![VuePress BLog](/images/vuepress.png)
 
+::: tip 提示
 详细内容见[VuePress官方文档](https://v2.vuepress.vuejs.org/zh/)
+:::
 
-step1:创建并进入一个新目录
+- step1:创建并进入一个新目录
 ```sh
 mkdir vuepress-hello
 cd vuepress-hello
 ```
-step2:初始化项目
+- step2:初始化项目
 ```sh
 git init
 yarn init
 ```
-step3:安装vuepress
+- step3:安装vuepress
 ```sh
 yarn add -D vuepress@next
 ```
-step4:在 package.json 中添加scripts
+- step4:在 package.json 中添加scripts
 ```json
 {
   "scripts": {
@@ -32,7 +34,7 @@ step4:在 package.json 中添加scripts
   }
 }
 ```
-step5:设置.gitignore
+- step5:根目录添加.gitignore文件
 ```gitignore
 # VuePress files
 docs/.vuepress/.temp/
@@ -61,16 +63,16 @@ node_modules/
 # Typescript build info
 *.tsbuildinfo
 ```
-step6:创建一篇文档
+- step6:创建一篇文档
 ```sh
 mkdir docs
 echo '# Hello VuePress' > docs/README.md
 ```
-step7:启动本地服务器
+- step7:启动本地服务器
 ```sh
 yarn docs:dev
 ```
-step8:配置目录
+- step8:配置目录
 ```js
 docs/.vuepress/public/images 存放项目使用图片
 docs/.vuepress/config.js     项目配置文件
@@ -129,11 +131,11 @@ module.exports = {
   }),
 }
 ```
-step9:建立github同名仓库
+- step9:建立github同名仓库
 ```js
 userName/userName.github.io
 ```
-step10:推送代码
+- step10:推送代码
 ```sh
 git add.
 git commit -m 'xxxx'
@@ -141,7 +143,7 @@ git branch -M main
 git add remote orgin git@github.com:[userName]/vuepress-hello.git
 git push -u origin main
 ```
-step11:创建.yml文件
+- step11:创建.yml文件
 ```yml
 # action 的名称
 name: Deploy GitHub Pages
@@ -159,7 +161,7 @@ jobs:
   build-and-deploy:
     # 服务器环境：最新版 Ubuntu
     runs-on: ubuntu-latest
-    steps:
+    - steps:
       # 拉取代码
       - name: Checkout
         uses: actions/checkout@v2
@@ -182,13 +184,15 @@ jobs:
           # 打包后的文件在哪里
           FOLDER: docs/.vuepress/dist
 ```
-step12:设置access tokens
-```
+- step12:设置access tokens
+```js
 1.头像/settings/developer settings/personal access tokens
 生成一个ACCESS_TOKEN并复制下来
 2.仓库/settings/secrets/actions - 添加ACCESS_TOKEN
 ```
-step13:触发自动部署
-```
-更新并提交代码/手动run workflow
+- step13:选择github pages分支
+![github-page](/images/github-page.png)
+- step14:触发自动部署
+```js
+更新并提交Markdown/手动run workflow
 ```
