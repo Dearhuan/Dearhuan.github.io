@@ -9,7 +9,6 @@ module.exports = {
     logo: '/images/logo.jpg',
     // repo: 'https://github.com/Dearhuan',
     // URL
-    // logo: 'https://vuejs.org/images/logo.png',
     navbar: [
       {
         text: '首页',
