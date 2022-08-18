@@ -4,7 +4,7 @@ heroText: Hello's Blog
 tagline: 人生若只如初见
 heroImage: /images/hero.png
 actions:
-  - text: 快速开始
+  - text: 开始
     link: /tools/jsTool.html
     type: primary
 features: 
