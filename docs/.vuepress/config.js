@@ -2,7 +2,7 @@ const { defaultTheme } = require('@vuepress/theme-default')
 
 module.exports = {
   port: 9001,
-  base: '/hello/',
+  base: '/',
   title: 'Hello',
   head: [['link', { rel: 'icon', href: '/images/logo.jpg' }]],
   theme: defaultTheme({
