@@ -7,8 +7,6 @@ module.exports = {
   head: [['link', { rel: 'icon', href: '/images/logo.jpg' }]],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
-    // repo: 'https://github.com/Dearhuan',
-    // URL
     navbar: [
       {
         text: '首页',
@@ -18,7 +16,6 @@ module.exports = {
     sidebar: [
       {
         text: '工具',
-        // link: '/tools/',
         children: [
           {
             text: 'Js工具代码示例',
@@ -36,17 +33,35 @@ module.exports = {
       },
       {
         text: '记录',
-        // link: '/notes/',
         children: [
+          {
+            text: '企业微信+邮箱通知基金机器人',
+            link: '/notes/wxFundBot.md'
+          },
+          {
+            text: 'Okx数据推送机器人',
+            link: '/notes/OkxHelper.md'
+          },
+          {
+            text: '天气数据推送机器人',
+            link: '/notes/weatherBot.md'
+          },
+          {
+            text: 'Github自动commit',
+            link: '/notes/github-auto-commit.md'
+          },
+          {
+            text: '10分钟搭建一款VuePress博客',
+            link: '/notes/vuepress-hello.md'
+          },
           {
             text: 'postcss-px-to-viewport使用',
             link: '/notes/postcss-px-to-viewport.md'
-          }
+          },
         ]
       },
       {
         text: '其他',
-        // link: '/notes/',
         children: [
           
         ]
