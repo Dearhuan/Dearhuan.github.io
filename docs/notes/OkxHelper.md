@@ -3,7 +3,9 @@
 ![okxBot](/images/okxbot.png)
 
 ::: tip 前提条件
-企业微信通知需要注册企业微信应用，获取企业ID、应用ID、应用秘钥等
+企业微信通知需要注册企业微信应用，获取企业ID、应用ID、应用秘钥等参数
+
+Okx需要申请APIKEY、SECRETKEY、PASSPHRASE等参数
 :::
 
 - 模块导入
