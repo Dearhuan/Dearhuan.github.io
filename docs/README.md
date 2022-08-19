@@ -4,8 +4,8 @@ heroText: Hello's Blog
 tagline: 人生若只如初见
 heroImage: /images/hero.png
 actions:
-  - text: 开始
-    link: /tools/jsTool.html
+  - text: 开始探索
+    link: /notes/vuepress-hello.html
     type: primary
 features: 
   - title: 工具

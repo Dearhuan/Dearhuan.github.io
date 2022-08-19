@@ -1,5 +1,9 @@
 const { defaultTheme } = require('@vuepress/theme-default')
 
+const routes = require('./public/json/others.json')
+
+console.log(routes)
+
 module.exports = {
   port: 9001,
   base: '/',
@@ -58,13 +62,15 @@ module.exports = {
             text: 'postcss-px-to-viewport使用',
             link: '/notes/postcss-px-to-viewport.md'
           },
+          {
+            text: '磨砂玻璃渐变背景-CSS-doodle',
+            link: '/notes/css-doodle.md'
+          },
         ]
       },
       {
         text: '其他',
-        children: [
-          
-        ]
+        children: routes
       },
     ]
   }),
