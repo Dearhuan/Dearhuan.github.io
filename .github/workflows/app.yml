@@ -18,10 +18,6 @@ jobs:
         uses: actions/setup-node@v2  
         with:
           node-version: '14'
-
-      # 安装依赖并且执行脚本
-      - name: npm install
-        run: npm install
       
       - name: Start task
         run: node app.js
