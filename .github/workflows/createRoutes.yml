@@ -30,3 +30,4 @@ jobs:
           git commit -m "update" -a
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push
+
