@@ -1,6 +1,5 @@
 //获取指定目录下的所有文件名称
 const fs = require("fs/promises")
-const { resolve } = require('path')
 
 console.log('__dirname : ' + __dirname)
 
