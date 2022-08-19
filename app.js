@@ -44,7 +44,7 @@ async function my(path,arrays){
 
 
 (async ()=>{
-    let path = DIR+"\\"+base
+    let path = DIR+"/"+base
     let arrays = []
     await my(path,arrays)
     console.log(arrays)
