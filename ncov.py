@@ -1,8 +1,9 @@
-import re,requests,json,pprint,time
-import os
+import re,requests,json,pprint,time,datetime
+from time import strftime
 
 pattern=re.compile(r'^try{sinajp_15844213244528328543098388435\((.*?)\);}catch\(e\){};')
 lasttimes='00:00:00'
+year = datetime.datetime.now().strftime('%Y')
 
 res=requests.get('https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435')
 match=pattern.search(res.text)
@@ -12,8 +13,8 @@ if match:
     times=resultObj['times']  # 截止时间
     timesMatch=re.search(r'截至(\d{2})月(\d{2})日(\d{2})时(\d{2})分',times)
     if timesMatch:
-        times=timesMatch.group(1)+'月'+timesMatch.group(2)+'日 '+timesMatch.group(3)+':'+timesMatch.group(4)
-        timeStr = timesMatch.group(1)+timesMatch.group(2)+timesMatch.group(3)+timesMatch.group(4)
+        times=year+'年'+timesMatch.group(1)+'月'+timesMatch.group(2)+'日 '+timesMatch.group(3)+':'+timesMatch.group(4)
+        timeStr = year+timesMatch.group(1)+timesMatch.group(2)+'-'+timesMatch.group(3)+timesMatch.group(4)
     
         lasttimes=times
         totalObj=resultObj['total']

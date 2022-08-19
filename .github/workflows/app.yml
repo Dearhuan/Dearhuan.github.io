@@ -1,0 +1,36 @@
+name: app
+on:
+  workflow_dispatch:
+  schedule:
+    #时间格式 minute hour day month week 设置的时间是UTC 不是北京时间
+    - cron: "18 23 * * *"
+
+jobs:
+  start:
+    # 运行环境为最新版的Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2  
+
+      #安装node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v2  
+        with:
+          node-version: '14'
+
+      # 安装依赖并且执行脚本
+      - name: npm install
+        run: npm install
+      
+      - name: Start task
+        run: node app.js
+
+      - name: Auto Commit Push
+      run: |
+        git config --local user.email "clearhuan@qq.com"
+        git config --local user.name "Dearhuan"
+        git add .
+        git commit -m "update" -a
+        git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+        git push

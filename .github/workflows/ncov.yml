@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     # 时间格式 minute hour day month week 设置的时间是UTC 不是北京时间 需要+8
-    - cron: "10 16 * * *"
+    - cron: "00 23 * * *"
 
 jobs:
   build:

@@ -5,7 +5,6 @@ const { resolve } = require('path')
 console.log('__dirname : ' + __dirname)
 
 const DOCS = '\\docs'
-// const DIR = "D:\\southAir\\Hello\\vuepress-hello\\docs"
 const DIR = __dirname.replace('\\','\\\\') + DOCS
 const base = "others"
 
