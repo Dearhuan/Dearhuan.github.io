@@ -5,7 +5,7 @@ const { resolve } = require('path')
 console.log('__dirname : ' + __dirname)
 
 const DOCS = '/docs'
-const DIR = __dirname.replace + DOCS
+const DIR = __dirname + DOCS
 const base = "others"
 
 //将指定目录下的文件生成obj
