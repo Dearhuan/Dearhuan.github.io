@@ -3,8 +3,8 @@ const fs = require("fs/promises")
 
 console.log('__dirname : ' + __dirname)
 
-const DOCS = '/docs'
-const DIR = __dirname + DOCS
+const DOCS = '\\docs'
+const DIR = __dirname.replace('\\','\\\\') + DOCS
 const base = "others"
 
 //将指定目录下的文件生成obj
@@ -43,11 +43,11 @@ async function my(path,arrays){
 
 
 (async ()=>{
-    let path = DIR+"/"+base
+    let path = DIR+"\\"+base
     let arrays = []
     await my(path,arrays)
     console.log(arrays)
 
-    const jsonPath = `${__dirname}/docs/.vuepress/public/json/others.json`
+    const jsonPath = `${__dirname.replace('\\','\\\\')}\\docs\\.vuepress\\public\\json\\others.json`
     storeData(arrays,jsonPath)
 })()
