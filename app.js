@@ -14,7 +14,7 @@ async function getObj(dir){
     //生成对应的obj
     let array1 = []//存放原始的配置对象
     for (let name of list) {
-      name.indexOf('.md' > -1) && array1.push(
+      name.indexOf('.md') > -1 && array1.push(
           {
             text:name,
             link: `/${base}/${name}`

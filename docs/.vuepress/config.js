@@ -59,6 +59,10 @@ module.exports = {
             link: '/notes/vuepress-hello.md'
           },
           {
+            text: '在Markdown中进行echarts可视化',
+            link: '/notes/echarts-in-markdown.md'
+          },
+          {
             text: 'postcss-px-to-viewport使用',
             link: '/notes/postcss-px-to-viewport.md'
           },
