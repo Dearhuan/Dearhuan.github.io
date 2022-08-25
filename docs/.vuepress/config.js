@@ -63,6 +63,46 @@ module.exports = {
             link: '/notes/echarts-in-markdown.md'
           },
           {
+            text: 'GitHub Action初探',
+            link: '/notes/github-action.md'
+          },
+          {
+            text: '骨架屏',
+            link: '/notes/skeleton.md'
+          },
+          {
+            text: '前端主题切换',
+            link: '/notes/theme.toggle.md'
+          },
+          {
+            text: 'TypeScript使用示例',
+            link: '/notes/ts-demo.md'
+          },
+          {
+            text: 'TypeScript基础类型',
+            link: '/notes/ts-study01.md'
+          },
+          {
+            text: 'TypeScript断言',
+            link: '/notes/ts-study02.md'
+          },
+          {
+            text: 'TypeScript类型守卫',
+            link: '/notes/ts-study03.md'
+          },
+          {
+            text: 'TypeScript联合类型和类型别名',
+            link: '/notes/ts-study04.md'
+          },
+          {
+            text: 'TypeScript交叉类型',
+            link: '/notes/ts-study05.md'
+          },
+          {
+            text: 'TypeScript函数',
+            link: '/notes/ts-study06.md'
+          },
+          {
             text: 'postcss-px-to-viewport使用',
             link: '/notes/postcss-px-to-viewport.md'
           },

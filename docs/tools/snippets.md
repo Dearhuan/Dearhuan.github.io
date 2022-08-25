@@ -6,8 +6,7 @@ description: Vscode代码片段
 ::: tip Usage
 Vscode>文件>首选项>Config User Snippets
 :::
-::: warning Code snippets
-```js
+```json
 {
   // Place your 全局 snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
   // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
@@ -966,4 +965,3 @@ Vscode>文件>首选项>Config User Snippets
   },
 }
 ```
-:::

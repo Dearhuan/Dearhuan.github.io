@@ -186,9 +186,9 @@ jobs:
 ```
 - step12:设置access tokens
 ```js
-1.头像/settings/developer settings/personal access tokens
-生成一个ACCESS_TOKEN并复制下来
-2.仓库/settings/secrets/actions - 添加ACCESS_TOKEN
+1.点击github头像>Settings>Developer settings>Personal access tokens>Generate new tokens.
+权限列表勾选repo&生成一个ACCESS_TOKEN并复制下来
+2.项目仓库>Settings>Secrets>Actions - 添加ACCESS_TOKEN
 ```
 - step13:选择github pages分支
 ![github-page](/images/github-page.png)
