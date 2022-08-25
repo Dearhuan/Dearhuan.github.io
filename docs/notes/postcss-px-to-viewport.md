@@ -1,14 +1,12 @@
-::: tip  移动端使用postcss-px-to-viewport
+# 移动端使用postcss-px-to-viewport
+
+![VuePress Logo](/images/demo1.png)
+
 ```sh
 npm create vite@latest
-```
-
-```sh
 npm i postcss-px-to-viewport -D
 ```
-:::
 
-::: warning 代码片段
 ```ts
 // vite.config.ts
 import { defineConfig } from 'vite'
@@ -131,8 +129,3 @@ p {
 }
 </style>
 ```
-:::
-
-::: danger 示例
-![VuePress Logo](/images/demo1.png)
-:::

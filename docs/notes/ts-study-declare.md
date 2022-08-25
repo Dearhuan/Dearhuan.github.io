@@ -45,7 +45,7 @@ function myFunc(numGenerator: NumGenerator | undefined) {
   const num2 = numGenerator!(); //OK
 }
 ```
-::: warning
+::: warning 注意
 因为 ! 非空断言操作符会从编译生成的 JavaScript 代码中移除，所以在实际使用的过程中，要特别注意。比如下面这个例子：
 :::
 ```ts

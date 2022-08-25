@@ -80,27 +80,63 @@ module.exports = {
           },
           {
             text: 'TypeScript基础类型',
-            link: '/notes/ts-study01.md'
+            link: '/notes/ts-study-base.md'
           },
           {
             text: 'TypeScript断言',
-            link: '/notes/ts-study02.md'
+            link: '/notes/ts-study-declare.md'
           },
           {
             text: 'TypeScript类型守卫',
-            link: '/notes/ts-study03.md'
+            link: '/notes/ts-study-typeGuard.md'
           },
           {
             text: 'TypeScript联合类型和类型别名',
-            link: '/notes/ts-study04.md'
+            link: '/notes/ts-study-unionType.md'
           },
           {
             text: 'TypeScript交叉类型',
-            link: '/notes/ts-study05.md'
+            link: '/notes/ts-study-crossType.md'
           },
           {
             text: 'TypeScript函数',
-            link: '/notes/ts-study06.md'
+            link: '/notes/ts-study-function.md'
+          },
+          {
+            text: 'TypeScript数组和对象',
+            link: '/notes/ts-study-array&object.md'
+          },
+          {
+            text: 'TypeScript接口',
+            link: '/notes/ts-study-interface.md'
+          },
+          {
+            text: 'TypeScript类',
+            link: '/notes/ts-study-class.md'
+          },
+          {
+            text: 'TypeScript泛型',
+            link: '/notes/ts-study-generic.md'
+          },
+          {
+            text: 'TypeScript装饰器',
+            link: '/notes/ts-study-decorators.md'
+          },
+          {
+            text: 'TypeScript4.0新特性',
+            link: '/notes/ts-study-4.md'
+          },
+          {
+            text: 'TypeScript编译上下文',
+            link: '/notes/ts-study-options.md'
+          },
+          {
+            text: 'TypeScript开发辅助工具',
+            link: '/notes/ts-study-tools.md'
+          },
+          {
+            text: '轻松拿下 TS 泛型',
+            link: '/notes/ts-generic.md'
           },
           {
             text: 'postcss-px-to-viewport使用',
