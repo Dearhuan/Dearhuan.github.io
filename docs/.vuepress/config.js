@@ -135,8 +135,12 @@ module.exports = {
             link: '/notes/ts-study-tools.md'
           },
           {
-            text: '轻松拿下 TS 泛型',
+            text: 'TypeScript工具泛型',
             link: '/notes/ts-generic.md'
+          },
+          {
+            text: 'Ts封装Axios',
+            link: '/notes/ts-axios.md'
           },
           {
             text: 'postcss-px-to-viewport使用',
