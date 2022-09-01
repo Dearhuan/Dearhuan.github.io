@@ -71,6 +71,10 @@ module.exports = {
             link: '/notes/echarts-in-markdown.md'
           },
           {
+            text: 'Echarts-堆叠柱状图示例',
+            link: '/notes/echarts-stacked-horizontal-bar.md'
+          },
+          {
             text: 'GitHub Action初探',
             link: '/notes/github-action.md'
           },
