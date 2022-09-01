@@ -26,6 +26,14 @@ module.exports = {
             link: '/tools/jsTool.md'
           },
           {
+            text: '文件下载代码片段',
+            link: '/tools/ts-file-tool.md'
+          },
+          {
+            text: '常用类型检查',
+            link: '/tools/ts-is.md'
+          },
+          {
             text: 'Vscode代码片段',
             link: '/tools/snippets.md'
           },
