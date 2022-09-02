@@ -111,11 +111,7 @@ export default {
     };
 
     this.chart.setOption(option)
-  },
-  beforeDestroy() {
-    this.chart.dispose()
-    this.chart = null
-  },
+  }
 }
 </script>
 

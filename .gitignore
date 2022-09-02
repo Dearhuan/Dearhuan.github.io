@@ -2,6 +2,7 @@
 docs/.vuepress/.temp/
 docs/.vuepress/.cache/
 docs/.vuepress/dist/
+docs/ts
 
 # Dist files
 dist/
@@ -24,3 +25,5 @@ node_modules/
 
 # Typescript build info
 *.tsbuildinfo
+
+tsconfig.json

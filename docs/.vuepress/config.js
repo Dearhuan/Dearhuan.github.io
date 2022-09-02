@@ -8,7 +8,14 @@ module.exports = {
   port: 9001,
   base: '/',
   title: 'Hello',
-  head: [['link', { rel: 'icon', href: '/images/logo.jpg' }]],
+  head: [
+    [
+      'link', { rel: 'icon', href: '/images/logo.jpg' }
+    ],
+    [
+      'link', { rel: 'stylesheet', href: '/css/default.css' }
+    ]
+  ],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
     navbar: [
@@ -24,6 +31,14 @@ module.exports = {
           {
             text: 'Js工具代码示例',
             link: '/tools/jsTool.md'
+          },
+          {
+            text: '文件下载代码片段',
+            link: '/tools/ts-file-tool.md'
+          },
+          {
+            text: '常用类型检查',
+            link: '/tools/ts-is.md'
           },
           {
             text: 'Vscode代码片段',
@@ -61,6 +76,10 @@ module.exports = {
           {
             text: '在Markdown中进行echarts可视化',
             link: '/notes/echarts-in-markdown.md'
+          },
+          {
+            text: 'Echarts-堆叠柱状图示例',
+            link: '/notes/echarts-stacked-horizontal-bar.md'
           },
           {
             text: 'GitHub Action初探',
@@ -149,6 +168,10 @@ module.exports = {
           {
             text: '磨砂玻璃渐变背景-CSS-doodle',
             link: '/notes/css-doodle.md'
+          },
+          {
+            text: 'VuePress自定义样式',
+            link: '/notes/vuepress-fix-style.md'
           },
         ]
       },
