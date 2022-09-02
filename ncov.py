@@ -141,6 +141,23 @@ if match:
         f.writelines(']}\n')
         f.writelines('this.chart.setOption(option);\n')
 
+        # f.writelines('var secondOption = {\n')
+        # f.writelines('angleAxis: {type: "category",data: [\n')
+        # for country in countrys_second: 
+        #   f.writelines("'"+  country +"',")
+        # f.writelines(']},\n')
+        # f.writelines('radiusAxis: {},\n')
+        # f.writelines('polar: {},\n')
+        # f.writelines('series: [\n')
+        # f.writelines('{name: "新增确诊",type: "bar",stack: "a",coordinateSystem: "polar",emphasis:{focus: "series"},data: ['+ ','.join(conadds_second) +']},')
+        # f.writelines('{name: "累计确诊",type: "bar",stack: "a",coordinateSystem: "polar",emphasis:{focus: "series"},data: ['+ ','.join(conNums_second) +']},')
+        # f.writelines('{name: "新增死亡",type: "bar",stack: "a",coordinateSystem: "polar",emphasis:{focus: "series"},data: ['+ ','.join(deathadds_second) +']},')
+        # f.writelines('{name: "累计死亡",type: "bar",stack: "a",coordinateSystem: "polar",emphasis:{focus: "series"},data: ['+ ','.join(deathNums_second) +']},')
+        # f.writelines('{name: "累计治愈",type: "bar",stack: "a",coordinateSystem: "polar",emphasis:{focus: "series"},data: ['+ ','.join(cureNums_second) +']},')
+        # f.writelines('],\n')
+        # f.writelines('legend: {show: true,data: ["新增确诊", "累计确诊", "新增死亡","累计死亡","累计治愈"]}}\n')
+        # f.writelines('this.secondChart.setOption(secondOption);\n')
+
         f.writelines('var secondOption = {\n')
         f.writelines('tooltip: {trigger: "axis",axisPointer: {type: "shadow"}},\n')
         f.writelines('legend: {},\n')
