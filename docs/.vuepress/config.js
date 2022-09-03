@@ -48,6 +48,10 @@ module.exports = {
             text: '前端监控-Sentry',
             link: '/tools/sentry.md'
           },
+          {
+            text: '网站记录',
+            link: '/tools/some-website.md'
+          },
         ]
       },
       {

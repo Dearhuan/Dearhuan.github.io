@@ -14,10 +14,11 @@ set -e
 
 # git init
 git add -A
-git commit -m 'deploy'
+git commit -m 'update project'
 
+git push
 # 如果发布到 https://<USERNAME>.github.io
-git push -f git@github.com:Dearhuan/Dearhuan.github.io.git main
+# git push -f git@github.com:Dearhuan/Dearhuan.github.io.git main
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
