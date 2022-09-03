@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-125ea54c","path":"/notes/ts-study-class.html","title":"TypeScript-\u7C7B","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1662174751000,"contributors":[{"name":"Hello","email":"clearhuan@qq.com","commits":1}]},"filePathRelative":"notes/ts-study-class.md"}');export{t as data};
