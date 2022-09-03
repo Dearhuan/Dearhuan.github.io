@@ -28,7 +28,7 @@ if match:
         worldlistArr=resultObj['worldlist']
         worldlistArr.sort(key=lambda x: int(x.get('conNum','0')),reverse=True)
         
-        f=open('./docs/others/'+ timeStr +'.md','a',encoding='utf-8')
+        f=open('./docs/others/'+ timeStr +'.md','w',encoding='utf-8')
         f.writelines('\n# '+times+'\n')
         f.writelines('感染国家总数：'+str(len(worldlistArr))+'\n')
         f.writelines('```\n累计确诊：'+certain.rjust(10,' ')+' 较昨日：'+certain_inc+'\n'+'累计死亡：'+die.rjust(10,' ')+' 较昨日：'+die_inc+'\n'+'累计治愈：'+recure.rjust(10,' ')+' 较昨日：'+recure_inc+'\n```\n')

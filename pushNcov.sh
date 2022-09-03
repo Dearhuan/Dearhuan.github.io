@@ -18,7 +18,7 @@ node app.js
 
 # git init
 git add -A
-git commit -m 'update project'
+git commit -m 'update ncov data'
 
 git push
 # 如果发布到 https://<USERNAME>.github.io
