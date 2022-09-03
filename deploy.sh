@@ -12,6 +12,10 @@ set -e
 # 如果是发布到自定义域名
 # echo 'www.example.com' > CNAME
 
+python ncov.py
+
+node app.js
+
 # git init
 git add -A
 git commit -m 'update project'
