@@ -229,7 +229,7 @@ const mdPath = __dirname + '/docs/others'
 const base = "others"
 const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
 
-const readFileList = (path) => {
+const readFileList = async(path) => {
   let filesList = []
   const files = fs.readdirSync(path);
   for (let name of files) {
@@ -243,20 +243,23 @@ const readFileList = (path) => {
   return filesList;
 
 }
-filesList = readFileList(mdPath)
+filesList = await readFileList(mdPath)
 
 console.log(mdPath)
 
 console.log(filesList)
 
-const writeFileList = (path, data) => {
+console.log('读取文件目录生成路由---')
+
+const writeFileList = async(path, data) => {
   try {
     fs.writeFileSync(path, JSON.stringify(data))
+    console.log('写入路由到JSON文件---')
   } catch (error) {
     console.log(error)
   }
 }
 
-writeFileList(jsonFilePath, filesList)
+await writeFileList(jsonFilePath, filesList)
 
 
