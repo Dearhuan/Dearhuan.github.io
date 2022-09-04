@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     #时间格式 minute hour day month week 设置的时间是UTC 不是北京时间
-    - cron: "10 23 * * *"
+    - cron: "20 23 * * *"
 
 jobs:
   start:
@@ -24,14 +24,14 @@ jobs:
         run: npm install
       
       - name: Start task
-        run: node ncov.js
+        run: node ncov_china.js
 
       - name: Commit files
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
           git add .
-          git commit -m "update ncovInfo md file"
+          git commit -m "update ncov_china_info md file"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

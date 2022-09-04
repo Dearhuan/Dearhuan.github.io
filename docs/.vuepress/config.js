@@ -1,8 +1,10 @@
 const { defaultTheme } = require('@vuepress/theme-default')
 
 const routes = require('./public/json/others.json')
+const chinaRoutes = require('./public/json/chinaRoutes.json')
 
 console.log(routes)
+console.log(chinaRoutes)
 
 module.exports = {
   port: 9001,
@@ -180,8 +182,12 @@ module.exports = {
         ]
       },
       {
-        text: '其他',
+        text: '疫情数据(国际)',
         children: routes
+      },
+      {
+        text: '疫情数据(国内)',
+        children: chinaRoutes
       },
     ]
   }),
