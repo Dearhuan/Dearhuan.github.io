@@ -1,6 +1,5 @@
 const fs = require('fs')
 const axios = require("axios");
-const { number } = require('echarts');
 
 const GuangDongProvinceCode = '440000'
 const BASE_URL = 'https://wechat.wecity.qq.com/api/'
@@ -8,9 +7,9 @@ const SERVICE = 'THPneumoniaDataService'
 const USERID = '830075f3162e41c89a790c70041cd031'
 
 const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`
-const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/THPneumoniaDataService/getProvinceInfoByCode`
-const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/THPneumoniaDataService/getCityInfoByProvCode`
-const GetTopicContent = `${BASE_URL}${SERVICE}/THPneumoniaOuterService/getTopicContent`
+const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/getProvinceInfoByCode`
+const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/getCityInfoByProvCode`
+const GetTopicContent = `${BASE_URL}${SERVICE}/getTopicContent`
 
 const mdPath = __dirname + '/docs/chinaNcovs'
 const base = "chinaNcovs"
