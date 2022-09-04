@@ -238,22 +238,20 @@ const writeMdWithContent = (timeStr, content) => {
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
 
-  console.log(contents)
-
   const content = `
 # 全国疫情整体情况
 ### 截至${recentTime} ${dataFrom}
 
 ::: tip
 本土新增确诊: 昨日+${localConfirmAdd} 新增无症状: 昨日+${noinfect} 新增境外输入: 昨日+${importDesc} 新增治愈: 昨日+${heal}\n
-本土现有确诊: 昨日+${localNowConfirm} 现有无症状: 昨日+${noinfectDesc} 现有境外输入: 昨日+${nowImport} 累计确诊: 昨日+${confirm}
+本土现有确诊: ${localNowConfirm} 现有无症状: ${noinfectDesc} 现有境外输入: ${nowImport} 累计确诊: ${confirm}
 :::
 
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
 
 ::: tip ${localAddPctDesc}
-本土新增确诊: 昨日+${localAdd} 本土新增无症状: 昨日+${asymptomAdd} 新增境外输入: 昨日+${importAdd} 本土近7日确诊: 昨日+${lastImportAddTotal}
+本土新增确诊: 昨日+${localAdd} 本土新增无症状: 昨日+${asymptomAdd} 新增境外输入: 昨日+${importAdd} 本土近7日确诊: +${lastImportAddTotal}
 :::
 
 ## ${area}省各地区疫情情况
