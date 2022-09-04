@@ -1,5 +1,4 @@
 const fs = require('fs')
-const path = require('path')
 const axios = require("axios");
 
 const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`
@@ -10,6 +9,12 @@ const mdPath = __dirname + '/docs/others'
 const base = "others"
 const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
 
+/**
+* @func readFileList
+* @param {string} path
+* @returns {object}
+* @desc 读取指定目录下的md文件
+*/
 const readFileList = (path) => {
   let filesList = []
   const files = fs.readdirSync(path);
@@ -22,9 +27,14 @@ const readFileList = (path) => {
       )
   }
   return filesList;
-
 }
 
+/**
+* @func getNcovText
+* @param {string} url
+* @returns {object}
+* @desc 获取疫情数据
+*/
 const getNcovText = async (url) => {
   let res = await axios.get(url)
   // console.log(res.data)
@@ -41,6 +51,12 @@ const getNcovText = async (url) => {
   }
 }
 
+/**
+* @func writeMdWithContent
+* @param {string} timeStr
+* @param {string} content
+* @desc 写入md文件并更新路由
+*/
 const writeMdWithContent = (timeStr, content) => {
   const path = `./docs/others/${timeStr}.md`
   fs.writeFileSync(path, content, 'utf-8')
