@@ -243,23 +243,27 @@ const readFileList = (path) => {
   return filesList;
 
 }
-let filesList = readFileList(mdPath)
 
-console.log(mdPath)
+setTimeout(() => {
+  let filesList = readFileList(mdPath)
 
-console.log(filesList)
-
-console.log('读取文件目录生成路由---')
-
-const writeFileList = (path, data) => {
-  try {
-    fs.writeFileSync(path, JSON.stringify(data))
-    console.log('写入路由到JSON文件---')
-  } catch (error) {
-    console.log(error)
+  console.log(mdPath)
+  
+  console.log(filesList)
+  
+  console.log('读取文件目录生成路由---')
+  
+  const writeFileList = (path, data) => {
+    try {
+      fs.writeFileSync(path, JSON.stringify(data))
+      console.log('写入路由到JSON文件---')
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
+  
+  writeFileList(jsonFilePath, filesList)
+}, 500);
 
-writeFileList(jsonFilePath, filesList)
 
 
