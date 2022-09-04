@@ -210,7 +210,14 @@ ${cityInfo.map(item=>{
 }).join('')}
   `
 
-  const timeStr = recentTime.slice(0,10).replaceAll('-','') + '-' + recentTime.slice(11).replaceAll(':','-')
+  const year = recentTime.slice(0,4)
+  const month = recentTime.slice(5,7)
+  const day = recentTime.slice(8,10)
+  const hour = recentTime.slice(11,13)
+  const minute = recentTime.slice(14,16)
+  const misc = recentTime.slice(17,19)
+
+  const timeStr = `${year}${month}${day}-${hour}${minute}${misc}`
 
   writeMdWithContent(timeStr, content)
 })()
