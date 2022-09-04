@@ -1,11 +1,15 @@
 const fs = require('fs')
 const axios = require("axios");
-const { number } = require('echarts');
 
 const GuangDongProvinceCode = '440000'
-const GetChinaRealTimeInfoURL = 'https://wechat.wecity.qq.com/api/THPneumoniaDataService/getChinaRealTimeInfo'
-const GetProvinceInfoByCode = 'https://wechat.wecity.qq.com/api/THPneumoniaDataService/getProvinceInfoByCode'
-const GetCityInfoByProvCode = 'https://wechat.wecity.qq.com/api/THPneumoniaDataService/getCityInfoByProvCode'
+const BASE_URL = 'https://wechat.wecity.qq.com/api/'
+const SERVICE = 'THPneumoniaDataService'
+const USERID = '830075f3162e41c89a790c70041cd031'
+
+const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`
+const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/THPneumoniaDataService/getProvinceInfoByCode`
+const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/THPneumoniaDataService/getCityInfoByProvCode`
+const GetTopicContent = `${BASE_URL}${SERVICE}/THPneumoniaOuterService/getTopicContent`
 
 const mdPath = __dirname + '/docs/chinaNcovs'
 const base = "chinaNcovs"
@@ -29,6 +33,25 @@ const readFileList = (path) => {
       )
   }
   return filesList;
+}
+
+const getApiData = async (url, params) => {
+  const { provinceCode, func } = params
+  let res = await axios.post(
+    url, 
+    {
+      args: {
+        req: provinceCode ? {
+          provinceCode
+        } : {}
+      },
+      service: SERVICE,
+      func,
+      context: {
+        userId: USERID
+      }
+    })
+  return res.data
 }
 
 /**
@@ -101,6 +124,30 @@ const getCityInfoByProvCode = async (url, provinceCode) => {
   return res.data
 }
 
+/**
+* @func getTopicContent
+* @param {string} provinceCode
+* @returns {object}
+* @desc 根据provinceCode获取指定省份疫情热点动态
+*/
+const getTopicContent = async (url, provinceCode) => {
+  let res = await axios.post(
+    url, 
+    {
+      args: {
+        req: {
+          provinceCode
+        }
+      },
+      service: 'THPneumoniaDataService',
+      func: 'getTopicContent',
+      context: {
+        userId: '830075f3162e41c89a790c70041cd031'
+      }
+    })
+  return res.data
+}
+
 const joinWithPlus = (number) => {
   return number > 0 ? '+' + number : number
 }
@@ -139,7 +186,11 @@ const writeMdWithContent = (timeStr, content) => {
 }
 
 (async()=>{
-  let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
+  // 获取中国疫情整体数据
+  let res = await getApiData(GetChinaRealTimeInfoURL, {
+    provinceCode: null,
+    func: 'getChinaRealTimeInfo'
+  })
   console.log(res)
 
   const { 
@@ -161,7 +212,11 @@ const writeMdWithContent = (timeStr, content) => {
     confirm // 累计确诊
   } = chinaTotal
 
-  let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
+  // 根据provinceCode获取指定省份疫情信息
+  let res_province = await getApiData(GetProvinceInfoByCode, {
+    provinceCode: GuangDongProvinceCode,
+    func: 'getProvinceInfoByCode'
+  })
   const { provinceInfo } = res_province.args.rsp
   const {
     area, // 地区
@@ -174,8 +229,20 @@ const writeMdWithContent = (timeStr, content) => {
     riskLevelNum
   } = provinceInfo
 
-  let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
+  // 根据provinceCode获取指定省份疫情信息列表
+  let res_cityList = await getApiData(GetCityInfoByProvCode, {
+    provinceCode: GuangDongProvinceCode,
+    func: 'getCityInfoByProvCode'
+  })
   const { cityInfo } = res_cityList.args.rsp
+
+  // 根据provinceCode获取指定省份疫情热点动态
+  let res_news = await getTopicContent(GetTopicContent, {
+    provinceCode: GuangDongProvinceCode,
+    func: 'getTopicContent'
+  })
+  const { hotnewsRsp } = res_news.args.rsp
+  const { contents } = hotnewsRsp
 
   const content = `
 # 全国疫情整体情况
@@ -197,7 +264,7 @@ ${localAddPctDesc}
 本土新增确诊: 昨日+${localAdd} 本土新增无症状: 昨日+${asymptomAdd} 新增境外输入: 昨日+${importAdd} 本土近7日确诊: 昨日+${lastImportAddTotal}
 \`\`\`
 
-## 各地区疫情情况
+## ${area}省各地区疫情情况
 
 ::: tip 提示
 ${riskLevelNum}个中高风险地区
@@ -207,6 +274,17 @@ ${riskLevelNum}个中高风险地区
 |:--:|---:|---:|---:|---:|
 ${cityInfo.map(item=>{
   return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(item.asymptomAdd)}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(item.riskLevelNum)}|\n`
+}).join('')}
+
+${contents.map(item=>{
+  return `
+### ${item.publicTime.slice(5)}
+::: tip ${item.title}
+${item.desc}
+${item.from}
+[阅读全文](${item.jumpLink.url})
+:::
+  `
 }).join('')}
   `
 
