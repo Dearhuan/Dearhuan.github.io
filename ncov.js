@@ -5,6 +5,26 @@ const axios = require("axios");
 const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`
 const Exclude_Countrys = ['中国']
 
+// const mdPath = __dirname + '\\docs\\others'
+const mdPath = __dirname + '/docs/others'
+const base = "others"
+const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
+
+const readFileList = (path) => {
+  let filesList = []
+  const files = fs.readdirSync(path);
+  for (let name of files) {
+    name.indexOf('.md') > -1 && filesList.push(
+        {
+          text:name,
+          link: `/${base}/${name}`
+        }
+      )
+  }
+  return filesList;
+
+}
+
 const getNcovText = async (url) => {
   let res = await axios.get(url)
   // console.log(res.data)
@@ -25,6 +45,27 @@ const writeMdWithContent = (timeStr, content) => {
   const path = `./docs/others/${timeStr}.md`
   fs.writeFileSync(path, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
+
+  setTimeout(() => {
+    let filesList = readFileList(mdPath)
+  
+    console.log(mdPath)
+    
+    console.log(filesList)
+    
+    console.log('读取文件目录生成路由---')
+    
+    const writeFileList = (path, data) => {
+      try {
+        fs.writeFileSync(path, JSON.stringify(data))
+        console.log('写入路由到JSON文件---')
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    
+    writeFileList(jsonFilePath, filesList)
+  }, 500);
 }
 
 const createContent = async () => {
@@ -223,47 +264,6 @@ ${worldlistArr.reverse().map((item,i)=>{
 }
 
 createContent()
-
-// const mdPath = __dirname + '\\docs\\others'
-const mdPath = __dirname + '/docs/others'
-const base = "others"
-const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
-
-const readFileList = (path) => {
-  let filesList = []
-  const files = fs.readdirSync(path);
-  for (let name of files) {
-    name.indexOf('.md') > -1 && filesList.push(
-        {
-          text:name,
-          link: `/${base}/${name}`
-        }
-      )
-  }
-  return filesList;
-
-}
-
-setTimeout(() => {
-  let filesList = readFileList(mdPath)
-
-  console.log(mdPath)
-  
-  console.log(filesList)
-  
-  console.log('读取文件目录生成路由---')
-  
-  const writeFileList = (path, data) => {
-    try {
-      fs.writeFileSync(path, JSON.stringify(data))
-      console.log('写入路由到JSON文件---')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-  
-  writeFileList(jsonFilePath, filesList)
-}, 500);
 
 
 
