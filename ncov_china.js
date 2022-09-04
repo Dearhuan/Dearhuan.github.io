@@ -1,5 +1,6 @@
 const fs = require('fs')
 const axios = require("axios");
+const { number } = require('echarts');
 
 const GuangDongProvinceCode = '440000'
 const BASE_URL = 'https://wechat.wecity.qq.com/api/'
@@ -186,11 +187,7 @@ const writeMdWithContent = (timeStr, content) => {
 }
 
 (async()=>{
-  // 获取中国疫情整体数据
-  let res = await getApiData(GetChinaRealTimeInfoURL, {
-    provinceCode: null,
-    func: 'getChinaRealTimeInfo'
-  })
+  let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
   console.log(res)
 
   const { 
@@ -212,11 +209,7 @@ const writeMdWithContent = (timeStr, content) => {
     confirm // 累计确诊
   } = chinaTotal
 
-  // 根据provinceCode获取指定省份疫情信息
-  let res_province = await getApiData(GetProvinceInfoByCode, {
-    provinceCode: GuangDongProvinceCode,
-    func: 'getProvinceInfoByCode'
-  })
+  let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
   const { provinceInfo } = res_province.args.rsp
   const {
     area, // 地区
@@ -229,18 +222,10 @@ const writeMdWithContent = (timeStr, content) => {
     riskLevelNum
   } = provinceInfo
 
-  // 根据provinceCode获取指定省份疫情信息列表
-  let res_cityList = await getApiData(GetCityInfoByProvCode, {
-    provinceCode: GuangDongProvinceCode,
-    func: 'getCityInfoByProvCode'
-  })
+  let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
   const { cityInfo } = res_cityList.args.rsp
 
-  // 根据provinceCode获取指定省份疫情热点动态
-  let res_news = await getApiData(GetTopicContent, {
-    provinceCode: GuangDongProvinceCode,
-    func: 'getTopicContent'
-  })
+  let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
 
