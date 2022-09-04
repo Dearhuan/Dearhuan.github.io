@@ -224,7 +224,8 @@ ${worldlistArr.reverse().map((item,i)=>{
 
 // createContent()
 
-const mdPath = __dirname + '\\docs\\others'
+// const mdPath = __dirname + '\\docs\\others'
+const mdPath = __dirname + '/docs/others'
 const base = "others"
 
 function readFileList(dir) {
@@ -243,7 +244,7 @@ function readFileList(dir) {
 }
 filesList = readFileList(mdPath)
 
-console.log(__dirname + '\\docs\\others')
+console.log(mdPath)
 
 console.log(filesList)
 
