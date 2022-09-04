@@ -4,12 +4,13 @@ const axios = require("axios");
 const GuangDongProvinceCode = '440000'
 const BASE_URL = 'https://wechat.wecity.qq.com/api/'
 const SERVICE = 'THPneumoniaDataService'
+const OUTER_SERVICE = 'THPneumoniaOuterService'
 const USERID = '830075f3162e41c89a790c70041cd031'
 
 const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`
 const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/getProvinceInfoByCode`
 const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/getCityInfoByProvCode`
-const GetTopicContent = `${BASE_URL}${SERVICE}/getTopicContent`
+const GetTopicContent = `${BASE_URL}${OUTER_SERVICE}/getTopicContent`
 
 const mdPath = __dirname + '/docs/chinaNcovs'
 const base = "chinaNcovs"
@@ -139,7 +140,7 @@ const getTopicContent = async (url, provinceCode) => {
           provinceCode
         }
       },
-      service: 'THPneumoniaDataService',
+      service: 'THPneumoniaOuterService',
       func: 'getTopicContent',
       context: {
         userId: '830075f3162e41c89a790c70041cd031'
@@ -283,5 +284,3 @@ ${item.from}
 
   writeMdWithContent(timeStr, content)
 })()
-
-
