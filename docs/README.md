@@ -12,7 +12,9 @@ features:
     details: 'Here are some tools'
   - title: 记录
     details: 'Just some essays'
-  - title: 其他
-    details: 'Anything else'
+  - title: 海外疫情数据
+    details: 'Overseas epidemic data'
+  - title: 国内疫情数据
+    details: 'Domestic epidemic data'
 footer: MIT Licensed | Copyright © 2022-present Hello
 ---

@@ -182,11 +182,11 @@ module.exports = {
         ]
       },
       {
-        text: '疫情数据(国际)',
+        text: '海外疫情数据',
         children: routes
       },
       {
-        text: '疫情数据(国内)',
+        text: '国内疫情数据',
         children: chinaRoutes
       },
     ]
