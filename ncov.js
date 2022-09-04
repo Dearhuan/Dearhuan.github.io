@@ -227,8 +227,9 @@ ${worldlistArr.reverse().map((item,i)=>{
 // const mdPath = __dirname + '\\docs\\others'
 const mdPath = __dirname + '/docs/others'
 const base = "others"
+const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
 
-function readFileList(dir) {
+const readFileList = (path) => {
   let filesList = []
   const files = fs.readdirSync(dir);
   for (let name of files) {
@@ -247,5 +248,15 @@ filesList = readFileList(mdPath)
 console.log(mdPath)
 
 console.log(filesList)
+
+const writeFileList = (path, data) => {
+  try {
+    fs.writeFileSync(path, JSON.stringify(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+writeFileList(jsonFilePath, filesList)
 
 
