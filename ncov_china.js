@@ -188,7 +188,6 @@ const writeMdWithContent = (timeStr, content) => {
 
 (async()=>{
   let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
-  console.log(res)
 
   const { 
     chinaTotal, 
@@ -228,6 +227,8 @@ const writeMdWithContent = (timeStr, content) => {
   let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
+
+  console.log(contents)
 
   const content = `
 # 全国疫情整体情况
