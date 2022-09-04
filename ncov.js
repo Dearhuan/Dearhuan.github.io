@@ -231,7 +231,7 @@ const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
 
 const readFileList = (path) => {
   let filesList = []
-  const files = fs.readdirSync(dir);
+  const files = fs.readdirSync(path);
   for (let name of files) {
     name.indexOf('.md') > -1 && filesList.push(
         {
