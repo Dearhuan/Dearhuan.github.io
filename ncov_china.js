@@ -252,7 +252,7 @@ const writeMdWithContent = (timeStr, content) => {
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
 
-::: warning 提示
+::: warning &nbsp;
 ${localAddPctDesc}
 :::
 
@@ -262,7 +262,7 @@ ${localAddPctDesc}
 
 ## ${area}省各地区疫情情况
 
-::: tip 提示
+::: danger 中高风险地区数量
 ${riskLevelNum}个中高风险地区
 :::
 
@@ -272,12 +272,14 @@ ${cityInfo.map(item=>{
   return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(item.asymptomAdd)}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(item.riskLevelNum)}|\n`
 }).join('')}
 
+${contents.length > 0 ? `## ${area}疫情热点动态` : ''}
+
 ${contents.map(item=>{
   return `
 ### ${item.publicTime.slice(5)}
 ::: tip ${item.title}
-${item.desc}
-${item.from}
+${item.desc}\n
+${item.from}\n
 [阅读全文](${item.jumpLink.url})
 :::
   `
