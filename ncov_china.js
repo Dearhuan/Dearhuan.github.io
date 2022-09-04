@@ -137,7 +137,17 @@ const getTopicContent = async (url, provinceCode) => {
     {
       args: {
         req: {
-          provinceCode
+          areaCode: provinceCode,
+          hotnewsReq: {
+            limit: 10,
+            locationCode: provinceCode,
+            offset: 0,
+            reqType: 1,
+            tab: 'shishitongbao'
+          },
+          queryList: [
+            {}
+          ]
         }
       },
       service: 'THPneumoniaOuterService',
