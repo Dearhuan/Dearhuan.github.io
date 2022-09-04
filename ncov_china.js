@@ -237,7 +237,7 @@ const writeMdWithContent = (timeStr, content) => {
   const { cityInfo } = res_cityList.args.rsp
 
   // 根据provinceCode获取指定省份疫情热点动态
-  let res_news = await getTopicContent(GetTopicContent, {
+  let res_news = await getApiData(GetTopicContent, {
     provinceCode: GuangDongProvinceCode,
     func: 'getTopicContent'
   })
