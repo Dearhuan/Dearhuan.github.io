@@ -1,4 +1,4 @@
-name: ncov task
+name: ncov_china task
 on:
   workflow_dispatch:
   schedule:

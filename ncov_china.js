@@ -147,7 +147,7 @@ const writeMdWithContent = (timeStr, content) => {
     chinaDayModify, 
     recentTime, // 更新时间
     dataFrom // 数据来源
-  } = res.args.rep
+  } = res.args.rsp
   const { 
     localConfirmAdd, // 本土新增确诊
     noinfect, // 新增无症状
@@ -162,7 +162,7 @@ const writeMdWithContent = (timeStr, content) => {
   } = chinaTotal
 
   let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
-  const { provinceInfo } = res_province.args.rep
+  const { provinceInfo } = res_province.args.rsp
   const {
     area, // 地区
     localAddPctDesc, // 描述
@@ -175,7 +175,7 @@ const writeMdWithContent = (timeStr, content) => {
   } = provinceInfo
 
   let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
-  const { cityInfo } = res_cityList.args.rep
+  const { cityInfo } = res_cityList.args.rsp
 
   const content = `
 # 全国疫情整体情况
