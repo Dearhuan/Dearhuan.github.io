@@ -222,7 +222,7 @@ ${worldlistArr.reverse().map((item,i)=>{
   writeMdWithContent(timeStr, content)
 }
 
-// createContent()
+createContent()
 
 // const mdPath = __dirname + '\\docs\\others'
 const mdPath = __dirname + '/docs/others'
