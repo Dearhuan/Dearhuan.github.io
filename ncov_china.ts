@@ -605,7 +605,7 @@ export default {
         type: 'category',
         boundaryGap: false,
         data: [${cityModifyHistory.map(x=>{
-          return `"${x.day}",`
+          return `"${x.day.slice(4)}",`
         }).join('')}]
       },
       yAxis: {
