@@ -22,6 +22,21 @@ interface WorldlistItem {
   deathNum: number
 }
 
+interface TotalItem {
+  certain: string | number,
+  die: string | number,
+  recure: string | number,
+  certain_inc: string | number,
+  die_inc: string | number,
+  recure_inc: string | number,
+}
+
+interface NcovRes {
+  times: string,
+  total: TotalItem,
+  worldlist: WorldlistItem[]
+}
+
 /**
 * @func readFileList
 * @param {string} path
@@ -49,7 +64,7 @@ const readFileList = (path: string) => {
 * @returns {object}
 * @desc 获取疫情数据
 */
-const getNcovText = async (url: string) => {
+const getNcovText = async (url: string): Promise<NcovRes> => {
   let res = await axios.get(url)
   // console.log(res.data)
   const r1 = res.data.replace('try{sinajp_15844213244528328543098388435\(','')

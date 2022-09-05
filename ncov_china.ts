@@ -31,12 +31,60 @@ interface ApiRequestParams {
   func: string
 }
 
+type Result<T> = {
+  code: number;
+  msg: string;
+  args: {
+    rsp: T
+  }
+}
+
+interface ChinaRealTimeInfo {
+  chinaTotal: {
+    localNowConfirm: number,
+    noinfectDesc: number,
+    nowImport: number,
+    confirm: number,
+  },
+  chinaDayModify: {
+    localConfirmAdd: number,
+    noinfect: number,
+    importDesc: string,
+    heal: number,
+  },
+  recentTime: string,
+  dataFrom: string,
+}
+
+interface ProvinceInfo {
+  provinceInfo: {
+    area: string
+    localAddPctDesc: string
+    localAdd: number
+    asymptomAdd: number
+    importAdd: number
+    lastImportAddTotal: number
+    updateTime: string
+    riskLevelNum: number
+  }
+} 
+
+interface CityRes {
+  cityInfo: CityInfo[]
+}
+
 interface CityInfo {
   city: string,
   localAdd: number | string,
   asymptomAdd: number | string,
   localAddTotal: number | string,
   riskLevelNum: number | string
+}
+
+interface ContentsRes {
+  hotnewsRsp: {
+    contents: ContentsInfo[]
+  }
 }
 
 interface ContentsInfo {
@@ -99,7 +147,7 @@ const readFileList = (path: string) => {
   return filesList;
 }
 
-const getApiData = async (url: string, params: ApiRequestParams) => {
+const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promise<Result<T>>=> {
   const { req, service, func } = params
   let res = await axios.post(
     url,
@@ -263,7 +311,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 
 (async () => {
   // let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
-  let res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
+  let res = await getApiData<ChinaRealTimeInfo>(URL_Object['getChinaRealTimeInfo']['url'], {
     req: {},
     func: URL_Object['getChinaRealTimeInfo']['func'],
     service: URL_Object['getChinaRealTimeInfo']['service']
@@ -289,7 +337,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
   } = chinaTotal
 
   // let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
-  let res_province = await getApiData(URL_Object['getProvinceInfoByCode']['url'], {
+  let res_province = await getApiData<ProvinceInfo>(URL_Object['getProvinceInfoByCode']['url'], {
     req: { provinceCode: GuangDongProvinceCode },
     func: URL_Object['getProvinceInfoByCode']['func'],
     service: URL_Object['getProvinceInfoByCode']['service']
@@ -307,7 +355,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
   } = provinceInfo
 
   // let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
-  let res_cityList = await getApiData(URL_Object['getCityInfoByProvCode']['url'], {
+  let res_cityList = await getApiData<CityRes>(URL_Object['getCityInfoByProvCode']['url'], {
     req: { provinceCode: GuangDongProvinceCode },
     func: URL_Object['getCityInfoByProvCode']['func'],
     service: URL_Object['getCityInfoByProvCode']['service']
@@ -315,7 +363,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
   const { cityInfo } = res_cityList.args.rsp
 
   // let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
-  let res_news = await getApiData(URL_Object['getTopicContent']['url'], {
+  let res_news = await getApiData<ContentsRes>(URL_Object['getTopicContent']['url'], {
     req: {
       areaCode: GuangDongProvinceCode,
       hotnewsReq: {
