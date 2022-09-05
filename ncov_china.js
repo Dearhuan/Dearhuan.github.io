@@ -4,6 +4,7 @@ const fs = require('fs');
 // @ts-ignore
 const axios = require("axios");
 const GuangDongProvinceCode = '440000';
+const GuangZhouCityCode = '440100';
 const BASE_URL = 'https://wechat.wecity.qq.com/api/';
 const SERVICE = 'THPneumoniaDataService';
 const OUTER_SERVICE = 'THPneumoniaOuterService';
@@ -12,6 +13,7 @@ const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`;
 const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/getProvinceInfoByCode`;
 const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/getCityInfoByProvCode`;
 const GetProvinceInfoHisByCode = `${BASE_URL}${SERVICE}/getProvinceInfoHisByCode`;
+const GetCityInfoHisByCode = `${BASE_URL}${SERVICE}/getCityInfoHisByCode`;
 const GetTopicContent = `${BASE_URL}${OUTER_SERVICE}/getTopicContent`;
 const URL_Object = {
     getChinaRealTimeInfo: {
@@ -33,6 +35,11 @@ const URL_Object = {
         func: 'getProvinceInfoHisByCode',
         service: SERVICE,
         url: GetProvinceInfoHisByCode
+    },
+    getCityInfoHisByCode: {
+        func: 'getCityInfoHisByCode',
+        service: SERVICE,
+        url: GetCityInfoHisByCode
     },
     getTopicContent: {
         func: 'getTopicContent',
@@ -248,6 +255,12 @@ const writeMdWithContent = (timeStr, content) => {
         service: URL_Object['getProvinceInfoHisByCode']['service']
     });
     const { modifyHistory, totalHistory } = res_trendInfo.args.rsp;
+    let res_cityTrendInfo = await getApiData(URL_Object['getCityInfoHisByCode']['url'], {
+        req: { cityCode: GuangZhouCityCode },
+        func: URL_Object['getCityInfoHisByCode']['func'],
+        service: URL_Object['getCityInfoHisByCode']['service']
+    });
+    const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp;
     // let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
     let res_news = await getApiData(URL_Object['getTopicContent']['url'], {
         req: {
@@ -292,6 +305,7 @@ const writeMdWithContent = (timeStr, content) => {
 
 <div id="main" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="second" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="third" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
 <script>
 import * as echarts from 'echarts'
@@ -299,6 +313,7 @@ export default {
   mounted () {
     this.chart = echarts.init(document.getElementById("main"), "dark")
     this.chartSecond = echarts.init(document.getElementById("second"), "dark")
+    this.chartThird = echarts.init(document.getElementById("third"), "dark")
     const option = {
       title: {
         text: '${area}疫情新增趋势（人）'
@@ -360,7 +375,7 @@ export default {
         trigger: 'axis'
       },
       legend: {
-        data: ['累计确诊', '累计死亡', '累计治愈']
+        data: ['累计确诊', '累计治愈']
       },
       grid: {
         left: '3%',
@@ -391,12 +406,6 @@ export default {
           data: [${totalHistory.map(x => { return `${x.confirm},`; }).join('')}]
         },
         {
-          name: '累计死亡',
-          type: 'line',
-          stack: 'Total',
-          data: [${totalHistory.map(x => { return `${x.dead},`; }).join('')}]
-        },
-        {
           name: '累计治愈',
           type: 'line',
           stack: 'Total',
@@ -404,8 +413,56 @@ export default {
         }
       ]
     };
+
+    const option_third = {
+      title: {
+        text: '广州疫情新增趋势（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土新增确诊', '本土新增无症状']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${cityModifyHistory.map(x => {
+        return `"${x.day}",`;
+    }).join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土新增确诊',
+          type: 'line',
+          stack: 'Total',
+          data: [${cityModifyHistory.map(x => { return `${x.confirm},`; }).join('')}]
+        },
+        {
+          name: '本土新增无症状',
+          type: 'line',
+          stack: 'Total',
+          data: [${cityModifyHistory.map(x => { return `${x.noinfect},`; }).join('')}]
+        }
+      ]
+    };
     this.chart.setOption(option);
     this.chartSecond.setOption(option_second);
+    this.chartThird.setOption(option_third);
   }
 }
 </script>
