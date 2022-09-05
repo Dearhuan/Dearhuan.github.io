@@ -3,7 +3,8 @@ on:
   workflow_dispatch:
   schedule:
     #时间格式 minute hour day month week 设置的时间是UTC 不是北京时间
-    - cron: "20 23 * * *"
+    # 9:30、17:30
+    - cron: "30 1,9 * * *"
 
 jobs:
   start:
