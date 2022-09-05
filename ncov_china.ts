@@ -446,7 +446,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 <div id="main" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="second" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
-<script setup>
+<script>
 import * as echarts from 'echarts'
 export default {
   mounted () {
