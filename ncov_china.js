@@ -11,6 +11,7 @@ const USERID = '830075f3162e41c89a790c70041cd031';
 const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`;
 const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/getProvinceInfoByCode`;
 const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/getCityInfoByProvCode`;
+const GetProvinceInfoHisByCode = `${BASE_URL}${SERVICE}/getProvinceInfoHisByCode`;
 const GetTopicContent = `${BASE_URL}${OUTER_SERVICE}/getTopicContent`;
 const URL_Object = {
     getChinaRealTimeInfo: {
@@ -27,6 +28,11 @@ const URL_Object = {
         func: 'getCityInfoByProvCode',
         service: SERVICE,
         url: GetCityInfoByProvCode
+    },
+    getProvinceInfoHisByCode: {
+        func: 'getProvinceInfoHisByCode',
+        service: SERVICE,
+        url: GetProvinceInfoHisByCode
     },
     getTopicContent: {
         func: 'getTopicContent',
@@ -236,6 +242,12 @@ const writeMdWithContent = (timeStr, content) => {
         service: URL_Object['getCityInfoByProvCode']['service']
     });
     const { cityInfo } = res_cityList.args.rsp;
+    let res_trendInfo = await getApiData(URL_Object['getProvinceInfoHisByCode']['url'], {
+        req: { provinceCode: GuangDongProvinceCode },
+        func: URL_Object['getProvinceInfoHisByCode']['func'],
+        service: URL_Object['getProvinceInfoHisByCode']['service']
+    });
+    const { modifyHistory, totalHistory } = res_trendInfo.args.rsp;
     // let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
     let res_news = await getApiData(URL_Object['getTopicContent']['url'], {
         req: {
@@ -277,6 +289,126 @@ const writeMdWithContent = (timeStr, content) => {
 |地区|本土新增确诊|本土新增无症状|新增境外输入|本土近7日确诊|
 |:--:|---:|---:|---:|---:|
 |全国|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
+
+<div id="main" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="second" style="width:100%;height:500px;margin-bottom:10px;"></div>
+
+<script setup>
+import * as echarts from 'echarts'
+export default {
+  mounted () {
+    this.chart = echarts.init(document.getElementById("main"), "dark")
+    this.chartSecond = echarts.init(document.getElementById("second"), "dark")
+    const option = {
+      title: {
+        text: '${area}疫情新增趋势（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土新增确诊', '本土新增无症状', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${modifyHistory.map(x => {
+        return `"${x.day}",`;
+    }).join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土新增确诊',
+          type: 'line',
+          stack: 'Total',
+          data: [${modifyHistory.map(x => { return `${x.localAdd},`; }).join('')}]
+        },
+        {
+          name: '本土新增无症状',
+          type: 'line',
+          stack: 'Total',
+          data: [${modifyHistory.map(x => { return `${x.asymptomAdd},`; }).join('')}]
+        },
+        {
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          data: [${modifyHistory.map(x => { return `${x.importAdd},`; }).join('')}]
+        }
+      ]
+    };
+
+    const option_second = {
+      title: {
+        text: '${area}疫情概览（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['累计确诊', '累计死亡', '累计治愈']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${totalHistory.map(x => {
+        return `"${x.day}",`;
+    }).join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '累计确诊',
+          type: 'line',
+          stack: 'Total',
+          data: [${totalHistory.map(x => { return `${x.confirm},`; }).join('')}]
+        },
+        {
+          name: '累计死亡',
+          type: 'line',
+          stack: 'Total',
+          data: [${totalHistory.map(x => { return `${x.dead},`; }).join('')}]
+        },
+        {
+          name: '累计治愈',
+          type: 'line',
+          stack: 'Total',
+          data: [${totalHistory.map(x => { return `${x.heal},`; }).join('')}]
+        }
+      ]
+    };
+    this.chart.setOption(option);
+    this.chartSecond.setOption(option_second);
+  }
+}
+</script>
 
 ## ${area}省各地区疫情情况
 
