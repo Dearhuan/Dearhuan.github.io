@@ -386,19 +386,19 @@ export default {
           type: 'treemap',
           data: [
             {
-              name: '本土新增确诊\n昨日+${localConfirmAdd}',
+              name: '本土新增确诊昨日+${localConfirmAdd}',
               value: ${dealWithNumber(localConfirmAdd)},
             },
             {
-              name: 新增无症状\n昨日+${noinfect},
+              name: 新增无症状昨日+${noinfect},
               value: ${dealWithNumber(noinfect)},
             },
             {
-              name: 新增境外输入\n昨日+${importDesc},
+              name: 新增境外输入昨日+${importDesc},
               value: ${dealWithNumber(importDesc)},
             },
             {
-              name: 新增治愈\n昨日+${heal},
+              name: 新增治愈昨日+${heal},
               value: ${dealWithNumber(heal)},
             },
           ]
