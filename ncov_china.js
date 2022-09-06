@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // @ts-ignore
 const fs = require('fs');
 // @ts-ignore
@@ -71,6 +72,13 @@ const readFileList = (path) => {
     }
     return filesList;
 };
+/**
+* @func getApiData
+* @param {string} url
+* @param {ApiRequestParams} params
+* @returns {Promise<Result<T>>}
+* @desc 接口统一处理
+*/
 const getApiData = async (url, params) => {
     const { req, service, func } = params;
     let res = await axios.post(url, {
@@ -85,100 +93,11 @@ const getApiData = async (url, params) => {
     });
     return res.data;
 };
-/**
-* @func getChinaRealTimeInfo
-* @param {string} url
-* @returns {object}
-* @desc 获取中国疫情整体数据
-*/
-const getChinaRealTimeInfo = async (url) => {
-    let res = await axios.post(url, {
-        args: {
-            req: {}
-        },
-        service: 'THPneumoniaDataService',
-        func: 'getChinaRealTimeInfo',
-        context: {
-            userId: '830075f3162e41c89a790c70041cd031'
-        }
-    });
-    return res.data;
-};
-/**
-* @func getProvinceInfoByCode
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情信息
-*/
-const getProvinceInfoByCode = async (url, provinceCode) => {
-    let res = await axios.post(url, {
-        args: {
-            req: {
-                provinceCode
-            }
-        },
-        service: 'THPneumoniaDataService',
-        func: 'getProvinceInfoByCode',
-        context: {
-            userId: '830075f3162e41c89a790c70041cd031'
-        }
-    });
-    return res.data;
-};
-/**
-* @func getCityInfoByProvCode
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情信息列表
-*/
-const getCityInfoByProvCode = async (url, provinceCode) => {
-    let res = await axios.post(url, {
-        args: {
-            req: {
-                provinceCode
-            }
-        },
-        service: 'THPneumoniaDataService',
-        func: 'getCityInfoByProvCode',
-        context: {
-            userId: '830075f3162e41c89a790c70041cd031'
-        }
-    });
-    return res.data;
-};
-/**
-* @func getTopicContent
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情热点动态
-*/
-const getTopicContent = async (url, provinceCode) => {
-    let res = await axios.post(url, {
-        args: {
-            req: {
-                areaCode: provinceCode,
-                hotnewsReq: {
-                    limit: 10,
-                    locationCode: provinceCode,
-                    offset: 0,
-                    reqType: 1,
-                    tab: 'shishitongbao'
-                },
-                queryList: [
-                    {}
-                ]
-            }
-        },
-        service: 'THPneumoniaOuterService',
-        func: 'getTopicContent',
-        context: {
-            userId: '830075f3162e41c89a790c70041cd031'
-        }
-    });
-    return res.data;
-};
 const joinWithPlus = (number) => {
     return number > 0 ? '+' + number : number;
+};
+const dealWithNumber = (number) => {
+    return number > 0 ? number : 1;
 };
 /**
 * @func writeMdWithContent
@@ -209,7 +128,6 @@ const writeMdWithContent = (timeStr, content) => {
     }, 500);
 };
 (async () => {
-    // let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
     let res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
         req: {},
         func: URL_Object['getChinaRealTimeInfo']['func'],
@@ -228,7 +146,6 @@ const writeMdWithContent = (timeStr, content) => {
     nowImport, // 现有境外输入
     confirm // 累计确诊
      } = chinaTotal;
-    // let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
     let res_province = await getApiData(URL_Object['getProvinceInfoByCode']['url'], {
         req: { provinceCode: GuangDongProvinceCode },
         func: URL_Object['getProvinceInfoByCode']['func'],
@@ -242,7 +159,6 @@ const writeMdWithContent = (timeStr, content) => {
     importAdd, // 新增境外输入
     lastImportAddTotal, // 本土近7日确诊
     updateTime, riskLevelNum } = provinceInfo;
-    // let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
     let res_cityList = await getApiData(URL_Object['getCityInfoByProvCode']['url'], {
         req: { provinceCode: GuangDongProvinceCode },
         func: URL_Object['getCityInfoByProvCode']['func'],
@@ -261,7 +177,6 @@ const writeMdWithContent = (timeStr, content) => {
         service: URL_Object['getCityInfoHisByCode']['service']
     });
     const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp;
-    // let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
     let res_news = await getApiData(URL_Object['getTopicContent']['url'], {
         req: {
             areaCode: GuangDongProvinceCode,
@@ -293,6 +208,8 @@ const writeMdWithContent = (timeStr, content) => {
 |:--:|---:|---:|---:|---:|
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
+<div id="fourth" style="width:100%;height:500px;margin-bottom:10px;"></div>
+
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
 
@@ -314,6 +231,8 @@ export default {
     this.chart = echarts.init(document.getElementById("main"), "dark")
     this.chartSecond = echarts.init(document.getElementById("second"), "dark")
     this.chartThird = echarts.init(document.getElementById("third"), "dark")
+    this.chartFourth = echarts.init(document.getElementById("fourth"), "dark")
+
     const option = {
       title: {
         text: '${area}疫情新增趋势（人）'
@@ -460,9 +379,37 @@ export default {
         }
       ]
     };
+
+    const option_fourth  = {
+      series: [
+        {
+          type: 'treemap',
+          data: [
+            {
+              name: '本土新增确诊\n昨日+${localConfirmAdd}',
+              value: ${dealWithNumber(localConfirmAdd)},
+            },
+            {
+              name: 新增无症状\n昨日+${noinfect},
+              value: ${dealWithNumber(noinfect)},
+            },
+            {
+              name: 新增境外输入\n昨日+${importDesc},
+              value: ${dealWithNumber(importDesc)},
+            },
+            {
+              name: 新增治愈\n昨日+${heal},
+              value: ${dealWithNumber(heal)},
+            },
+          ]
+        }
+      ]
+    };
+
     this.chart.setOption(option);
     this.chartSecond.setOption(option_second);
     this.chartThird.setOption(option_third);
+    this.chartFourth.setOption(option_fourth);
   }
 }
 </script>

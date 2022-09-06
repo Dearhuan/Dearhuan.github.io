@@ -26,4 +26,4 @@ node_modules/
 # Typescript build info
 *.tsbuildinfo
 
-tsconfig.json
+# tsconfig.json

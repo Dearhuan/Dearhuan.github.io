@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   schedule:
     #时间格式 minute hour day month week 设置的时间是UTC 不是北京时间
-    - cron: "10 23 * * *"
+    - cron: "55 23 * * *"
 
 jobs:
   start:
@@ -26,6 +26,7 @@ jobs:
       - name: Start task
         run: node ncov.js
 
+      # 提交修改
       - name: Commit files
         run: |
           git config --local user.email "actions@github.com"
@@ -36,3 +37,19 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.ACCESS_TOKEN }}
+
+      # 生成静态文件
+      - name: Build
+        run: npm install && npm run docs:build
+
+      # 部署到 GitHub Pages
+      - name: Deploy
+        # 使用别人写好的一个 action
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          # 这里的 ACCESS_TOKEN 名字需要和下文中的相对应
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          # 打包后的文件部署到哪个分支上
+          BRANCH: gh-pages
+          # 打包后的文件在哪里
+          FOLDER: docs/.vuepress/dist

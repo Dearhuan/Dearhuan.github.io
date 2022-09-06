@@ -1,3 +1,5 @@
+import { number } from "echarts";
+
 // @ts-ignore
 const fs = require('fs')
 // @ts-ignore
@@ -195,6 +197,13 @@ const readFileList = (path: string) => {
   return filesList;
 }
 
+/**
+* @func getApiData
+* @param {string} url
+* @param {ApiRequestParams} params
+* @returns {Promise<Result<T>>}
+* @desc 接口统一处理
+*/
 const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promise<Result<T>>=> {
   const { req, service, func } = params
   let res = await axios.post(
@@ -212,112 +221,12 @@ const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promi
   return res.data
 }
 
-/**
-* @func getChinaRealTimeInfo
-* @param {string} url
-* @returns {object}
-* @desc 获取中国疫情整体数据
-*/
-const getChinaRealTimeInfo = async (url: string) => {
-  let res = await axios.post(
-    url,
-    {
-      args: {
-        req: {}
-      },
-      service: 'THPneumoniaDataService',
-      func: 'getChinaRealTimeInfo',
-      context: {
-        userId: '830075f3162e41c89a790c70041cd031'
-      }
-    })
-  return res.data
-}
-
-/**
-* @func getProvinceInfoByCode
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情信息
-*/
-const getProvinceInfoByCode = async (url: string, provinceCode: string) => {
-  let res = await axios.post(
-    url,
-    {
-      args: {
-        req: {
-          provinceCode
-        }
-      },
-      service: 'THPneumoniaDataService',
-      func: 'getProvinceInfoByCode',
-      context: {
-        userId: '830075f3162e41c89a790c70041cd031'
-      }
-    })
-  return res.data
-}
-
-/**
-* @func getCityInfoByProvCode
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情信息列表
-*/
-const getCityInfoByProvCode = async (url: string, provinceCode: string) => {
-  let res = await axios.post(
-    url,
-    {
-      args: {
-        req: {
-          provinceCode
-        }
-      },
-      service: 'THPneumoniaDataService',
-      func: 'getCityInfoByProvCode',
-      context: {
-        userId: '830075f3162e41c89a790c70041cd031'
-      }
-    })
-  return res.data
-}
-
-/**
-* @func getTopicContent
-* @param {string} provinceCode
-* @returns {object}
-* @desc 根据provinceCode获取指定省份疫情热点动态
-*/
-const getTopicContent = async (url: string, provinceCode: string) => {
-  let res = await axios.post(
-    url,
-    {
-      args: {
-        req: {
-          areaCode: provinceCode,
-          hotnewsReq: {
-            limit: 10,
-            locationCode: provinceCode,
-            offset: 0,
-            reqType: 1,
-            tab: 'shishitongbao'
-          },
-          queryList: [
-            {}
-          ]
-        }
-      },
-      service: 'THPneumoniaOuterService',
-      func: 'getTopicContent',
-      context: {
-        userId: '830075f3162e41c89a790c70041cd031'
-      }
-    })
-  return res.data
-}
-
 const joinWithPlus = (number: number | string) => {
   return number > 0 ? '+' + number : number
+}
+
+const dealWithNumber = (number: number | string) => {
+  return number > 0 ? number : 1
 }
 
 /**
@@ -358,7 +267,6 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 }
 
 (async () => {
-  // let res = await getChinaRealTimeInfo(GetChinaRealTimeInfoURL)
   let res = await getApiData<ChinaRealTimeInfo>(URL_Object['getChinaRealTimeInfo']['url'], {
     req: {},
     func: URL_Object['getChinaRealTimeInfo']['func'],
@@ -384,7 +292,6 @@ const writeMdWithContent = (timeStr: string, content: string) => {
     confirm // 累计确诊
   } = chinaTotal
 
-  // let res_province = await getProvinceInfoByCode(GetProvinceInfoByCode, GuangDongProvinceCode)
   let res_province = await getApiData<ProvinceInfo>(URL_Object['getProvinceInfoByCode']['url'], {
     req: { provinceCode: GuangDongProvinceCode },
     func: URL_Object['getProvinceInfoByCode']['func'],
@@ -402,7 +309,6 @@ const writeMdWithContent = (timeStr: string, content: string) => {
     riskLevelNum
   } = provinceInfo
 
-  // let res_cityList = await getCityInfoByProvCode(GetCityInfoByProvCode, GuangDongProvinceCode)
   let res_cityList = await getApiData<CityRes>(URL_Object['getCityInfoByProvCode']['url'], {
     req: { provinceCode: GuangDongProvinceCode },
     func: URL_Object['getCityInfoByProvCode']['func'],
@@ -426,7 +332,6 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 
   const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp
 
-  // let res_news = await getTopicContent(GetTopicContent, GuangDongProvinceCode)
   let res_news = await getApiData<ContentsRes>(URL_Object['getTopicContent']['url'], {
     req: {
       areaCode: GuangDongProvinceCode,
@@ -459,6 +364,8 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 |:--:|---:|---:|---:|---:|
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
+<div id="fourth" style="width:100%;height:500px;margin-bottom:10px;"></div>
+
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
 
@@ -480,6 +387,8 @@ export default {
     this.chart = echarts.init(document.getElementById("main"), "dark")
     this.chartSecond = echarts.init(document.getElementById("second"), "dark")
     this.chartThird = echarts.init(document.getElementById("third"), "dark")
+    this.chartFourth = echarts.init(document.getElementById("fourth"), "dark")
+
     const option = {
       title: {
         text: '${area}疫情新增趋势（人）'
@@ -626,9 +535,37 @@ export default {
         }
       ]
     };
+
+    const option_fourth  = {
+      series: [
+        {
+          type: 'treemap',
+          data: [
+            {
+              name: '本土新增确诊\n昨日+${localConfirmAdd}',
+              value: ${dealWithNumber(localConfirmAdd)},
+            },
+            {
+              name: 新增无症状\n昨日+${noinfect},
+              value: ${dealWithNumber(noinfect)},
+            },
+            {
+              name: 新增境外输入\n昨日+${importDesc},
+              value: ${dealWithNumber(importDesc)},
+            },
+            {
+              name: 新增治愈\n昨日+${heal},
+              value: ${dealWithNumber(heal)},
+            },
+          ]
+        }
+      ]
+    };
+
     this.chart.setOption(option);
     this.chartSecond.setOption(option_second);
     this.chartThird.setOption(option_third);
+    this.chartFourth.setOption(option_fourth);
   }
 }
 </script>
