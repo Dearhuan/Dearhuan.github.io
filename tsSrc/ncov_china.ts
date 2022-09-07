@@ -237,7 +237,7 @@ const dealWithNumber = (number: number | string) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr: string, content: string) => {
-  const rootPath = path.resolve(__dirname,'../')
+  const rootPath = path.resolve(__dirname,'../../')
   const writePath = `${rootPath}/docs/chinaNcovs/${timeStr}.md`
   fs.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
