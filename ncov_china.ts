@@ -1,5 +1,4 @@
-import { number } from "echarts";
-
+import { defHttp } from './src/utils/http'
 // @ts-ignore
 const fs = require('fs')
 // @ts-ignore
@@ -197,6 +196,26 @@ const readFileList = (path: string) => {
   return filesList;
 }
 
+const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promise<Result<T>> => {
+  const { req, service, func } = params
+  let res = await defHttp.post(
+    {
+      url,
+      params: {
+        args: {
+          req
+        },
+        service,
+        func,
+        context: {
+          userId: USERID
+        }
+      }
+    }
+  )
+  return res.data
+}
+
 /**
 * @func getApiData
 * @param {string} url
@@ -204,22 +223,22 @@ const readFileList = (path: string) => {
 * @returns {Promise<Result<T>>}
 * @desc 接口统一处理
 */
-const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promise<Result<T>>=> {
-  const { req, service, func } = params
-  let res = await axios.post(
-    url,
-    {
-      args: {
-        req
-      },
-      service,
-      func,
-      context: {
-        userId: USERID
-      }
-    })
-  return res.data
-}
+// const getApiData = async <T = any>(url: string, params: ApiRequestParams): Promise<Result<T>>=> {
+//   const { req, service, func } = params
+//   let res = await axios.post(
+//     url,
+//     {
+//       args: {
+//         req
+//       },
+//       service,
+//       func,
+//       context: {
+//         userId: USERID
+//       }
+//     })
+//   return res.data
+// }
 
 const joinWithPlus = (number: number | string) => {
   return number > 0 ? '+' + number : number
