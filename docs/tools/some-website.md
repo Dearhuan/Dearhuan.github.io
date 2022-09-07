@@ -1,5 +1,7 @@
 # 网站记录
 
+[VuePress](https://v2.vuepress.vuejs.org/zh/)
+
 [中文独立博客列表](https://github.com/timqian/chinese-independent-blogs)
 
 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)

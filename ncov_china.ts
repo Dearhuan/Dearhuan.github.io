@@ -423,18 +423,21 @@ export default {
           name: '本土新增确诊',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${modifyHistory.map(x=>{return `${x.localAdd},`}).join('')}]
         },
         {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${modifyHistory.map(x=>{return `${x.asymptomAdd},`}).join('')}]
         },
         {
           name: '新增境外输入',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${modifyHistory.map(x=>{return `${x.importAdd},`}).join('')}]
         }
       ]
@@ -476,12 +479,14 @@ export default {
           name: '累计确诊',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${totalHistory.map(x=>{return `${x.confirm},`}).join('')}]
         },
         {
           name: '累计治愈',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${totalHistory.map(x=>{return `${x.heal},`}).join('')}]
         }
       ]
@@ -523,12 +528,14 @@ export default {
           name: '本土新增确诊',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${cityModifyHistory.map(x=>{return `${x.confirm},`}).join('')}]
         },
         {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
+          smooth: true,
           data: [${cityModifyHistory.map(x=>{return `${x.noinfect},`}).join('')}]
         }
       ]
@@ -544,15 +551,15 @@ export default {
               value: ${dealWithNumber(localConfirmAdd)},
             },
             {
-              name: 新增无症状昨日+${noinfect},
+              name: '新增无症状昨日+${noinfect}',
               value: ${dealWithNumber(noinfect)},
             },
             {
-              name: 新增境外输入昨日+${importDesc},
+              name: '新增境外输入昨日+${importDesc}',
               value: ${dealWithNumber(importDesc)},
             },
             {
-              name: 新增治愈昨日+${heal},
+              name: '新增治愈昨日+${heal}',
               value: ${dealWithNumber(heal)},
             },
           ]
@@ -585,7 +592,7 @@ ${contents.map((item: ContentsInfo) => {
     return `
 ### ${item.publicTime.slice(5)}
 ::: tip ${item.title}
-${item.desc}\n
+${item.desc.slice(0,100)}...\n
 ${item.from}\n
 [阅读全文](${item.jumpLink.url})
 :::
