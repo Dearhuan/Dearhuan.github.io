@@ -56,7 +56,7 @@ const getNcovText = async (url) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-    const path = `${mdPath}/${timeStr}.md`;
+    const path = `../docs/others/${timeStr}.md`;
     fs.writeFileSync(path, content, 'utf-8');
     console.log(`${timeStr}.md created.`);
     setTimeout(() => {

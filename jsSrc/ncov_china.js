@@ -106,7 +106,7 @@ const dealWithNumber = (number) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-    const path = `${mdPath}/${timeStr}.md`;
+    const path = `../docs/chinaNcovs/${timeStr}.md`;
     fs.writeFileSync(path, content, 'utf-8');
     console.log(`${timeStr}.md created.`);
     setTimeout(() => {
