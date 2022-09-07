@@ -25,7 +25,7 @@ jobs:
         run: npm install
       
       - name: Start task
-        run: node ncov_china.js
+        run: node jsSrc/ncov_china.js
 
       # 提交修改
       - name: Commit files

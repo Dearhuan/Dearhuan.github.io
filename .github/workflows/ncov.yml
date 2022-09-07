@@ -24,7 +24,7 @@ jobs:
         run: npm install
       
       - name: Start task
-        run: node ncov.js
+        run: node jsSrc/ncov.js
 
       # 提交修改
       - name: Commit files

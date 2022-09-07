@@ -1,14 +1,16 @@
 //获取指定目录下的所有文件名称
+// @ts-ignore
 const fs = require("fs/promises")
 
 console.log('__dirname : ' + __dirname)
 
 const DOCS = '\\docs'
 const DIR = __dirname.replace('\\','\\\\') + DOCS
+// @ts-ignore
 const base = "others"
 
 //将指定目录下的文件生成obj
-async function getObj(dir){
+async function getObj(dir: string){
     //获取指定目录下的所有文件
     let list = await fs.readdir(dir)
     //生成对应的obj
@@ -25,7 +27,7 @@ async function getObj(dir){
 }
 
 // 写入文件
-const storeData = (data,path) => {
+const storeData = (data: string,path: string) => {
   try {
     fs.writeFile(path, JSON.stringify(data))
   } catch (error) { 
@@ -33,7 +35,10 @@ const storeData = (data,path) => {
   }
 }
 
-async function my(path,arrays){
+async function my(path: string,arrays: {
+  text: string,
+  link: string
+}[]){
     // console.log('外',path)
     //获取指定目录下的所有文件(对象形式)
     let array1 = await getObj(path)
@@ -44,7 +49,7 @@ async function my(path,arrays){
 
 (async ()=>{
     let path = DIR+"\\"+base
-    let arrays = []
+    let arrays: any = []
     await my(path,arrays)
     console.log(arrays)
 
