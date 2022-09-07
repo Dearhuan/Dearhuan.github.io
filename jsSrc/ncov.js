@@ -2,6 +2,8 @@
 // @ts-ignore
 const fs = require('fs');
 // @ts-ignore
+const path = require('path');
+// @ts-ignore
 const axios = require("axios");
 const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`;
 const Exclude_Countrys = ['中国'];
@@ -56,8 +58,9 @@ const getNcovText = async (url) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-    const path = `../docs/others/${timeStr}.md`;
-    fs.writeFileSync(path, content, 'utf-8');
+    const rootPath = path.resolve(__dirname, '../');
+    const writePath = `${rootPath}/docs/others/${timeStr}.md`;
+    fs.writeFileSync(writePath, content, 'utf-8');
     console.log(`${timeStr}.md created.`);
     setTimeout(() => {
         let filesList = readFileList(mdPath);

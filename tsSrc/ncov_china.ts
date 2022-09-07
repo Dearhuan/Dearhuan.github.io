@@ -1,6 +1,8 @@
 // @ts-ignore
 const fs = require('fs')
 // @ts-ignore
+const path = require('path')
+// @ts-ignore
 const axios = require("axios");
 
 const GuangDongProvinceCode = '440000'
@@ -235,8 +237,9 @@ const dealWithNumber = (number: number | string) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr: string, content: string) => {
-  const path = `../docs/chinaNcovs/${timeStr}.md`
-  fs.writeFileSync(path, content, 'utf-8')
+  const rootPath = path.resolve(__dirname,'../')
+  const writePath = `${rootPath}/docs/chinaNcovs/${timeStr}.md`
+  fs.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
 
   setTimeout(() => {
