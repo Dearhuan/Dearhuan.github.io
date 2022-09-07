@@ -169,12 +169,15 @@ const URL_Object = {
     url: GetTopicContent
   },
 }
+
 // @ts-ignore
-const mdPath = __dirname + '/docs/chinaNcovs'
+const rootPath = path.resolve(__dirname,'../')
+// @ts-ignore
+const mdPath = rootPath + '/docs/chinaNcovs'
 // @ts-ignore
 const base = "chinaNcovs"
 // @ts-ignore
-const jsonFilePath = __dirname + '/docs/.vuepress/public/json/chinaRoutes.json'
+const jsonFilePath = rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
 
 /**
 * @func readFileList

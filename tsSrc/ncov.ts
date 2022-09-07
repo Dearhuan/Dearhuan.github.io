@@ -9,11 +9,13 @@ const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sin
 const Exclude_Countrys = ['中国']
 
 // @ts-ignore
-const mdPath = __dirname + '/docs/others'
+const rootPath = path.resolve(__dirname,'../')
+// @ts-ignore
+const mdPath = rootPath + '/docs/others'
 // @ts-ignore
 const base = "others"
 // @ts-ignore
-const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json'
+const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json'
 
 interface WorldlistItem {
   name: string,
@@ -90,7 +92,6 @@ const getNcovText = async (url: string): Promise<NcovRes> => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr: string, content: string) => {
-  const rootPath = path.resolve(__dirname,'../../')
   const writePath = `${rootPath}/docs/others/${timeStr}.md`
   fs.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)

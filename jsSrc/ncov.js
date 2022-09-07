@@ -8,11 +8,13 @@ const axios = require("axios");
 const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`;
 const Exclude_Countrys = ['中国'];
 // @ts-ignore
-const mdPath = __dirname + '/docs/others';
+const rootPath = path.resolve(__dirname, '../');
+// @ts-ignore
+const mdPath = rootPath + '/docs/others';
 // @ts-ignore
 const base = "others";
 // @ts-ignore
-const jsonFilePath = __dirname + '/docs/.vuepress/public/json/others.json';
+const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json';
 /**
 * @func readFileList
 * @param {string} path
@@ -58,7 +60,6 @@ const getNcovText = async (url) => {
 */
 // @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-    const rootPath = path.resolve(__dirname, '../../');
     const writePath = `${rootPath}/docs/others/${timeStr}.md`;
     fs.writeFileSync(writePath, content, 'utf-8');
     console.log(`${timeStr}.md created.`);
