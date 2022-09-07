@@ -12,7 +12,7 @@ exports.getPendingUrl = getPendingUrl;
 class AxiosCanceler {
     addPending(config) {
         this.removePending(config);
-        const url = exports.getPendingUrl(config);
+        const url = (0, exports.getPendingUrl)(config);
         config.cancelToken =
             config.cancelToken ||
                 new axios_1.default.CancelToken((cancel) => {
@@ -22,7 +22,7 @@ class AxiosCanceler {
                 });
     }
     removePending(config) {
-        const url = exports.getPendingUrl(config);
+        const url = (0, exports.getPendingUrl)(config);
         if (pendingMap.has(url)) {
             const cancel = pendingMap.get(url);
             cancel && cancel(url);
@@ -31,7 +31,7 @@ class AxiosCanceler {
     }
     removeAllPending() {
         pendingMap.forEach(cancel => {
-            cancel && is_1.isFunction(cancel) && cancel();
+            cancel && (0, is_1.isFunction)(cancel) && cancel();
         });
         pendingMap.clear();
     }

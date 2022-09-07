@@ -52,23 +52,23 @@ class VAxios {
                 ? ignoreCancelToken
                 : this.options.requestOptions?.ignoreCancelToken;
             !ignoreCancel && axiosCanceler.addPending(config);
-            if (requestInterceptors && is_1.isFunction(requestInterceptors)) {
+            if (requestInterceptors && (0, is_1.isFunction)(requestInterceptors)) {
                 config = requestInterceptors(config, this.options);
             }
             return config;
         }, undefined);
         requestInterceptorsCatch &&
-            is_1.isFunction(requestInterceptorsCatch) &&
+            (0, is_1.isFunction)(requestInterceptorsCatch) &&
             this.axiosInstance.interceptors.request.use(undefined, requestInterceptorsCatch);
         this.axiosInstance.interceptors.response.use((res) => {
             res && axiosCanceler.removePending(res.config);
-            if (responseInterceptors && is_1.isFunction(responseInterceptors)) {
+            if (responseInterceptors && (0, is_1.isFunction)(responseInterceptors)) {
                 res = responseInterceptors(res);
             }
             return res;
         }, undefined);
         responseInterceptorsCatch &&
-            is_1.isFunction(responseInterceptorsCatch) &&
+            (0, is_1.isFunction)(responseInterceptorsCatch) &&
             this.axiosInstance.interceptors.response.use(undefined, responseInterceptorsCatch);
     }
     uploadFile(config, params) {
@@ -109,7 +109,7 @@ class VAxios {
         const { requestOptions } = this.options;
         const opt = Object.assign({}, requestOptions, options);
         const { beforeRequestHook, requestCatchHook, transformRequestHook } = transform || {};
-        if (beforeRequestHook && is_1.isFunction(beforeRequestHook)) {
+        if (beforeRequestHook && (0, is_1.isFunction)(beforeRequestHook)) {
             conf = beforeRequestHook(conf, opt);
         }
         // @ts-ignore
@@ -118,7 +118,7 @@ class VAxios {
             this.axiosInstance
                 .request(conf)
                 .then((res) => {
-                if (transformRequestHook && is_1.isFunction(transformRequestHook)) {
+                if (transformRequestHook && (0, is_1.isFunction)(transformRequestHook)) {
                     try {
                         const ret = transformRequestHook(res, opt);
                         resolve(ret);
@@ -131,7 +131,7 @@ class VAxios {
                 resolve(res);
             })
                 .catch((e) => {
-                if (requestCatchHook && is_1.isFunction(requestCatchHook)) {
+                if (requestCatchHook && (0, is_1.isFunction)(requestCatchHook)) {
                     reject(requestCatchHook(e, opt));
                     return;
                 }
