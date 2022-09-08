@@ -1,18 +1,18 @@
 import fs from 'fs'
-import axios from 'axios'
 
 import {
   BaseApiInfo,
   URL_Object,
   rootPath,
   mdPath,
-  base,
-  jsonFilePath
+  jsonFilePath,
+  readFileList,
+  getApiData,
+  dealWithNumber,
+  joinWithPlus
 } from './configs/ncov_china'
 import { ChartName } from './configs/ncov_china/enums'
 import {
-  ApiRequestParams,
-  Result,
   ChinaRealTimeInfo,
   ProvinceInfo,
   CityRes,
@@ -24,59 +24,7 @@ import {
   TrendChartInfoRes
 } from './configs/ncov_china/types'
 
-const { GuangDongProvinceCode, GuangZhouCityCode, USERID } = BaseApiInfo
-
-/**
- * @func readFileList
- * @param {string} path
- * @returns {object}
- * @desc 读取指定目录下的md文件
- */
-const readFileList = (path: string) => {
-  const filesList = []
-  const files = fs.readdirSync(path)
-  for (const name of files) {
-    name.indexOf('.md') > -1 &&
-      filesList.push({
-        text: name,
-        link: `/${base}/${name}`
-      })
-  }
-  return filesList
-}
-
-/**
- * @func getApiData
- * @param {string} url
- * @param {ApiRequestParams} params
- * @returns {Promise<Result<T>>}
- * @desc 接口统一处理
- */
-const getApiData = async <T>(
-  url: string,
-  params: ApiRequestParams
-): Promise<Result<T>> => {
-  const { req, service, func } = params
-  const res = await axios.post(url, {
-    args: {
-      req
-    },
-    service,
-    func,
-    context: {
-      userId: USERID
-    }
-  })
-  return res.data
-}
-
-const joinWithPlus = (number: number | string) => {
-  return number > 0 ? '+' + number : number
-}
-
-const dealWithNumber = (number: number | string) => {
-  return number > 0 ? number : 1
-}
+const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
 
 /**
  * @func writeMdWithContent

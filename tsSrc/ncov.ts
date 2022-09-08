@@ -1,36 +1,16 @@
 import fs from 'fs'
-import path from 'path'
 import axios from 'axios'
 
 import {
   rootPath,
   mdPath,
-  base,
   jsonFilePath,
   SINA_URL,
-  Exclude_Countrys
+  Exclude_Countrys,
+  readFileList
 } from './configs/ncov'
 
 import { WorldlistItem, NcovRes } from './configs/ncov/types'
-
-/**
- * @func readFileList
- * @param {string} path
- * @returns {object}
- * @desc 读取指定目录下的md文件
- */
-const readFileList = (path: string) => {
-  const filesList = []
-  const files = fs.readdirSync(path)
-  for (const name of files) {
-    name.indexOf('.md') > -1 &&
-      filesList.push({
-        text: name,
-        link: `/${base}/${name}`
-      })
-  }
-  return filesList
-}
 
 /**
  * @func getNcovText

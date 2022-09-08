@@ -1,4 +1,7 @@
+import fs from 'fs'
 import path from 'path'
+import axios from 'axios'
+import { ApiRequestParams, Result } from './types'
 
 export const rootPath = path.resolve(__dirname, '../../../')
 
@@ -65,4 +68,56 @@ export const URL_Object = {
     service: BaseApiInfo.OUTER_DATA_SERVICE,
     url: BaseUrl.GetChartInfoURL
   }
+}
+
+/**
+ * @func readFileList
+ * @param {string} path
+ * @returns {object}
+ * @desc 读取指定目录下的md文件
+ */
+export const readFileList = (path: string) => {
+  const filesList = []
+  const files = fs.readdirSync(path)
+  for (const name of files) {
+    name.indexOf('.md') > -1 &&
+      filesList.push({
+        text: name,
+        link: `/${base}/${name}`
+      })
+  }
+  return filesList
+}
+
+/**
+ * @func getApiData
+ * @param {string} url
+ * @param {ApiRequestParams} params
+ * @returns {Promise<Result<T>>}
+ * @desc 接口统一处理
+ */
+export const getApiData = async <T>(
+  url: string,
+  params: ApiRequestParams
+): Promise<Result<T>> => {
+  const { req, service, func } = params
+  const res = await axios.post(url, {
+    args: {
+      req
+    },
+    service,
+    func,
+    context: {
+      userId: BaseApiInfo.USERID
+    }
+  })
+  return res.data
+}
+
+export const joinWithPlus = (number: number | string) => {
+  return number > 0 ? '+' + number : number
+}
+
+export const dealWithNumber = (number: number | string) => {
+  return number > 0 ? number : 1
 }

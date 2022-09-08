@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict'
 var __importDefault =
   (this && this.__importDefault) ||
@@ -9,24 +8,6 @@ Object.defineProperty(exports, '__esModule', { value: true })
 const fs_1 = __importDefault(require('fs'))
 const axios_1 = __importDefault(require('axios'))
 const ncov_1 = require('./configs/ncov')
-/**
- * @func readFileList
- * @param {string} path
- * @returns {object}
- * @desc 读取指定目录下的md文件
- */
-const readFileList = (path) => {
-  const filesList = []
-  const files = fs_1.default.readdirSync(path)
-  for (const name of files) {
-    name.indexOf('.md') > -1 &&
-      filesList.push({
-        text: name,
-        link: `/${ncov_1.base}/${name}`
-      })
-  }
-  return filesList
-}
 /**
  * @func getNcovText
  * @param {string} url
@@ -57,7 +38,7 @@ const writeMdWithContent = (timeStr, content) => {
   fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(ncov_1.mdPath)
+    const filesList = (0, ncov_1.readFileList)(ncov_1.mdPath)
     console.log(ncov_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')

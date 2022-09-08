@@ -7,56 +7,9 @@ var __importDefault =
   }
 Object.defineProperty(exports, '__esModule', { value: true })
 const fs_1 = __importDefault(require('fs'))
-const axios_1 = __importDefault(require('axios'))
 const ncov_china_1 = require('./configs/ncov_china')
 const enums_1 = require('./configs/ncov_china/enums')
-const { GuangDongProvinceCode, GuangZhouCityCode, USERID } =
-  ncov_china_1.BaseApiInfo
-/**
- * @func readFileList
- * @param {string} path
- * @returns {object}
- * @desc 读取指定目录下的md文件
- */
-const readFileList = (path) => {
-  const filesList = []
-  const files = fs_1.default.readdirSync(path)
-  for (const name of files) {
-    name.indexOf('.md') > -1 &&
-      filesList.push({
-        text: name,
-        link: `/${ncov_china_1.base}/${name}`
-      })
-  }
-  return filesList
-}
-/**
- * @func getApiData
- * @param {string} url
- * @param {ApiRequestParams} params
- * @returns {Promise<Result<T>>}
- * @desc 接口统一处理
- */
-const getApiData = async (url, params) => {
-  const { req, service, func } = params
-  const res = await axios_1.default.post(url, {
-    args: {
-      req
-    },
-    service,
-    func,
-    context: {
-      userId: USERID
-    }
-  })
-  return res.data
-}
-const joinWithPlus = (number) => {
-  return number > 0 ? '+' + number : number
-}
-const dealWithNumber = (number) => {
-  return number > 0 ? number : 1
-}
+const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
 /**
  * @func writeMdWithContent
  * @param {string} timeStr
@@ -68,7 +21,7 @@ const writeMdWithContent = (timeStr, content) => {
   fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(ncov_china_1.mdPath)
+    const filesList = (0, ncov_china_1.readFileList)(ncov_china_1.mdPath)
     console.log(ncov_china_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
@@ -85,7 +38,7 @@ const writeMdWithContent = (timeStr, content) => {
 }
 ;(async () => {
   // 全国信息
-  const res = await getApiData(
+  const res = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getChinaRealTimeInfo']['url'],
     {
       req: {},
@@ -112,7 +65,7 @@ const writeMdWithContent = (timeStr, content) => {
     confirm // 累计确诊
   } = chinaTotal
   // 省份信息
-  const res_province = await getApiData(
+  const res_province = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getProvinceInfoByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
@@ -132,7 +85,7 @@ const writeMdWithContent = (timeStr, content) => {
     riskLevelNum
   } = provinceInfo
   // 城市信息
-  const res_cityList = await getApiData(
+  const res_cityList = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getCityInfoByProvCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
@@ -142,7 +95,7 @@ const writeMdWithContent = (timeStr, content) => {
   )
   const { cityInfo } = res_cityList.args.rsp
   // 省份趋势信息
-  const res_trendInfo = await getApiData(
+  const res_trendInfo = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getProvinceInfoHisByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
@@ -152,7 +105,7 @@ const writeMdWithContent = (timeStr, content) => {
   )
   const { modifyHistory, totalHistory } = res_trendInfo.args.rsp
   // 城市趋势信息
-  const res_cityTrendInfo = await getApiData(
+  const res_cityTrendInfo = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getCityInfoHisByCode']['url'],
     {
       req: { cityCode: GuangZhouCityCode },
@@ -162,7 +115,7 @@ const writeMdWithContent = (timeStr, content) => {
   )
   const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp
   // 城市新闻消息
-  const res_news = await getApiData(
+  const res_news = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getTopicContent']['url'],
     {
       req: {
@@ -183,7 +136,7 @@ const writeMdWithContent = (timeStr, content) => {
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
   // 趋势图表信息
-  const res_chartInfo = await getApiData(
+  const res_chartInfo = await (0, ncov_china_1.getApiData)(
     ncov_china_1.URL_Object['getChartInfo']['url'],
     {
       req: {},
@@ -451,19 +404,19 @@ export default {
           data: [
             {
               name: '本土新增确诊昨日+${localConfirmAdd}',
-              value: ${dealWithNumber(localConfirmAdd)},
+              value: ${(0, ncov_china_1.dealWithNumber)(localConfirmAdd)},
             },
             {
               name: '新增无症状昨日+${noinfect}',
-              value: ${dealWithNumber(noinfect)},
+              value: ${(0, ncov_china_1.dealWithNumber)(noinfect)},
             },
             {
               name: '新增境外输入昨日+${importDesc}',
-              value: ${dealWithNumber(importDesc)},
+              value: ${(0, ncov_china_1.dealWithNumber)(importDesc)},
             },
             {
               name: '新增治愈昨日+${heal}',
-              value: ${dealWithNumber(heal)},
+              value: ${(0, ncov_china_1.dealWithNumber)(heal)},
             },
           ]
         }
@@ -689,11 +642,10 @@ export default {
 |:--:|---:|---:|---:|---:|
 ${cityInfo
   .map((item) => {
-    return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(
-      item.asymptomAdd
-    )}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(
-      item.riskLevelNum
-    )}|\n`
+    return `|${item.city}|${(0, ncov_china_1.joinWithPlus)(item.localAdd)}|${(0,
+    ncov_china_1.joinWithPlus)(item.asymptomAdd)}|${(0,
+    ncov_china_1.joinWithPlus)(item.localAddTotal)}|${(0,
+    ncov_china_1.joinWithPlus)(item.riskLevelNum)}|\n`
   })
   .join('')}
 
