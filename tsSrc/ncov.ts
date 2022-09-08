@@ -3,80 +3,77 @@ const fs = require('fs')
 // @ts-ignore
 const path = require('path')
 // @ts-ignore
-const axios = require("axios");
+const axios = require('axios')
 
 const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`
 const Exclude_Countrys = ['中国']
 
 // @ts-ignore
-const rootPath = path.resolve(__dirname,'../')
+const rootPath = path.resolve(__dirname, '../')
 // @ts-ignore
 const mdPath = rootPath + '/docs/others'
 // @ts-ignore
-const base = "others"
+const base = 'others'
 // @ts-ignore
 const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json'
 
 interface WorldlistItem {
-  name: string,
-  conadd: number,
-  conNum: number,
-  deathadd: number,
-  cureNum: number,
+  name: string
+  conadd: number
+  conNum: number
+  deathadd: number
+  cureNum: number
   deathNum: number
 }
 
 interface TotalItem {
-  certain: string | number,
-  die: string | number,
-  recure: string | number,
-  certain_inc: string | number,
-  die_inc: string | number,
-  recure_inc: string | number,
+  certain: string | number
+  die: string | number
+  recure: string | number
+  certain_inc: string | number
+  die_inc: string | number
+  recure_inc: string | number
 }
 
 interface NcovRes {
-  times: string,
-  total: TotalItem,
+  times: string
+  total: TotalItem
   worldlist: WorldlistItem[]
 }
 
 /**
-* @func readFileList
-* @param {string} path
-* @returns {object}
-* @desc 读取指定目录下的md文件
-*/
+ * @func readFileList
+ * @param {string} path
+ * @returns {object}
+ * @desc 读取指定目录下的md文件
+ */
 // @ts-ignore
 const readFileList = (path: string) => {
-  let filesList = []
-  const files = fs.readdirSync(path);
-  for (let name of files) {
-    name.indexOf('.md') > -1 && filesList.push(
-        {
-          text:name,
-          link: `/${base}/${name}`
-        }
-      )
+  const filesList = []
+  const files = fs.readdirSync(path)
+  for (const name of files) {
+    name.indexOf('.md') > -1 &&
+      filesList.push({
+        text: name,
+        link: `/${base}/${name}`
+      })
   }
-  return filesList;
+  return filesList
 }
 
 /**
-* @func getNcovText
-* @param {string} url
-* @returns {object}
-* @desc 获取疫情数据
-*/
+ * @func getNcovText
+ * @param {string} url
+ * @returns {object}
+ * @desc 获取疫情数据
+ */
 const getNcovText = async (url: string): Promise<NcovRes> => {
-  let res = await axios.get(url)
+  const res = await axios.get(url)
   // console.log(res.data)
-  const r1 = res.data.replace('try{sinajp_15844213244528328543098388435\(','')
-  const r2 = r1.replace('\);}catch\(e\){};','')
-  const r3 = JSON.parse((r2))
-  const {
-    times, total, worldlist
-  } = r3.result
+  const r1 = res.data.replace('try{sinajp_15844213244528328543098388435(', '')
+  const r2 = r1.replace(');}catch(e){};', '')
+  const r3 = JSON.parse(r2)
+  const { times, total, worldlist } = r3.result
   return {
     times,
     total,
@@ -85,11 +82,11 @@ const getNcovText = async (url: string): Promise<NcovRes> => {
 }
 
 /**
-* @func writeMdWithContent
-* @param {string} timeStr
-* @param {string} content
-* @desc 写入md文件并更新路由
-*/
+ * @func writeMdWithContent
+ * @param {string} timeStr
+ * @param {string} content
+ * @desc 写入md文件并更新路由
+ */
 // @ts-ignore
 const writeMdWithContent = (timeStr: string, content: string) => {
   const writePath = `${rootPath}/docs/others/${timeStr}.md`
@@ -97,18 +94,21 @@ const writeMdWithContent = (timeStr: string, content: string) => {
   console.log(`${timeStr}.md created.`)
 
   setTimeout(() => {
-    let filesList = readFileList(mdPath)
-  
+    const filesList = readFileList(mdPath)
+
     console.log(mdPath)
-    
+
     console.log(filesList)
-    
+
     console.log('读取文件目录生成路由---')
-    
-    const writeFileList = (path: string, data: {
-      text: string,
-      link: string
-    }[]) => {
+
+    const writeFileList = (
+      path: string,
+      data: {
+        text: string
+        link: string
+      }[]
+    ) => {
       try {
         fs.writeFileSync(path, JSON.stringify(data))
         console.log('写入路由到JSON文件---')
@@ -116,68 +116,69 @@ const writeMdWithContent = (timeStr: string, content: string) => {
         console.log(error)
       }
     }
-    
+
     writeFileList(jsonFilePath, filesList)
-  }, 500);
+  }, 500)
 }
 
 const createContent = async () => {
-  let res = await getNcovText(SINA_URL)
-  const {
-    times, total, worldlist
-  } = res
+  const res = await getNcovText(SINA_URL)
+  const { times, total, worldlist } = res
   // console.log(res)
   const certain = total['certain'] // 累计确诊
-  const die = total['die']   // 死亡
+  const die = total['die'] // 死亡
   const recure = total['recure'] // 治愈
   const certain_inc = total['certain_inc'] // 确诊增加
   const die_inc = total['die_inc'] // 死亡增加
   const recure_inc = total['recure_inc'] // 治愈增加
-  let worldlistArr = worldlist.sort((a: WorldlistItem,b: WorldlistItem) => {
-    return b.conNum - a.conNum
-  }).filter((item: WorldlistItem)=>{
-    return !Exclude_Countrys.includes(item.name)
-  }).reverse()
+  const worldlistArr = worldlist
+    .sort((a: WorldlistItem, b: WorldlistItem) => {
+      return b.conNum - a.conNum
+    })
+    .filter((item: WorldlistItem) => {
+      return !Exclude_Countrys.includes(item.name)
+    })
+    .reverse()
   console.log(worldlistArr.length)
   // console.log(times)
-  const year = (new Date()).getFullYear()
-  const month = times.slice(2,4)
-  const day = times.slice(5,7)
-  const hour = times.slice(8,10)
-  const minute = times.slice(11,13)
+  const year = new Date().getFullYear()
+  const month = times.slice(2, 4)
+  const day = times.slice(5, 7)
+  const hour = times.slice(8, 10)
+  const minute = times.slice(11, 13)
   const timeStr = `${year}${month}${day}-${hour}${minute}` // '20220904-0720'
   const title = `${year}年${month}月${day}日 ${hour}:${minute}`
 
-  let countrys: string[] = [] 
-  let conadds: number[] = [] 
-  let conNums: number[] = [] 
-  let deathadds: number[] = [] 
-  let cureNums: number[] = [] 
-  let deathNums: number[] = []
+  const countrys: string[] = []
+  const conadds: number[] = []
+  const conNums: number[] = []
+  const deathadds: number[] = []
+  const cureNums: number[] = []
+  const deathNums: number[] = []
 
-  let countrys_second: string[] = [] 
-  let conadds_second: number[] = [] 
-  let conNums_second: number[] = [] 
-  let deathadds_second: number[] = [] 
-  let cureNums_second: number[] = [] 
-  let deathNums_second: number[] = []
+  const countrys_second: string[] = []
+  const conadds_second: number[] = []
+  const conNums_second: number[] = []
+  const deathadds_second: number[] = []
+  const cureNums_second: number[] = []
+  const deathNums_second: number[] = []
 
-  let countrys_third: string[] = [] 
-  let conadds_third: number[] = [] 
-  let conNums_third: number[] = [] 
-  let deathadds_third: number[] = [] 
-  let cureNums_third: number[] = [] 
-  let deathNums_third: number[] = []
+  const countrys_third: string[] = []
+  const conadds_third: number[] = []
+  const conNums_third: number[] = []
+  const deathadds_third: number[] = []
+  const cureNums_third: number[] = []
+  const deathNums_third: number[] = []
 
-  let countrys_last: string[] = [] 
-  let conadds_last: number[] = [] 
-  let conNums_last: number[] = [] 
-  let deathadds_last: number[] = [] 
-  let cureNums_last: number[] = [] 
-  let deathNums_last: number[] = []
+  const countrys_last: string[] = []
+  const conadds_last: number[] = []
+  const conNums_last: number[] = []
+  const deathadds_last: number[] = []
+  const cureNums_last: number[] = []
+  const deathNums_last: number[] = []
 
   // console.log(worldlistArr.slice(189))
-  worldlistArr.slice(189).forEach((item: WorldlistItem)=>{
+  worldlistArr.slice(189).forEach((item: WorldlistItem) => {
     countrys.push(item['name'])
     conadds.push(item['conadd'])
     conNums.push(item['conNum'])
@@ -185,7 +186,7 @@ const createContent = async () => {
     cureNums.push(item['cureNum'])
     deathNums.push(item['deathNum'])
   })
-  worldlistArr.slice(179,189).forEach((item: WorldlistItem)=>{
+  worldlistArr.slice(179, 189).forEach((item: WorldlistItem) => {
     countrys_second.push(item['name'])
     conadds_second.push(item['conadd'])
     conNums_second.push(item['conNum'])
@@ -193,7 +194,7 @@ const createContent = async () => {
     cureNums_second.push(item['cureNum'])
     deathNums_second.push(item['deathNum'])
   })
-  worldlistArr.slice(169,179).forEach((item: WorldlistItem)=>{
+  worldlistArr.slice(169, 179).forEach((item: WorldlistItem) => {
     countrys_third.push(item['name'])
     conadds_third.push(item['conadd'])
     conNums_third.push(item['conNum'])
@@ -201,7 +202,7 @@ const createContent = async () => {
     cureNums_third.push(item['cureNum'])
     deathNums_third.push(item['deathNum'])
   })
-  worldlistArr.slice(0,169).forEach((item: WorldlistItem)=>{
+  worldlistArr.slice(0, 169).forEach((item: WorldlistItem) => {
     countrys_last.push(item['name'])
     conadds_last.push(item['conadd'])
     conNums_last.push(item['conNum'])
@@ -237,16 +238,38 @@ export default {
       grid: { left: "3%", right: "4%", bottom: "3%", containLabel: true },
       xAxis: { type: "value" },
       yAxis: {
-        type: "category", data: [${countrys.map(x=>{
-          return `"${x}",`
-        }).join('')}]
+        type: "category", data: [${countrys
+          .map((x) => {
+            return `"${x}",`
+          })
+          .join('')}]
       },
       series: [
-        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums.map(x=>{return `${x},`}).join('')}] },]
+        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] },]
     }
     this.chart.setOption(option);
     var secondOption = {
@@ -255,16 +278,38 @@ export default {
       grid: { left: "3%", right: "4%", bottom: "3%", containLabel: true },
       xAxis: { type: "value" },
       yAxis: {
-        type: "category", data: [${countrys_second.map(x=>{
-          return `"${x}",`
-        }).join('')}]
+        type: "category", data: [${countrys_second
+          .map((x) => {
+            return `"${x}",`
+          })
+          .join('')}]
       },
       series: [
-        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_second.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_second.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_second.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_second.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_second.map(x=>{return `${x},`}).join('')}] },]
+        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_second
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_second
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_second
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_second
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_second
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] },]
     }
     this.secondChart.setOption(secondOption);
     var thirdOption = {
@@ -273,16 +318,38 @@ export default {
       grid: { left: "3%", right: "4%", bottom: "3%", containLabel: true },
       xAxis: { type: "value" },
       yAxis: {
-        type: "category", data: [${countrys_third.map(x=>{
-          return `"${x}",`
-        }).join('')}]
+        type: "category", data: [${countrys_third
+          .map((x) => {
+            return `"${x}",`
+          })
+          .join('')}]
       },
       series: [
-        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_third.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_third.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_third.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_third.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_third.map(x=>{return `${x},`}).join('')}] },]
+        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_third
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_third
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_third
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_third
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_third
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] },]
     }
     this.thirdChart.setOption(thirdOption);
     var lastOption = {
@@ -291,16 +358,38 @@ export default {
       grid: { left: "3%", right: "4%", bottom: "3%", containLabel: true },
       xAxis: { type: "value" },
       yAxis: {
-        type: "category", data: [${countrys_last.map(x=>{
-          return `"${x.replace(/\s*/g,'')}",`
-        }).join('')}]
+        type: "category", data: [${countrys_last
+          .map((x) => {
+            return `"${x.replace(/\s*/g, '')}",`
+          })
+          .join('')}]
       },
       series: [
-        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_last.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_last.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_last.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_last.map(x=>{return `${x},`}).join('')}] }, 
-        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_last.map(x=>{return `${x},`}).join('')}] },]
+        { name: "新增确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conadds_last
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计确诊", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${conNums_last
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "新增死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathadds_last
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计死亡", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${deathNums_last
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] }, 
+        { name: "累计治愈", type: "bar", stack: "total", label: { show: true }, emphasis: { focus: "series" }, data: [${cureNums_last
+          .map((x) => {
+            return `${x},`
+          })
+          .join('')}] },]
     }
     this.lastChart.setOption(lastOption);
   }
@@ -309,14 +398,14 @@ export default {
 
 |国家|新增确诊|累计确诊|新增死亡|累计死亡|累计治愈|
 |:--:|---:|---:|---:|---:|---:|
-${worldlistArr.reverse().map((item: WorldlistItem)=>{
-  return `|${item.name}|${item.conadd}|${item.conNum}|${item.deathadd}|${item.deathNum}|${item.cureNum}|\n`
-}).join('')}
+${worldlistArr
+  .reverse()
+  .map((item: WorldlistItem) => {
+    return `|${item.name}|${item.conadd}|${item.conNum}|${item.deathadd}|${item.deathNum}|${item.cureNum}|\n`
+  })
+  .join('')}
 `
   writeMdWithContent(timeStr, content)
 }
 
 createContent()
-
-
-

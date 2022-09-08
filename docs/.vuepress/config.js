@@ -11,12 +11,8 @@ module.exports = {
   base: '/',
   title: 'Hello',
   head: [
-    [
-      'link', { rel: 'icon', href: '/images/logo.jpg' }
-    ],
-    [
-      'link', { rel: 'stylesheet', href: '/css/default.css' }
-    ]
+    ['link', { rel: 'icon', href: '/images/logo.jpg' }],
+    ['link', { rel: 'stylesheet', href: '/css/default.css' }]
   ],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
@@ -53,7 +49,7 @@ module.exports = {
           {
             text: '网站记录',
             link: '/tools/some-website.md'
-          },
+          }
         ]
       },
       {
@@ -178,7 +174,7 @@ module.exports = {
           {
             text: 'VuePress自定义样式',
             link: '/notes/vuepress-fix-style.md'
-          },
+          }
         ]
       },
       {
@@ -188,7 +184,7 @@ module.exports = {
       {
         text: '国内疫情数据',
         children: chinaRoutes
-      },
+      }
     ]
-  }),
+  })
 }

@@ -30,7 +30,7 @@ class AxiosCanceler {
         }
     }
     removeAllPending() {
-        pendingMap.forEach(cancel => {
+        pendingMap.forEach((cancel) => {
             cancel && (0, is_1.isFunction)(cancel) && cancel();
         });
         pendingMap.clear();

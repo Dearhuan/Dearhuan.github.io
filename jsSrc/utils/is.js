@@ -52,7 +52,10 @@ function isNumber(val) {
 }
 exports.isNumber = isNumber;
 function isPromise(val) {
-    return is(val, 'Promise') && isObject(val) && isFunction(val.then) && isFunction(val.catch);
+    return (is(val, 'Promise') &&
+        isObject(val) &&
+        isFunction(val.then) &&
+        isFunction(val.catch));
 }
 exports.isPromise = isPromise;
 function isString(val) {

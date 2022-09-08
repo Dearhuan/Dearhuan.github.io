@@ -4,7 +4,7 @@ const fs = require('fs');
 // @ts-ignore
 const path = require('path');
 // @ts-ignore
-const axios = require("axios");
+const axios = require('axios');
 const GuangDongProvinceCode = '440000';
 const GuangZhouCityCode = '440100';
 const BASE_URL = 'https://wechat.wecity.qq.com/api/';
@@ -47,44 +47,45 @@ const URL_Object = {
         func: 'getTopicContent',
         service: OUTER_SERVICE,
         url: GetTopicContent
-    },
+    }
 };
 // @ts-ignore
 const rootPath = path.resolve(__dirname, '../');
 // @ts-ignore
 const mdPath = rootPath + '/docs/chinaNcovs';
 // @ts-ignore
-const base = "chinaNcovs";
+const base = 'chinaNcovs';
 // @ts-ignore
 const jsonFilePath = rootPath + '/docs/.vuepress/public/json/chinaRoutes.json';
 /**
-* @func readFileList
-* @param {string} path
-* @returns {object}
-* @desc 读取指定目录下的md文件
-*/
+ * @func readFileList
+ * @param {string} path
+ * @returns {object}
+ * @desc 读取指定目录下的md文件
+ */
 // @ts-ignore
 const readFileList = (path) => {
-    let filesList = [];
+    const filesList = [];
     const files = fs.readdirSync(path);
-    for (let name of files) {
-        name.indexOf('.md') > -1 && filesList.push({
-            text: name,
-            link: `/${base}/${name}`
-        });
+    for (const name of files) {
+        name.indexOf('.md') > -1 &&
+            filesList.push({
+                text: name,
+                link: `/${base}/${name}`
+            });
     }
     return filesList;
 };
 /**
-* @func getApiData
-* @param {string} url
-* @param {ApiRequestParams} params
-* @returns {Promise<Result<T>>}
-* @desc 接口统一处理
-*/
+ * @func getApiData
+ * @param {string} url
+ * @param {ApiRequestParams} params
+ * @returns {Promise<Result<T>>}
+ * @desc 接口统一处理
+ */
 const getApiData = async (url, params) => {
     const { req, service, func } = params;
-    let res = await axios.post(url, {
+    const res = await axios.post(url, {
         args: {
             req
         },
@@ -103,18 +104,18 @@ const dealWithNumber = (number) => {
     return number > 0 ? number : 1;
 };
 /**
-* @func writeMdWithContent
-* @param {string} timeStr
-* @param {string} content
-* @desc 写入md文件并更新路由
-*/
+ * @func writeMdWithContent
+ * @param {string} timeStr
+ * @param {string} content
+ * @desc 写入md文件并更新路由
+ */
 // @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
     const writePath = `${rootPath}/docs/chinaNcovs/${timeStr}.md`;
     fs.writeFileSync(writePath, content, 'utf-8');
     console.log(`${timeStr}.md created.`);
     setTimeout(() => {
-        let filesList = readFileList(mdPath);
+        const filesList = readFileList(mdPath);
         console.log(mdPath);
         console.log(filesList);
         console.log('读取文件目录生成路由---');
@@ -131,7 +132,7 @@ const writeMdWithContent = (timeStr, content) => {
     }, 500);
 };
 (async () => {
-    let res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
+    const res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
         req: {},
         func: URL_Object['getChinaRealTimeInfo']['func'],
         service: URL_Object['getChinaRealTimeInfo']['service']
@@ -144,12 +145,12 @@ const writeMdWithContent = (timeStr, content) => {
     importDesc, // 新增境外输入
     heal // 新增治愈
      } = chinaDayModify;
-    const { localNowConfirm, // 本土现有确诊 
+    const { localNowConfirm, // 本土现有确诊
     noinfectDesc, // 现有无症状
     nowImport, // 现有境外输入
     confirm // 累计确诊
      } = chinaTotal;
-    let res_province = await getApiData(URL_Object['getProvinceInfoByCode']['url'], {
+    const res_province = await getApiData(URL_Object['getProvinceInfoByCode']['url'], {
         req: { provinceCode: GuangDongProvinceCode },
         func: URL_Object['getProvinceInfoByCode']['func'],
         service: URL_Object['getProvinceInfoByCode']['service']
@@ -162,25 +163,25 @@ const writeMdWithContent = (timeStr, content) => {
     importAdd, // 新增境外输入
     lastImportAddTotal, // 本土近7日确诊
     updateTime, riskLevelNum } = provinceInfo;
-    let res_cityList = await getApiData(URL_Object['getCityInfoByProvCode']['url'], {
+    const res_cityList = await getApiData(URL_Object['getCityInfoByProvCode']['url'], {
         req: { provinceCode: GuangDongProvinceCode },
         func: URL_Object['getCityInfoByProvCode']['func'],
         service: URL_Object['getCityInfoByProvCode']['service']
     });
     const { cityInfo } = res_cityList.args.rsp;
-    let res_trendInfo = await getApiData(URL_Object['getProvinceInfoHisByCode']['url'], {
+    const res_trendInfo = await getApiData(URL_Object['getProvinceInfoHisByCode']['url'], {
         req: { provinceCode: GuangDongProvinceCode },
         func: URL_Object['getProvinceInfoHisByCode']['func'],
         service: URL_Object['getProvinceInfoHisByCode']['service']
     });
     const { modifyHistory, totalHistory } = res_trendInfo.args.rsp;
-    let res_cityTrendInfo = await getApiData(URL_Object['getCityInfoHisByCode']['url'], {
+    const res_cityTrendInfo = await getApiData(URL_Object['getCityInfoHisByCode']['url'], {
         req: { cityCode: GuangZhouCityCode },
         func: URL_Object['getCityInfoHisByCode']['func'],
         service: URL_Object['getCityInfoHisByCode']['service']
     });
     const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp;
-    let res_news = await getApiData(URL_Object['getTopicContent']['url'], {
+    const res_news = await getApiData(URL_Object['getTopicContent']['url'], {
         req: {
             areaCode: GuangDongProvinceCode,
             hotnewsReq: {
@@ -190,9 +191,7 @@ const writeMdWithContent = (timeStr, content) => {
                 reqType: 1,
                 tab: 'shishitongbao'
             },
-            queryList: [
-                {}
-            ]
+            queryList: [{}]
         },
         func: URL_Object['getTopicContent']['func'],
         service: URL_Object['getTopicContent']['service']
@@ -260,9 +259,11 @@ export default {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: [${modifyHistory.map(x => {
+        data: [${modifyHistory
+        .map((x) => {
         return `"${x.day}",`;
-    }).join('')}]
+    })
+        .join('')}]
       },
       yAxis: {
         type: 'value'
@@ -273,21 +274,33 @@ export default {
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${modifyHistory.map(x => { return `${x.localAdd},`; }).join('')}]
+          data: [${modifyHistory
+        .map((x) => {
+        return `${x.localAdd},`;
+    })
+        .join('')}]
         },
         {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${modifyHistory.map(x => { return `${x.asymptomAdd},`; }).join('')}]
+          data: [${modifyHistory
+        .map((x) => {
+        return `${x.asymptomAdd},`;
+    })
+        .join('')}]
         },
         {
           name: '新增境外输入',
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${modifyHistory.map(x => { return `${x.importAdd},`; }).join('')}]
+          data: [${modifyHistory
+        .map((x) => {
+        return `${x.importAdd},`;
+    })
+        .join('')}]
         }
       ]
     };
@@ -316,9 +329,11 @@ export default {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: [${totalHistory.map(x => {
+        data: [${totalHistory
+        .map((x) => {
         return `"${x.day}",`;
-    }).join('')}]
+    })
+        .join('')}]
       },
       yAxis: {
         type: 'value'
@@ -329,14 +344,22 @@ export default {
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${totalHistory.map(x => { return `${x.confirm},`; }).join('')}]
+          data: [${totalHistory
+        .map((x) => {
+        return `${x.confirm},`;
+    })
+        .join('')}]
         },
         {
           name: '累计治愈',
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${totalHistory.map(x => { return `${x.heal},`; }).join('')}]
+          data: [${totalHistory
+        .map((x) => {
+        return `${x.heal},`;
+    })
+        .join('')}]
         }
       ]
     };
@@ -365,9 +388,11 @@ export default {
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: [${cityModifyHistory.map(x => {
+        data: [${cityModifyHistory
+        .map((x) => {
         return `"${x.day.slice(4)}",`;
-    }).join('')}]
+    })
+        .join('')}]
       },
       yAxis: {
         type: 'value'
@@ -378,14 +403,22 @@ export default {
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${cityModifyHistory.map(x => { return `${x.confirm},`; }).join('')}]
+          data: [${cityModifyHistory
+        .map((x) => {
+        return `${x.confirm},`;
+    })
+        .join('')}]
         },
         {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
           smooth: true,
-          data: [${cityModifyHistory.map(x => { return `${x.noinfect},`; }).join('')}]
+          data: [${cityModifyHistory
+        .map((x) => {
+        return `${x.noinfect},`;
+    })
+        .join('')}]
         }
       ]
     };
@@ -431,13 +464,16 @@ export default {
 
 |地区|本土新增确诊|本土新增无症状|本土近7日确诊|中高风险地区|
 |:--:|---:|---:|---:|---:|
-${cityInfo.map((item) => {
+${cityInfo
+        .map((item) => {
         return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(item.asymptomAdd)}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(item.riskLevelNum)}|\n`;
-    }).join('')}
+    })
+        .join('')}
 
 ${contents.length > 0 ? `## ${area}疫情热点动态` : ''}
 
-${contents.map((item) => {
+${contents
+        .map((item) => {
         return `
 ### ${item.publicTime.slice(5)}
 ::: tip ${item.title}
@@ -446,7 +482,8 @@ ${item.from}\n
 [阅读全文](${item.jumpLink.url})
 :::
   `;
-    }).join('')}
+    })
+        .join('')}
   `;
     const year = recentTime.slice(0, 4);
     const month = recentTime.slice(5, 7);
