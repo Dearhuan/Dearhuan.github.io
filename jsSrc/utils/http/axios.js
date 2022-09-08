@@ -1,17 +1,25 @@
-import axios from 'axios'
-import { AxiosCanceler } from './axiosCancel'
-import { isFunction } from '../is'
-import { RequestEnum, ContentTypeEnum } from './enums/httpEnums'
-export class VAxios {
+'use strict'
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
+  }
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.VAxios = void 0
+const axios_1 = __importDefault(require('axios'))
+const axiosCancel_1 = require('./axiosCancel')
+const is_1 = require('../is')
+const httpEnums_1 = require('./enums/httpEnums')
+class VAxios {
   axiosInstance
   options
   constructor(options) {
     this.options = options
-    this.axiosInstance = axios.create(options)
+    this.axiosInstance = axios_1.default.create(options)
     this.setupInterceptors()
   }
   createAxios(config) {
-    this.axiosInstance = axios.create(config)
+    this.axiosInstance = axios_1.default.create(config)
   }
   getTransform() {
     const { transform } = this.options
@@ -43,7 +51,7 @@ export class VAxios {
       responseInterceptors,
       responseInterceptorsCatch
     } = transform
-    const axiosCanceler = new AxiosCanceler()
+    const axiosCanceler = new axiosCancel_1.AxiosCanceler()
     this.axiosInstance.interceptors.request.use((config) => {
       // @ts-ignore
       const { ignoreCancelToken } = config.requestOptions
@@ -52,26 +60,26 @@ export class VAxios {
           ? ignoreCancelToken
           : this.options.requestOptions?.ignoreCancelToken
       !ignoreCancel && axiosCanceler.addPending(config)
-      if (requestInterceptors && isFunction(requestInterceptors)) {
+      if (requestInterceptors && (0, is_1.isFunction)(requestInterceptors)) {
         config = requestInterceptors(config, this.options)
       }
       return config
     }, undefined)
     requestInterceptorsCatch &&
-      isFunction(requestInterceptorsCatch) &&
+      (0, is_1.isFunction)(requestInterceptorsCatch) &&
       this.axiosInstance.interceptors.request.use(
         undefined,
         requestInterceptorsCatch
       )
     this.axiosInstance.interceptors.response.use((res) => {
       res && axiosCanceler.removePending(res.config)
-      if (responseInterceptors && isFunction(responseInterceptors)) {
+      if (responseInterceptors && (0, is_1.isFunction)(responseInterceptors)) {
         res = responseInterceptors(res)
       }
       return res
     }, undefined)
     responseInterceptorsCatch &&
-      isFunction(responseInterceptorsCatch) &&
+      (0, is_1.isFunction)(responseInterceptorsCatch) &&
       this.axiosInstance.interceptors.response.use(
         undefined,
         responseInterceptorsCatch
@@ -99,10 +107,10 @@ export class VAxios {
     }
     return this.axiosInstance.request({
       ...config,
-      method: RequestEnum.POST,
+      method: httpEnums_1.RequestEnum.POST,
       data: formData,
       headers: {
-        'Content-type': ContentTypeEnum.FORM_DATA,
+        'Content-type': httpEnums_1.ContentTypeEnum.FORM_DATA,
         // @ts-ignore
         ignoreCancelToken: true
       }
@@ -115,7 +123,7 @@ export class VAxios {
     const opt = Object.assign({}, requestOptions, options)
     const { beforeRequestHook, requestCatchHook, transformRequestHook } =
       transform || {}
-    if (beforeRequestHook && isFunction(beforeRequestHook)) {
+    if (beforeRequestHook && (0, is_1.isFunction)(beforeRequestHook)) {
       conf = beforeRequestHook(conf, opt)
     }
     // @ts-ignore
@@ -124,7 +132,10 @@ export class VAxios {
       this.axiosInstance
         .request(conf)
         .then((res) => {
-          if (transformRequestHook && isFunction(transformRequestHook)) {
+          if (
+            transformRequestHook &&
+            (0, is_1.isFunction)(transformRequestHook)
+          ) {
             try {
               const ret = transformRequestHook(res, opt)
               resolve(ret)
@@ -136,7 +147,7 @@ export class VAxios {
           resolve(res)
         })
         .catch((e) => {
-          if (requestCatchHook && isFunction(requestCatchHook)) {
+          if (requestCatchHook && (0, is_1.isFunction)(requestCatchHook)) {
             reject(requestCatchHook(e, opt))
             return
           }
@@ -145,15 +156,28 @@ export class VAxios {
     })
   }
   get(config, options) {
-    return this.request({ ...config, method: RequestEnum.GET }, options)
+    return this.request(
+      { ...config, method: httpEnums_1.RequestEnum.GET },
+      options
+    )
   }
   post(config, options) {
-    return this.request({ ...config, method: RequestEnum.POST }, options)
+    return this.request(
+      { ...config, method: httpEnums_1.RequestEnum.POST },
+      options
+    )
   }
   put(config, options) {
-    return this.request({ ...config, method: RequestEnum.PUT }, options)
+    return this.request(
+      { ...config, method: httpEnums_1.RequestEnum.PUT },
+      options
+    )
   }
   delete(config, options) {
-    return this.request({ ...config, method: RequestEnum.DELETE }, options)
+    return this.request(
+      { ...config, method: httpEnums_1.RequestEnum.DELETE },
+      options
+    )
   }
 }
+exports.VAxios = VAxios

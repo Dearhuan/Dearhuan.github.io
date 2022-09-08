@@ -1,12 +1,36 @@
-import fs from 'fs'
-import path from 'path'
-import axios from 'axios'
-export const rootPath = path.resolve(__dirname, '../../../')
-export const mdPath = rootPath + '/docs/chinaNcovs'
-export const base = 'chinaNcovs'
-export const jsonFilePath =
-  rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
-export const BaseApiInfo = {
+'use strict'
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
+  }
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.getFormatTimeStr =
+  exports.renderNewsCard =
+  exports.renderMarkdownTable =
+  exports.dealWithNumber =
+  exports.joinWithPlus =
+  exports.getApiData =
+  exports.writeMdWithContent =
+  exports.writeFileList =
+  exports.readFileList =
+  exports.URL_Object =
+  exports.BaseUrl =
+  exports.BaseApiInfo =
+  exports.jsonFilePath =
+  exports.base =
+  exports.mdPath =
+  exports.rootPath =
+    void 0
+const fs_1 = __importDefault(require('fs'))
+const path_1 = __importDefault(require('path'))
+const axios_1 = __importDefault(require('axios'))
+exports.rootPath = path_1.default.resolve(__dirname, '../../../')
+exports.mdPath = exports.rootPath + '/docs/chinaNcovs'
+exports.base = 'chinaNcovs'
+exports.jsonFilePath =
+  exports.rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
+exports.BaseApiInfo = {
   GuangDongProvinceCode: '440000',
   GuangZhouCityCode: '440100',
   BASE_URL: 'https://wechat.wecity.qq.com/api/',
@@ -15,50 +39,50 @@ export const BaseApiInfo = {
   OUTER_DATA_SERVICE: 'THPneumoniaOuterDataService',
   USERID: '830075f3162e41c89a790c70041cd031'
 }
-export const BaseUrl = {
-  GetChinaRealTimeInfoURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getChinaRealTimeInfo`,
-  GetProvinceInfoByCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getProvinceInfoByCode`,
-  GetCityInfoByProvCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getCityInfoByProvCode`,
-  GetProvinceInfoHisByCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getProvinceInfoHisByCode`,
-  GetCityInfoHisByCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getCityInfoHisByCode`,
-  GetTopicContentURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.OUTER_SERVICE}/getTopicContent`,
-  GetChartInfoURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`
+exports.BaseUrl = {
+  GetChinaRealTimeInfoURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getChinaRealTimeInfo`,
+  GetProvinceInfoByCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getProvinceInfoByCode`,
+  GetCityInfoByProvCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getCityInfoByProvCode`,
+  GetProvinceInfoHisByCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getProvinceInfoHisByCode`,
+  GetCityInfoHisByCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getCityInfoHisByCode`,
+  GetTopicContentURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.OUTER_SERVICE}/getTopicContent`,
+  GetChartInfoURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`
 }
-export const URL_Object = {
+exports.URL_Object = {
   getChinaRealTimeInfo: {
     func: 'getChinaRealTimeInfo',
-    service: BaseApiInfo.SERVICE,
-    url: BaseUrl.GetChinaRealTimeInfoURL
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetChinaRealTimeInfoURL
   },
   getProvinceInfoByCode: {
     func: 'getProvinceInfoByCode',
-    service: BaseApiInfo.SERVICE,
-    url: BaseUrl.GetProvinceInfoByCodeURL
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetProvinceInfoByCodeURL
   },
   getCityInfoByProvCode: {
     func: 'getCityInfoByProvCode',
-    service: BaseApiInfo.SERVICE,
-    url: BaseUrl.GetCityInfoByProvCodeURL
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetCityInfoByProvCodeURL
   },
   getProvinceInfoHisByCode: {
     func: 'getProvinceInfoHisByCode',
-    service: BaseApiInfo.SERVICE,
-    url: BaseUrl.GetProvinceInfoHisByCodeURL
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetProvinceInfoHisByCodeURL
   },
   getCityInfoHisByCode: {
     func: 'getCityInfoHisByCode',
-    service: BaseApiInfo.SERVICE,
-    url: BaseUrl.GetCityInfoHisByCodeURL
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetCityInfoHisByCodeURL
   },
   getTopicContent: {
     func: 'getTopicContent',
-    service: BaseApiInfo.OUTER_SERVICE,
-    url: BaseUrl.GetTopicContentURL
+    service: exports.BaseApiInfo.OUTER_SERVICE,
+    url: exports.BaseUrl.GetTopicContentURL
   },
   getChartInfo: {
     func: 'getChartInfo',
-    service: BaseApiInfo.OUTER_DATA_SERVICE,
-    url: BaseUrl.GetChartInfoURL
+    service: exports.BaseApiInfo.OUTER_DATA_SERVICE,
+    url: exports.BaseUrl.GetChartInfoURL
   }
 }
 /**
@@ -67,44 +91,47 @@ export const URL_Object = {
  * @returns {object}
  * @desc 读取指定目录下的md文件
  */
-export const readFileList = (path) => {
+const readFileList = (path) => {
   const filesList = []
-  const files = fs.readdirSync(path)
+  const files = fs_1.default.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
       filesList.push({
         text: name,
-        link: `/${base}/${name}`
+        link: `/${exports.base}/${name}`
       })
   }
   return filesList
 }
-export const writeFileList = (path, data) => {
+exports.readFileList = readFileList
+const writeFileList = (path, data) => {
   try {
-    fs.writeFileSync(path, JSON.stringify(data))
+    fs_1.default.writeFileSync(path, JSON.stringify(data))
     console.log('写入路由到JSON文件---')
   } catch (error) {
     console.log(error)
   }
 }
+exports.writeFileList = writeFileList
 /**
  * @func writeMdWithContent
  * @param {string} timeStr
  * @param {string} content
  * @desc 写入md文件并更新路由
  */
-export const writeMdWithContent = (timeStr, content) => {
-  const writePath = `${mdPath}/${timeStr}.md`
-  fs.writeFileSync(writePath, content, 'utf-8')
+const writeMdWithContent = (timeStr, content) => {
+  const writePath = `${exports.mdPath}/${timeStr}.md`
+  fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(mdPath)
-    console.log(mdPath)
+    const filesList = (0, exports.readFileList)(exports.mdPath)
+    console.log(exports.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
-    writeFileList(jsonFilePath, filesList)
+    ;(0, exports.writeFileList)(exports.jsonFilePath, filesList)
   }, 500)
 }
+exports.writeMdWithContent = writeMdWithContent
 /**
  * @func getApiData
  * @param {string} url
@@ -112,38 +139,41 @@ export const writeMdWithContent = (timeStr, content) => {
  * @returns {Promise<Result<T>>}
  * @desc 接口统一处理
  */
-export const getApiData = async (url, params) => {
+const getApiData = async (url, params) => {
   const { req, service, func } = params
-  const res = await axios.post(url, {
+  const res = await axios_1.default.post(url, {
     args: {
       req
     },
     service,
     func,
     context: {
-      userId: BaseApiInfo.USERID
+      userId: exports.BaseApiInfo.USERID
     }
   })
   return res.data
 }
-export const joinWithPlus = (number) => {
+exports.getApiData = getApiData
+const joinWithPlus = (number) => {
   return number > 0 ? '+' + number : number
 }
-export const dealWithNumber = (number) => {
+exports.joinWithPlus = joinWithPlus
+const dealWithNumber = (number) => {
   return number > 0 ? number : 1
 }
-export const renderMarkdownTable = (cityInfo) => {
+exports.dealWithNumber = dealWithNumber
+const renderMarkdownTable = (cityInfo) => {
   return cityInfo
     .map((item) => {
-      return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(
-        item.asymptomAdd
-      )}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(
-        item.riskLevelNum
-      )}|\n`
+      return `|${item.city}|${(0, exports.joinWithPlus)(item.localAdd)}|${(0,
+      exports.joinWithPlus)(item.asymptomAdd)}|${(0, exports.joinWithPlus)(
+        item.localAddTotal
+      )}|${(0, exports.joinWithPlus)(item.riskLevelNum)}|\n`
     })
     .join('')
 }
-export const renderNewsCard = (news, area) => {
+exports.renderMarkdownTable = renderMarkdownTable
+const renderNewsCard = (news, area) => {
   return `${news.length > 0 ? `## ${area}疫情热点动态` : ''}
 
   ${news
@@ -159,7 +189,8 @@ ${item.from}\n
     })
     .join('')}`
 }
-export const getFormatTimeStr = (timeStr) => {
+exports.renderNewsCard = renderNewsCard
+const getFormatTimeStr = (timeStr) => {
   const year = timeStr.slice(0, 4)
   const month = timeStr.slice(5, 7)
   const day = timeStr.slice(8, 10)
@@ -168,3 +199,4 @@ export const getFormatTimeStr = (timeStr) => {
   const misc = timeStr.slice(17, 19)
   return `${year}${month}${day}-${hour}${minute}${misc}`
 }
+exports.getFormatTimeStr = getFormatTimeStr

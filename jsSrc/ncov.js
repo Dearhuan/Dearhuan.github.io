@@ -1,13 +1,13 @@
-import fs from 'fs'
-import axios from 'axios'
-import {
-  rootPath,
-  mdPath,
-  jsonFilePath,
-  SINA_URL,
-  Exclude_Countrys,
-  readFileList
-} from './configs/ncov'
+'use strict'
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
+  }
+Object.defineProperty(exports, '__esModule', { value: true })
+const fs_1 = __importDefault(require('fs'))
+const axios_1 = __importDefault(require('axios'))
+const ncov_1 = require('./configs/ncov')
 /**
  * @func getNcovText
  * @param {string} url
@@ -15,7 +15,7 @@ import {
  * @desc 获取疫情数据
  */
 const getNcovText = async (url) => {
-  const res = await axios.get(url)
+  const res = await axios_1.default.get(url)
   // console.log(res.data)
   const r1 = res.data.replace('try{sinajp_15844213244528328543098388435(', '')
   const r2 = r1.replace(');}catch(e){};', '')
@@ -34,27 +34,27 @@ const getNcovText = async (url) => {
  * @desc 写入md文件并更新路由
  */
 const writeMdWithContent = (timeStr, content) => {
-  const writePath = `${rootPath}/docs/others/${timeStr}.md`
-  fs.writeFileSync(writePath, content, 'utf-8')
+  const writePath = `${ncov_1.rootPath}/docs/others/${timeStr}.md`
+  fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(mdPath)
-    console.log(mdPath)
+    const filesList = (0, ncov_1.readFileList)(ncov_1.mdPath)
+    console.log(ncov_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
     const writeFileList = (path, data) => {
       try {
-        fs.writeFileSync(path, JSON.stringify(data))
+        fs_1.default.writeFileSync(path, JSON.stringify(data))
         console.log('写入路由到JSON文件---')
       } catch (error) {
         console.log(error)
       }
     }
-    writeFileList(jsonFilePath, filesList)
+    writeFileList(ncov_1.jsonFilePath, filesList)
   }, 500)
 }
 const createContent = async () => {
-  const res = await getNcovText(SINA_URL)
+  const res = await getNcovText(ncov_1.SINA_URL)
   const { times, total, worldlist } = res
   // console.log(res)
   const certain = total['certain'] // 累计确诊
@@ -68,7 +68,7 @@ const createContent = async () => {
       return b.conNum - a.conNum
     })
     .filter((item) => {
-      return !Exclude_Countrys.includes(item.name)
+      return !ncov_1.Exclude_Countrys.includes(item.name)
     })
     .reverse()
   console.log(worldlistArr.length)

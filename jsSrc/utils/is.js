@@ -1,17 +1,46 @@
+'use strict'
+Object.defineProperty(exports, '__esModule', { value: true })
+exports.isUrl =
+  exports.isClient =
+  exports.isServer =
+  exports.isMap =
+  exports.isElement =
+  exports.isWindow =
+  exports.isArray =
+  exports.isRegExp =
+  exports.isBoolean =
+  exports.isFunction =
+  exports.isString =
+  exports.isPromise =
+  exports.isNumber =
+  exports.isNullOrUnDef =
+  exports.isNullAndUnDef =
+  exports.isNull =
+  exports.isDate =
+  exports.isEmpty =
+  exports.isObject =
+  exports.isUnDef =
+  exports.isDef =
+  exports.is =
+    void 0
 const toString = Object.prototype.toString
-export function is(val, type) {
+function is(val, type) {
   return toString.call(val) === `[object ${type}]`
 }
-export function isDef(val) {
+exports.is = is
+function isDef(val) {
   return typeof val !== 'undefined'
 }
-export function isUnDef(val) {
+exports.isDef = isDef
+function isUnDef(val) {
   return !isDef(val)
 }
-export function isObject(val) {
+exports.isUnDef = isUnDef
+function isObject(val) {
   return val !== null && is(val, 'Object')
 }
-export function isEmpty(val) {
+exports.isObject = isObject
+function isEmpty(val) {
   if (isArray(val) || isString(val)) {
     return val.length === 0
   }
@@ -23,22 +52,28 @@ export function isEmpty(val) {
   }
   return false
 }
-export function isDate(val) {
+exports.isEmpty = isEmpty
+function isDate(val) {
   return is(val, 'Date')
 }
-export function isNull(val) {
+exports.isDate = isDate
+function isNull(val) {
   return val === null
 }
-export function isNullAndUnDef(val) {
+exports.isNull = isNull
+function isNullAndUnDef(val) {
   return isUnDef(val) && isNull(val)
 }
-export function isNullOrUnDef(val) {
+exports.isNullAndUnDef = isNullAndUnDef
+function isNullOrUnDef(val) {
   return isUnDef(val) || isNull(val)
 }
-export function isNumber(val) {
+exports.isNullOrUnDef = isNullOrUnDef
+function isNumber(val) {
   return is(val, 'Number')
 }
-export function isPromise(val) {
+exports.isNumber = isNumber
+function isPromise(val) {
   return (
     is(val, 'Promise') &&
     isObject(val) &&
@@ -46,34 +81,44 @@ export function isPromise(val) {
     isFunction(val.catch)
   )
 }
-export function isString(val) {
+exports.isPromise = isPromise
+function isString(val) {
   return is(val, 'String')
 }
-export function isFunction(val) {
+exports.isString = isString
+function isFunction(val) {
   return typeof val === 'function'
 }
-export function isBoolean(val) {
+exports.isFunction = isFunction
+function isBoolean(val) {
   return is(val, 'Boolean')
 }
-export function isRegExp(val) {
+exports.isBoolean = isBoolean
+function isRegExp(val) {
   return is(val, 'RegExp')
 }
-export function isArray(val) {
+exports.isRegExp = isRegExp
+function isArray(val) {
   return val && Array.isArray(val)
 }
-export function isWindow(val) {
+exports.isArray = isArray
+function isWindow(val) {
   return typeof window !== 'undefined' && is(val, 'Window')
 }
-export function isElement(val) {
+exports.isWindow = isWindow
+function isElement(val) {
   return isObject(val) && !!val.tagName
 }
-export function isMap(val) {
+exports.isElement = isElement
+function isMap(val) {
   return is(val, 'Map')
 }
-export const isServer = typeof window === 'undefined'
-export const isClient = !isServer
-export function isUrl(path) {
+exports.isMap = isMap
+exports.isServer = typeof window === 'undefined'
+exports.isClient = !exports.isServer
+function isUrl(path) {
   const reg =
     /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/
   return reg.test(path)
 }
+exports.isUrl = isUrl
