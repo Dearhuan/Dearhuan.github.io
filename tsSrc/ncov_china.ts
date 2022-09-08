@@ -489,7 +489,7 @@ export default {
         boundaryGap: false,
         data: [${chinaAddHistoryData[0].chartLineData
           .map((x) => {
-            return `"${x.y0}",`
+            return `"${x.x}",`
           })
           .join('')}]
       },
@@ -559,7 +559,7 @@ export default {
         boundaryGap: false,
         data: [${chinaNowHistoryData[0].chartLineData
           .map((x) => {
-            return `"${x.y0}",`
+            return `"${x.x}",`
           })
           .join('')}]
       },
@@ -629,7 +629,7 @@ export default {
         boundaryGap: false,
         data: [${chinaTotalHistoryData[0].chartLineData
           .map((x) => {
-            return `"${x.y0}",`
+            return `"${x.x}",`
           })
           .join('')}]
       },
