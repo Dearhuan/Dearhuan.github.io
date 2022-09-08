@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict'
 var __importDefault =
   (this && this.__importDefault) ||
@@ -6,9 +5,14 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.dealWithNumber =
+exports.getFormatTimeStr =
+  exports.renderNewsCard =
+  exports.renderMarkdownTable =
+  exports.dealWithNumber =
   exports.joinWithPlus =
   exports.getApiData =
+  exports.writeMdWithContent =
+  exports.writeFileList =
   exports.readFileList =
   exports.URL_Object =
   exports.BaseUrl =
@@ -100,6 +104,34 @@ const readFileList = (path) => {
   return filesList
 }
 exports.readFileList = readFileList
+const writeFileList = (path, data) => {
+  try {
+    fs_1.default.writeFileSync(path, JSON.stringify(data))
+    console.log('写入路由到JSON文件---')
+  } catch (error) {
+    console.log(error)
+  }
+}
+exports.writeFileList = writeFileList
+/**
+ * @func writeMdWithContent
+ * @param {string} timeStr
+ * @param {string} content
+ * @desc 写入md文件并更新路由
+ */
+const writeMdWithContent = (timeStr, content) => {
+  const writePath = `${exports.mdPath}/${timeStr}.md`
+  fs_1.default.writeFileSync(writePath, content, 'utf-8')
+  console.log(`${timeStr}.md created.`)
+  setTimeout(() => {
+    const filesList = (0, exports.readFileList)(exports.mdPath)
+    console.log(exports.mdPath)
+    console.log(filesList)
+    console.log('读取文件目录生成路由---')
+    ;(0, exports.writeFileList)(exports.jsonFilePath, filesList)
+  }, 500)
+}
+exports.writeMdWithContent = writeMdWithContent
 /**
  * @func getApiData
  * @param {string} url
@@ -130,3 +162,41 @@ const dealWithNumber = (number) => {
   return number > 0 ? number : 1
 }
 exports.dealWithNumber = dealWithNumber
+const renderMarkdownTable = (cityInfo) => {
+  return cityInfo
+    .map((item) => {
+      return `|${item.city}|${(0, exports.joinWithPlus)(item.localAdd)}|${(0,
+      exports.joinWithPlus)(item.asymptomAdd)}|${(0, exports.joinWithPlus)(
+        item.localAddTotal
+      )}|${(0, exports.joinWithPlus)(item.riskLevelNum)}|\n`
+    })
+    .join('')
+}
+exports.renderMarkdownTable = renderMarkdownTable
+const renderNewsCard = (news, area) => {
+  return `${news.length > 0 ? `## ${area}疫情热点动态` : ''}
+
+  ${news
+    .map((item) => {
+      return `
+### ${item.publicTime.slice(5)}
+::: tip ${item.title}
+${item.desc.slice(0, 100)}...\n
+${item.from}\n
+[阅读全文](${item.jumpLink.url})
+:::
+`
+    })
+    .join('')}`
+}
+exports.renderNewsCard = renderNewsCard
+const getFormatTimeStr = (timeStr) => {
+  const year = timeStr.slice(0, 4)
+  const month = timeStr.slice(5, 7)
+  const day = timeStr.slice(8, 10)
+  const hour = timeStr.slice(11, 13)
+  const minute = timeStr.slice(14, 16)
+  const misc = timeStr.slice(17, 19)
+  return `${year}${month}${day}-${hour}${minute}${misc}`
+}
+exports.getFormatTimeStr = getFormatTimeStr

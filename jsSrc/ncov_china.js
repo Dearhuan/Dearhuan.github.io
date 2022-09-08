@@ -1,40 +1,8 @@
 'use strict'
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod }
-  }
 Object.defineProperty(exports, '__esModule', { value: true })
-const fs_1 = __importDefault(require('fs'))
 const ncov_china_1 = require('./configs/ncov_china')
 const enums_1 = require('./configs/ncov_china/enums')
 const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
-/**
- * @func writeMdWithContent
- * @param {string} timeStr
- * @param {string} content
- * @desc 写入md文件并更新路由
- */
-const writeMdWithContent = (timeStr, content) => {
-  const writePath = `${ncov_china_1.rootPath}/docs/chinaNcovs/${timeStr}.md`
-  fs_1.default.writeFileSync(writePath, content, 'utf-8')
-  console.log(`${timeStr}.md created.`)
-  setTimeout(() => {
-    const filesList = (0, ncov_china_1.readFileList)(ncov_china_1.mdPath)
-    console.log(ncov_china_1.mdPath)
-    console.log(filesList)
-    console.log('读取文件目录生成路由---')
-    const writeFileList = (path, data) => {
-      try {
-        fs_1.default.writeFileSync(path, JSON.stringify(data))
-        console.log('写入路由到JSON文件---')
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    writeFileList(ncov_china_1.jsonFilePath, filesList)
-  }, 500)
-}
 ;(async () => {
   // 全国信息
   const res = await (0, ncov_china_1.getApiData)(
@@ -165,7 +133,9 @@ const writeMdWithContent = (timeStr, content) => {
 |:--:|---:|---:|---:|---:|
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
-<div id="fourth" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.CH_DAY_MODIFY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
     enums_1.ChartName.CH_ADD_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
@@ -186,18 +156,32 @@ const writeMdWithContent = (timeStr, content) => {
 |:--:|---:|---:|---:|---:|
 |全国|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
 
-<div id="main" style="width:100%;height:500px;margin-bottom:10px;"></div>
-<div id="second" style="width:100%;height:500px;margin-bottom:10px;"></div>
-<div id="third" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.GD_MODIFY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.GD_TOTAL_HISTORY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.GZ_MODIFY_HISTORY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
 <script>
 import * as echarts from 'echarts'
 export default {
   mounted () {
-    this.chart = echarts.init(document.getElementById("main"), "dark")
-    this.chartSecond = echarts.init(document.getElementById("second"), "dark")
-    this.chartThird = echarts.init(document.getElementById("third"), "dark")
-    this.chartFourth = echarts.init(document.getElementById("fourth"), "dark")
+    this.chartGdMod = echarts.init(document.getElementById("${
+      enums_1.ChartName.GD_MODIFY
+    }"), "dark")
+    this.chartGdTotal = echarts.init(document.getElementById("${
+      enums_1.ChartName.GD_TOTAL_HISTORY
+    }"), "dark")
+    this.chartGzMod = echarts.init(document.getElementById("${
+      enums_1.ChartName.GZ_MODIFY_HISTORY
+    }"), "dark")
+    this.chartChDay = echarts.init(document.getElementById("${
+      enums_1.ChartName.CH_DAY_MODIFY
+    }"), "dark")
     this.chartChAdd = echarts.init(document.getElementById("${
       enums_1.ChartName.CH_ADD_HISTORY
     }"), "dark")
@@ -208,7 +192,7 @@ export default {
       enums_1.ChartName.CH_TOTAL_HISTORY
     }"), "dark")
 
-    const option = {
+    const option_gd_mod = {
       title: {
         text: '${area}疫情新增趋势（人）'
       },
@@ -278,7 +262,7 @@ export default {
       ]
     };
 
-    const option_second = {
+    const option_gd_total = {
       title: {
         text: '${area}疫情概览（人）'
       },
@@ -337,7 +321,7 @@ export default {
       ]
     };
 
-    const option_third = {
+    const option_gz_mod = {
       title: {
         text: '广州疫情新增趋势（人）'
       },
@@ -396,7 +380,7 @@ export default {
       ]
     };
 
-    const option_fourth  = {
+    const option_ch_day  = {
       series: [
         {
           type: 'treemap',
@@ -621,10 +605,10 @@ export default {
       ]
     };
 
-    this.chart.setOption(option);
-    this.chartSecond.setOption(option_second);
-    this.chartThird.setOption(option_third);
-    this.chartFourth.setOption(option_fourth);
+    this.chartGdMod.setOption(option_gd_mod);
+    this.chartGdTotal.setOption(option_gd_total);
+    this.chartGzMod.setOption(option_gz_mod);
+    this.chartChDay.setOption(option_ch_day);
     this.chartChAdd.setOption(option_ch_add);
     this.chartChNow.setOption(option_ch_now);
     this.chartChTotal.setOption(option_ch_total);
@@ -639,36 +623,10 @@ export default {
 
 |地区|本土新增确诊|本土新增无症状|本土近7日确诊|中高风险地区|
 |:--:|---:|---:|---:|---:|
-${cityInfo
-  .map((item) => {
-    return `|${item.city}|${(0, ncov_china_1.joinWithPlus)(item.localAdd)}|${(0,
-    ncov_china_1.joinWithPlus)(item.asymptomAdd)}|${(0,
-    ncov_china_1.joinWithPlus)(item.localAddTotal)}|${(0,
-    ncov_china_1.joinWithPlus)(item.riskLevelNum)}|\n`
-  })
-  .join('')}
+${(0, ncov_china_1.renderMarkdownTable)(cityInfo)}
 
-${contents.length > 0 ? `## ${area}疫情热点动态` : ''}
-
-${contents
-  .map((item) => {
-    return `
-### ${item.publicTime.slice(5)}
-::: tip ${item.title}
-${item.desc.slice(0, 100)}...\n
-${item.from}\n
-[阅读全文](${item.jumpLink.url})
-:::
-  `
-  })
-  .join('')}
-  `
-  const year = recentTime.slice(0, 4)
-  const month = recentTime.slice(5, 7)
-  const day = recentTime.slice(8, 10)
-  const hour = recentTime.slice(11, 13)
-  const minute = recentTime.slice(14, 16)
-  const misc = recentTime.slice(17, 19)
-  const timeStr = `${year}${month}${day}-${hour}${minute}${misc}`
-  writeMdWithContent(timeStr, content)
+${(0, ncov_china_1.renderNewsCard)(contents, area)}
+`
+  const timeStr = (0, ncov_china_1.getFormatTimeStr)(recentTime)
+  ;(0, ncov_china_1.writeMdWithContent)(timeStr, content)
 })()

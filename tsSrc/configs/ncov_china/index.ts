@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import axios from 'axios'
-import { ApiRequestParams, Result } from './types'
+import { ApiRequestParams, CityInfo, ContentsInfo, Result } from './types'
 
 export const rootPath = path.resolve(__dirname, '../../../')
 
@@ -89,6 +89,45 @@ export const readFileList = (path: string) => {
   return filesList
 }
 
+export const writeFileList = (
+  path: string,
+  data: {
+    text: string
+    link: string
+  }[]
+) => {
+  try {
+    fs.writeFileSync(path, JSON.stringify(data))
+    console.log('写入路由到JSON文件---')
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+/**
+ * @func writeMdWithContent
+ * @param {string} timeStr
+ * @param {string} content
+ * @desc 写入md文件并更新路由
+ */
+export const writeMdWithContent = (timeStr: string, content: string) => {
+  const writePath = `${mdPath}/${timeStr}.md`
+  fs.writeFileSync(writePath, content, 'utf-8')
+  console.log(`${timeStr}.md created.`)
+
+  setTimeout(() => {
+    const filesList = readFileList(mdPath)
+
+    console.log(mdPath)
+
+    console.log(filesList)
+
+    console.log('读取文件目录生成路由---')
+
+    writeFileList(jsonFilePath, filesList)
+  }, 500)
+}
+
 /**
  * @func getApiData
  * @param {string} url
@@ -120,4 +159,44 @@ export const joinWithPlus = (number: number | string) => {
 
 export const dealWithNumber = (number: number | string) => {
   return number > 0 ? number : 1
+}
+
+export const renderMarkdownTable = (cityInfo: CityInfo[]) => {
+  return cityInfo
+    .map((item: CityInfo) => {
+      return `|${item.city}|${joinWithPlus(item.localAdd)}|${joinWithPlus(
+        item.asymptomAdd
+      )}|${joinWithPlus(item.localAddTotal)}|${joinWithPlus(
+        item.riskLevelNum
+      )}|\n`
+    })
+    .join('')
+}
+
+export const renderNewsCard = (news: ContentsInfo[], area: string) => {
+  return `${news.length > 0 ? `## ${area}疫情热点动态` : ''}
+
+  ${news
+    .map((item: ContentsInfo) => {
+      return `
+### ${item.publicTime.slice(5)}
+::: tip ${item.title}
+${item.desc.slice(0, 100)}...\n
+${item.from}\n
+[阅读全文](${item.jumpLink.url})
+:::
+`
+    })
+    .join('')}`
+}
+
+export const getFormatTimeStr = (timeStr: string) => {
+  const year = timeStr.slice(0, 4)
+  const month = timeStr.slice(5, 7)
+  const day = timeStr.slice(8, 10)
+  const hour = timeStr.slice(11, 13)
+  const minute = timeStr.slice(14, 16)
+  const misc = timeStr.slice(17, 19)
+
+  return `${year}${month}${day}-${hour}${minute}${misc}`
 }
