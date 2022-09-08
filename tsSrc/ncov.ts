@@ -1,46 +1,17 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-const fs = require('fs')
-// @ts-ignore
-const path = require('path')
-// @ts-ignore
-const axios = require('axios')
+import fs from 'fs'
+import path from 'path'
+import axios from 'axios'
 
-const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`
-const Exclude_Countrys = ['中国']
+import {
+  rootPath,
+  mdPath,
+  base,
+  jsonFilePath,
+  SINA_URL,
+  Exclude_Countrys
+} from './configs/ncov'
 
-// @ts-ignore
-const rootPath = path.resolve(__dirname, '../')
-// @ts-ignore
-const mdPath = rootPath + '/docs/others'
-// @ts-ignore
-const base = 'others'
-// @ts-ignore
-const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json'
-
-interface WorldlistItem {
-  name: string
-  conadd: number
-  conNum: number
-  deathadd: number
-  cureNum: number
-  deathNum: number
-}
-
-interface TotalItem {
-  certain: string | number
-  die: string | number
-  recure: string | number
-  certain_inc: string | number
-  die_inc: string | number
-  recure_inc: string | number
-}
-
-interface NcovRes {
-  times: string
-  total: TotalItem
-  worldlist: WorldlistItem[]
-}
+import { WorldlistItem, NcovRes } from './configs/ncov/types'
 
 /**
  * @func readFileList
@@ -48,7 +19,6 @@ interface NcovRes {
  * @returns {object}
  * @desc 读取指定目录下的md文件
  */
-// @ts-ignore
 const readFileList = (path: string) => {
   const filesList = []
   const files = fs.readdirSync(path)
@@ -88,7 +58,6 @@ const getNcovText = async (url: string): Promise<NcovRes> => {
  * @param {string} content
  * @desc 写入md文件并更新路由
  */
-// @ts-ignore
 const writeMdWithContent = (timeStr: string, content: string) => {
   const writePath = `${rootPath}/docs/others/${timeStr}.md`
   fs.writeFileSync(writePath, content, 'utf-8')

@@ -1,11 +1,9 @@
 'use strict'
 //获取指定目录下的所有文件名称
-// @ts-ignore
 const fs = require('fs/promises')
 console.log('__dirname : ' + __dirname)
 const DOCS = '\\docs'
 const DIR = __dirname.replace('\\', '\\\\') + DOCS
-// @ts-ignore
 const base = 'others'
 //将指定目录下的文件生成obj
 async function getObj(dir) {

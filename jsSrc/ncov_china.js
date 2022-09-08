@@ -1,77 +1,31 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict'
-// @ts-ignore
-const fs = require('fs')
-// @ts-ignore
-const path = require('path')
-// @ts-ignore
-const axios = require('axios')
-const GuangDongProvinceCode = '440000'
-const GuangZhouCityCode = '440100'
-const BASE_URL = 'https://wechat.wecity.qq.com/api/'
-const SERVICE = 'THPneumoniaDataService'
-const OUTER_SERVICE = 'THPneumoniaOuterService'
-const USERID = '830075f3162e41c89a790c70041cd031'
-const GetChinaRealTimeInfoURL = `${BASE_URL}${SERVICE}/getChinaRealTimeInfo`
-const GetProvinceInfoByCode = `${BASE_URL}${SERVICE}/getProvinceInfoByCode`
-const GetCityInfoByProvCode = `${BASE_URL}${SERVICE}/getCityInfoByProvCode`
-const GetProvinceInfoHisByCode = `${BASE_URL}${SERVICE}/getProvinceInfoHisByCode`
-const GetCityInfoHisByCode = `${BASE_URL}${SERVICE}/getCityInfoHisByCode`
-const GetTopicContent = `${BASE_URL}${OUTER_SERVICE}/getTopicContent`
-const URL_Object = {
-  getChinaRealTimeInfo: {
-    func: 'getChinaRealTimeInfo',
-    service: SERVICE,
-    url: GetChinaRealTimeInfoURL
-  },
-  getProvinceInfoByCode: {
-    func: 'getProvinceInfoByCode',
-    service: SERVICE,
-    url: GetProvinceInfoByCode
-  },
-  getCityInfoByProvCode: {
-    func: 'getCityInfoByProvCode',
-    service: SERVICE,
-    url: GetCityInfoByProvCode
-  },
-  getProvinceInfoHisByCode: {
-    func: 'getProvinceInfoHisByCode',
-    service: SERVICE,
-    url: GetProvinceInfoHisByCode
-  },
-  getCityInfoHisByCode: {
-    func: 'getCityInfoHisByCode',
-    service: SERVICE,
-    url: GetCityInfoHisByCode
-  },
-  getTopicContent: {
-    func: 'getTopicContent',
-    service: OUTER_SERVICE,
-    url: GetTopicContent
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
   }
-}
-// @ts-ignore
-const rootPath = path.resolve(__dirname, '../')
-// @ts-ignore
-const mdPath = rootPath + '/docs/chinaNcovs'
-// @ts-ignore
-const base = 'chinaNcovs'
-// @ts-ignore
-const jsonFilePath = rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
+Object.defineProperty(exports, '__esModule', { value: true })
+const fs_1 = __importDefault(require('fs'))
+const axios_1 = __importDefault(require('axios'))
+const ncov_china_1 = require('./configs/ncov_china')
+const enums_1 = require('./configs/ncov_china/enums')
+const { GuangDongProvinceCode, GuangZhouCityCode, USERID } =
+  ncov_china_1.BaseApiInfo
 /**
  * @func readFileList
  * @param {string} path
  * @returns {object}
  * @desc 读取指定目录下的md文件
  */
-// @ts-ignore
 const readFileList = (path) => {
   const filesList = []
-  const files = fs.readdirSync(path)
+  const files = fs_1.default.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
       filesList.push({
         text: name,
-        link: `/${base}/${name}`
+        link: `/${ncov_china_1.base}/${name}`
       })
   }
   return filesList
@@ -85,7 +39,7 @@ const readFileList = (path) => {
  */
 const getApiData = async (url, params) => {
   const { req, service, func } = params
-  const res = await axios.post(url, {
+  const res = await axios_1.default.post(url, {
     args: {
       req
     },
@@ -109,33 +63,36 @@ const dealWithNumber = (number) => {
  * @param {string} content
  * @desc 写入md文件并更新路由
  */
-// @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-  const writePath = `${rootPath}/docs/chinaNcovs/${timeStr}.md`
-  fs.writeFileSync(writePath, content, 'utf-8')
+  const writePath = `${ncov_china_1.rootPath}/docs/chinaNcovs/${timeStr}.md`
+  fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(mdPath)
-    console.log(mdPath)
+    const filesList = readFileList(ncov_china_1.mdPath)
+    console.log(ncov_china_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
     const writeFileList = (path, data) => {
       try {
-        fs.writeFileSync(path, JSON.stringify(data))
+        fs_1.default.writeFileSync(path, JSON.stringify(data))
         console.log('写入路由到JSON文件---')
       } catch (error) {
         console.log(error)
       }
     }
-    writeFileList(jsonFilePath, filesList)
+    writeFileList(ncov_china_1.jsonFilePath, filesList)
   }, 500)
 }
 ;(async () => {
-  const res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
-    req: {},
-    func: URL_Object['getChinaRealTimeInfo']['func'],
-    service: URL_Object['getChinaRealTimeInfo']['service']
-  })
+  // 全国信息
+  const res = await getApiData(
+    ncov_china_1.URL_Object['getChinaRealTimeInfo']['url'],
+    {
+      req: {},
+      func: ncov_china_1.URL_Object['getChinaRealTimeInfo']['func'],
+      service: ncov_china_1.URL_Object['getChinaRealTimeInfo']['service']
+    }
+  )
   const {
     chinaTotal,
     chinaDayModify,
@@ -154,12 +111,13 @@ const writeMdWithContent = (timeStr, content) => {
     nowImport, // 现有境外输入
     confirm // 累计确诊
   } = chinaTotal
+  // 省份信息
   const res_province = await getApiData(
-    URL_Object['getProvinceInfoByCode']['url'],
+    ncov_china_1.URL_Object['getProvinceInfoByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getProvinceInfoByCode']['func'],
-      service: URL_Object['getProvinceInfoByCode']['service']
+      func: ncov_china_1.URL_Object['getProvinceInfoByCode']['func'],
+      service: ncov_china_1.URL_Object['getProvinceInfoByCode']['service']
     }
   )
   const { provinceInfo } = res_province.args.rsp
@@ -173,50 +131,76 @@ const writeMdWithContent = (timeStr, content) => {
     updateTime,
     riskLevelNum
   } = provinceInfo
+  // 城市信息
   const res_cityList = await getApiData(
-    URL_Object['getCityInfoByProvCode']['url'],
+    ncov_china_1.URL_Object['getCityInfoByProvCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getCityInfoByProvCode']['func'],
-      service: URL_Object['getCityInfoByProvCode']['service']
+      func: ncov_china_1.URL_Object['getCityInfoByProvCode']['func'],
+      service: ncov_china_1.URL_Object['getCityInfoByProvCode']['service']
     }
   )
   const { cityInfo } = res_cityList.args.rsp
+  // 省份趋势信息
   const res_trendInfo = await getApiData(
-    URL_Object['getProvinceInfoHisByCode']['url'],
+    ncov_china_1.URL_Object['getProvinceInfoHisByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getProvinceInfoHisByCode']['func'],
-      service: URL_Object['getProvinceInfoHisByCode']['service']
+      func: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['func'],
+      service: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['service']
     }
   )
   const { modifyHistory, totalHistory } = res_trendInfo.args.rsp
+  // 城市趋势信息
   const res_cityTrendInfo = await getApiData(
-    URL_Object['getCityInfoHisByCode']['url'],
+    ncov_china_1.URL_Object['getCityInfoHisByCode']['url'],
     {
       req: { cityCode: GuangZhouCityCode },
-      func: URL_Object['getCityInfoHisByCode']['func'],
-      service: URL_Object['getCityInfoHisByCode']['service']
+      func: ncov_china_1.URL_Object['getCityInfoHisByCode']['func'],
+      service: ncov_china_1.URL_Object['getCityInfoHisByCode']['service']
     }
   )
   const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp
-  const res_news = await getApiData(URL_Object['getTopicContent']['url'], {
-    req: {
-      areaCode: GuangDongProvinceCode,
-      hotnewsReq: {
-        limit: 10,
-        locationCode: GuangDongProvinceCode,
-        offset: 0,
-        reqType: 1,
-        tab: 'shishitongbao'
+  // 城市新闻消息
+  const res_news = await getApiData(
+    ncov_china_1.URL_Object['getTopicContent']['url'],
+    {
+      req: {
+        areaCode: GuangDongProvinceCode,
+        hotnewsReq: {
+          limit: 10,
+          locationCode: GuangDongProvinceCode,
+          offset: 0,
+          reqType: 1,
+          tab: 'shishitongbao'
+        },
+        queryList: [{}]
       },
-      queryList: [{}]
-    },
-    func: URL_Object['getTopicContent']['func'],
-    service: URL_Object['getTopicContent']['service']
-  })
+      func: ncov_china_1.URL_Object['getTopicContent']['func'],
+      service: ncov_china_1.URL_Object['getTopicContent']['service']
+    }
+  )
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
+  // 趋势图表信息
+  const res_chartInfo = await getApiData(
+    ncov_china_1.URL_Object['getChartInfo']['url'],
+    {
+      req: {},
+      func: ncov_china_1.URL_Object['getChartInfo']['func'],
+      service: ncov_china_1.URL_Object['getChartInfo']['service']
+    }
+  )
+  const { trendChartInfo } = res_chartInfo.args.rsp
+  const chinaAddHistoryData = trendChartInfo.filter((x) => {
+    return x.chartName === enums_1.ChartName.CH_ADD_HISTORY
+  })
+  const chinaNowHistoryData = trendChartInfo.filter((x) => {
+    return x.chartName === enums_1.ChartName.CH_NOW_HISTORY
+  })
+  const chinaTotalHistoryData = trendChartInfo.filter((x) => {
+    return x.chartName === enums_1.ChartName.CH_TOTAL_HISTORY
+  })
   const content = `
 # 全国疫情整体情况
 ### 截至${recentTime} ${dataFrom}
@@ -230,6 +214,15 @@ const writeMdWithContent = (timeStr, content) => {
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
 <div id="fourth" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.CH_ADD_HISTORY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.CH_NOW_HISTORY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="${
+    enums_1.ChartName.CH_TOTAL_HISTORY
+  }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
@@ -253,6 +246,15 @@ export default {
     this.chartSecond = echarts.init(document.getElementById("second"), "dark")
     this.chartThird = echarts.init(document.getElementById("third"), "dark")
     this.chartFourth = echarts.init(document.getElementById("fourth"), "dark")
+    this.chartChAdd = echarts.init(document.getElementById("${
+      enums_1.ChartName.CH_ADD_HISTORY
+    }"), "dark")
+    this.chartChNow = echarts.init(document.getElementById("${
+      enums_1.ChartName.CH_NOW_HISTORY
+    }"), "dark")
+    this.chartChTotal = echarts.init(document.getElementById("${
+      enums_1.ChartName.CH_TOTAL_HISTORY
+    }"), "dark")
 
     const option = {
       title: {
@@ -468,10 +470,212 @@ export default {
       ]
     };
 
+    const option_ch_add = {
+      title: {
+        text: '新增疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土确诊', '无症状感染', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaAddHistoryData[0].chartLineData
+          .map((x) => {
+            return `"${x.y0}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y1},`
+            })
+            .join('')}]
+        },
+        {
+          name: '无症状感染',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y3},`
+            })
+            .join('')}]
+        },
+        {
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
+
+    const option_ch_now = {
+      title: {
+        text: '现有疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土确诊', '无症状感染', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaNowHistoryData[0].chartLineData
+          .map((x) => {
+            return `"${x.y0}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y1},`
+            })
+            .join('')}]
+        },
+        {
+          name: '无症状感染',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y3},`
+            })
+            .join('')}]
+        },
+        {
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
+
+    const option_ch_total = {
+      title: {
+        text: '累计疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['确诊(含港澳台)', '死亡(含港澳台)']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaTotalHistoryData[0].chartLineData
+          .map((x) => {
+            return `"${x.y0}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '确诊(含港澳台)',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaTotalHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y0},`
+            })
+            .join('')}]
+        },
+        {
+          name: '死亡(含港澳台)',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaTotalHistoryData[0].chartLineData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
+
     this.chart.setOption(option);
     this.chartSecond.setOption(option_second);
     this.chartThird.setOption(option_third);
     this.chartFourth.setOption(option_fourth);
+    this.chartChAdd.setOption(option_ch_add);
+    this.chartChNow.setOption(option_ch_now);
+    this.chartChTotal.setOption(option_ch_total);
   }
 }
 </script>

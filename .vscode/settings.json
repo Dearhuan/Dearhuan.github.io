@@ -1,0 +1,24 @@
+{
+  "editor.detectIndentation": false, // vscode默认启用了根据文件类型自动设置tabsize的选项
+  "editor.tabSize": 2, // 重新设定tabsize
+  "eslint.enable": true, // #每次保存的时候将代码按eslint格式进行修复
+  "editor.formatOnSave": true, // #每次保存的时候自动格式化
+  "eslint.validate": [
+    // 确定校验准则
+    "javascript",
+    "javascriptreact",
+    "vue",
+    "html",
+    "ts",
+    "tsx",
+    "jsx"
+  ],
+  "prettier.eslintIntergration": true, //#让prettier使用eslint的代码格式进行校验
+  "prettier.semi": true, // #代码结尾的分号
+  "prettier.singleQuote": true, // #使用单引号替代双引号
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true, // #让函数(名)和后面的括号之间加个空格
+  "editor.codeActionsOnSave": {
+    "source.fixAll": false,
+    "source.fixAll.eslint": true
+  },
+}

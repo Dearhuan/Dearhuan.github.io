@@ -1,36 +1,28 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 'use strict'
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
-const fs = require('fs')
-// @ts-ignore
-const path = require('path')
-// @ts-ignore
-const axios = require('axios')
-const SINA_URL = `https://gwpre.sina.cn/ncp/foreign?_=1584421324452&callback=sinajp_15844213244528328543098388435`
-const Exclude_Countrys = ['中国']
-// @ts-ignore
-const rootPath = path.resolve(__dirname, '../')
-// @ts-ignore
-const mdPath = rootPath + '/docs/others'
-// @ts-ignore
-const base = 'others'
-// @ts-ignore
-const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json'
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod }
+  }
+Object.defineProperty(exports, '__esModule', { value: true })
+const fs_1 = __importDefault(require('fs'))
+const axios_1 = __importDefault(require('axios'))
+const ncov_1 = require('./configs/ncov')
 /**
  * @func readFileList
  * @param {string} path
  * @returns {object}
  * @desc 读取指定目录下的md文件
  */
-// @ts-ignore
 const readFileList = (path) => {
   const filesList = []
-  const files = fs.readdirSync(path)
+  const files = fs_1.default.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
       filesList.push({
         text: name,
-        link: `/${base}/${name}`
+        link: `/${ncov_1.base}/${name}`
       })
   }
   return filesList
@@ -42,7 +34,7 @@ const readFileList = (path) => {
  * @desc 获取疫情数据
  */
 const getNcovText = async (url) => {
-  const res = await axios.get(url)
+  const res = await axios_1.default.get(url)
   // console.log(res.data)
   const r1 = res.data.replace('try{sinajp_15844213244528328543098388435(', '')
   const r2 = r1.replace(');}catch(e){};', '')
@@ -60,29 +52,28 @@ const getNcovText = async (url) => {
  * @param {string} content
  * @desc 写入md文件并更新路由
  */
-// @ts-ignore
 const writeMdWithContent = (timeStr, content) => {
-  const writePath = `${rootPath}/docs/others/${timeStr}.md`
-  fs.writeFileSync(writePath, content, 'utf-8')
+  const writePath = `${ncov_1.rootPath}/docs/others/${timeStr}.md`
+  fs_1.default.writeFileSync(writePath, content, 'utf-8')
   console.log(`${timeStr}.md created.`)
   setTimeout(() => {
-    const filesList = readFileList(mdPath)
-    console.log(mdPath)
+    const filesList = readFileList(ncov_1.mdPath)
+    console.log(ncov_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
     const writeFileList = (path, data) => {
       try {
-        fs.writeFileSync(path, JSON.stringify(data))
+        fs_1.default.writeFileSync(path, JSON.stringify(data))
         console.log('写入路由到JSON文件---')
       } catch (error) {
         console.log(error)
       }
     }
-    writeFileList(jsonFilePath, filesList)
+    writeFileList(ncov_1.jsonFilePath, filesList)
   }, 500)
 }
 const createContent = async () => {
-  const res = await getNcovText(SINA_URL)
+  const res = await getNcovText(ncov_1.SINA_URL)
   const { times, total, worldlist } = res
   // console.log(res)
   const certain = total['certain'] // 累计确诊
@@ -96,7 +87,7 @@ const createContent = async () => {
       return b.conNum - a.conNum
     })
     .filter((item) => {
-      return !Exclude_Countrys.includes(item.name)
+      return !ncov_1.Exclude_Countrys.includes(item.name)
     })
     .reverse()
   console.log(worldlistArr.length)

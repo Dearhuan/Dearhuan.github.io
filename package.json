@@ -8,7 +8,7 @@
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
-    "format": "prettier --write \"./**/*.{html,vue,ts,js,json}\"",
+    "format": "prettier --write \"./{tsSrc,jsSrc}/**/*.{html,vue,ts,js,json}\"",
     "prepare": "husky install"
   },
   "devDependencies": {
