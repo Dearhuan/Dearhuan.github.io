@@ -14,7 +14,7 @@ exports.URL_Object =
   exports.rootPath =
     void 0
 const path_1 = __importDefault(require('path'))
-exports.rootPath = path_1.default.resolve(__dirname, '../')
+exports.rootPath = path_1.default.resolve(__dirname, '../../../')
 exports.mdPath = exports.rootPath + '/docs/chinaNcovs'
 exports.base = 'chinaNcovs'
 exports.jsonFilePath =

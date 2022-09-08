@@ -1,6 +1,6 @@
 import path from 'path'
 
-export const rootPath = path.resolve(__dirname, '../')
+export const rootPath = path.resolve(__dirname, '../../../')
 
 export const mdPath = rootPath + '/docs/others'
 
