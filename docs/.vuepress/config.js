@@ -84,6 +84,10 @@ module.exports = {
             link: '/notes/echarts-stacked-horizontal-bar.md'
           },
           {
+            text: 'Eslint-Prettier-husky',
+            link: '/notes/eslint-prettier-husky.md'
+          },
+          {
             text: 'GitHub Action初探',
             link: '/notes/github-action.md'
           },
