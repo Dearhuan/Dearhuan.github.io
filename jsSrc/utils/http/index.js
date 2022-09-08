@@ -1,8 +1,5 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', { value: true })
-exports.defHttp = void 0
-const axios_1 = require('./axios')
+import { VAxios } from './axios'
 const createAxios = (opt) => {
-  return new axios_1.VAxios(opt || {})
+  return new VAxios(opt || {})
 }
-exports.defHttp = createAxios()
+export const defHttp = createAxios()

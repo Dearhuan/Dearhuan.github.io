@@ -1,7 +1,4 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', { value: true })
-exports.AxiosTransform = void 0
-class AxiosTransform {
+export class AxiosTransform {
   /**
    * @description: Process configuration before request
    * @description: Process configuration before request
@@ -32,4 +29,3 @@ class AxiosTransform {
    */
   responseInterceptorsCatch
 }
-exports.AxiosTransform = AxiosTransform

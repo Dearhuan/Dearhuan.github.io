@@ -1,18 +1,22 @@
-'use strict'
-Object.defineProperty(exports, '__esModule', { value: true })
-const ncov_china_1 = require('./configs/ncov_china')
-const enums_1 = require('./configs/ncov_china/enums')
-const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
+import {
+  BaseApiInfo,
+  URL_Object,
+  getApiData,
+  dealWithNumber,
+  writeMdWithContent,
+  renderMarkdownTable,
+  renderNewsCard,
+  getFormatTimeStr
+} from './configs/ncov_china'
+import { ChartName } from './configs/ncov_china/enums'
+const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
 ;(async () => {
   // 全国信息
-  const res = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getChinaRealTimeInfo']['url'],
-    {
-      req: {},
-      func: ncov_china_1.URL_Object['getChinaRealTimeInfo']['func'],
-      service: ncov_china_1.URL_Object['getChinaRealTimeInfo']['service']
-    }
-  )
+  const res = await getApiData(URL_Object['getChinaRealTimeInfo']['url'], {
+    req: {},
+    func: URL_Object['getChinaRealTimeInfo']['func'],
+    service: URL_Object['getChinaRealTimeInfo']['service']
+  })
   const {
     chinaTotal,
     chinaDayModify,
@@ -32,12 +36,12 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     confirm // 累计确诊
   } = chinaTotal
   // 省份信息
-  const res_province = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getProvinceInfoByCode']['url'],
+  const res_province = await getApiData(
+    URL_Object['getProvinceInfoByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getProvinceInfoByCode']['func'],
-      service: ncov_china_1.URL_Object['getProvinceInfoByCode']['service']
+      func: URL_Object['getProvinceInfoByCode']['func'],
+      service: URL_Object['getProvinceInfoByCode']['service']
     }
   )
   const { provinceInfo } = res_province.args.rsp
@@ -52,74 +56,68 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     riskLevelNum
   } = provinceInfo
   // 城市信息
-  const res_cityList = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getCityInfoByProvCode']['url'],
+  const res_cityList = await getApiData(
+    URL_Object['getCityInfoByProvCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getCityInfoByProvCode']['func'],
-      service: ncov_china_1.URL_Object['getCityInfoByProvCode']['service']
+      func: URL_Object['getCityInfoByProvCode']['func'],
+      service: URL_Object['getCityInfoByProvCode']['service']
     }
   )
   const { cityInfo } = res_cityList.args.rsp
   // 省份趋势信息
-  const res_trendInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getProvinceInfoHisByCode']['url'],
+  const res_trendInfo = await getApiData(
+    URL_Object['getProvinceInfoHisByCode']['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['func'],
-      service: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['service']
+      func: URL_Object['getProvinceInfoHisByCode']['func'],
+      service: URL_Object['getProvinceInfoHisByCode']['service']
     }
   )
   const { modifyHistory, totalHistory } = res_trendInfo.args.rsp
   // 城市趋势信息
-  const res_cityTrendInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getCityInfoHisByCode']['url'],
+  const res_cityTrendInfo = await getApiData(
+    URL_Object['getCityInfoHisByCode']['url'],
     {
       req: { cityCode: GuangZhouCityCode },
-      func: ncov_china_1.URL_Object['getCityInfoHisByCode']['func'],
-      service: ncov_china_1.URL_Object['getCityInfoHisByCode']['service']
+      func: URL_Object['getCityInfoHisByCode']['func'],
+      service: URL_Object['getCityInfoHisByCode']['service']
     }
   )
   const { modifyHistory: cityModifyHistory } = res_cityTrendInfo.args.rsp
   // 城市新闻消息
-  const res_news = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getTopicContent']['url'],
-    {
-      req: {
-        areaCode: GuangDongProvinceCode,
-        hotnewsReq: {
-          limit: 10,
-          locationCode: GuangDongProvinceCode,
-          offset: 0,
-          reqType: 1,
-          tab: 'shishitongbao'
-        },
-        queryList: [{}]
+  const res_news = await getApiData(URL_Object['getTopicContent']['url'], {
+    req: {
+      areaCode: GuangDongProvinceCode,
+      hotnewsReq: {
+        limit: 10,
+        locationCode: GuangDongProvinceCode,
+        offset: 0,
+        reqType: 1,
+        tab: 'shishitongbao'
       },
-      func: ncov_china_1.URL_Object['getTopicContent']['func'],
-      service: ncov_china_1.URL_Object['getTopicContent']['service']
-    }
-  )
+      queryList: [{}]
+    },
+    func: URL_Object['getTopicContent']['func'],
+    service: URL_Object['getTopicContent']['service']
+  })
   const { hotnewsRsp } = res_news.args.rsp
   const { contents } = hotnewsRsp
   // 趋势图表信息
-  const res_chartInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getChartInfo']['url'],
-    {
-      req: {},
-      func: ncov_china_1.URL_Object['getChartInfo']['func'],
-      service: ncov_china_1.URL_Object['getChartInfo']['service']
-    }
-  )
+  const res_chartInfo = await getApiData(URL_Object['getChartInfo']['url'], {
+    req: {},
+    func: URL_Object['getChartInfo']['func'],
+    service: URL_Object['getChartInfo']['service']
+  })
   const { trendChartInfo } = res_chartInfo.args.rsp
   const chinaAddHistoryData = trendChartInfo.filter((x) => {
-    return x.chartName === enums_1.ChartName.CH_ADD_HISTORY
+    return x.chartName === ChartName.CH_ADD_HISTORY
   })
   const chinaNowHistoryData = trendChartInfo.filter((x) => {
-    return x.chartName === enums_1.ChartName.CH_NOW_HISTORY
+    return x.chartName === ChartName.CH_NOW_HISTORY
   })
   const chinaTotalHistoryData = trendChartInfo.filter((x) => {
-    return x.chartName === enums_1.ChartName.CH_TOTAL_HISTORY
+    return x.chartName === ChartName.CH_TOTAL_HISTORY
   })
   const content = `
 # 全国疫情整体情况
@@ -134,16 +132,16 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
 <div id="${
-    enums_1.ChartName.CH_DAY_MODIFY
+    ChartName.CH_DAY_MODIFY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
-    enums_1.ChartName.CH_ADD_HISTORY
+    ChartName.CH_ADD_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
-    enums_1.ChartName.CH_NOW_HISTORY
+    ChartName.CH_NOW_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
-    enums_1.ChartName.CH_TOTAL_HISTORY
+    ChartName.CH_TOTAL_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
 ## ${area}省疫情实时动态
@@ -157,13 +155,13 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
 |全国|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
 
 <div id="${
-    enums_1.ChartName.GD_MODIFY
+    ChartName.GD_MODIFY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
-    enums_1.ChartName.GD_TOTAL_HISTORY
+    ChartName.GD_TOTAL_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 <div id="${
-    enums_1.ChartName.GZ_MODIFY_HISTORY
+    ChartName.GZ_MODIFY_HISTORY
   }" style="width:100%;height:500px;margin-bottom:10px;"></div>
 
 <script>
@@ -171,25 +169,25 @@ import * as echarts from 'echarts'
 export default {
   mounted () {
     this.chartGdMod = echarts.init(document.getElementById("${
-      enums_1.ChartName.GD_MODIFY
+      ChartName.GD_MODIFY
     }"), "dark")
     this.chartGdTotal = echarts.init(document.getElementById("${
-      enums_1.ChartName.GD_TOTAL_HISTORY
+      ChartName.GD_TOTAL_HISTORY
     }"), "dark")
     this.chartGzMod = echarts.init(document.getElementById("${
-      enums_1.ChartName.GZ_MODIFY_HISTORY
+      ChartName.GZ_MODIFY_HISTORY
     }"), "dark")
     this.chartChDay = echarts.init(document.getElementById("${
-      enums_1.ChartName.CH_DAY_MODIFY
+      ChartName.CH_DAY_MODIFY
     }"), "dark")
     this.chartChAdd = echarts.init(document.getElementById("${
-      enums_1.ChartName.CH_ADD_HISTORY
+      ChartName.CH_ADD_HISTORY
     }"), "dark")
     this.chartChNow = echarts.init(document.getElementById("${
-      enums_1.ChartName.CH_NOW_HISTORY
+      ChartName.CH_NOW_HISTORY
     }"), "dark")
     this.chartChTotal = echarts.init(document.getElementById("${
-      enums_1.ChartName.CH_TOTAL_HISTORY
+      ChartName.CH_TOTAL_HISTORY
     }"), "dark")
 
     const option_gd_mod = {
@@ -387,19 +385,19 @@ export default {
           data: [
             {
               name: '本土新增确诊昨日+${localConfirmAdd}',
-              value: ${(0, ncov_china_1.dealWithNumber)(localConfirmAdd)},
+              value: ${dealWithNumber(localConfirmAdd)},
             },
             {
               name: '新增无症状昨日+${noinfect}',
-              value: ${(0, ncov_china_1.dealWithNumber)(noinfect)},
+              value: ${dealWithNumber(noinfect)},
             },
             {
               name: '新增境外输入昨日+${importDesc}',
-              value: ${(0, ncov_china_1.dealWithNumber)(importDesc)},
+              value: ${dealWithNumber(importDesc)},
             },
             {
               name: '新增治愈昨日+${heal}',
-              value: ${(0, ncov_china_1.dealWithNumber)(heal)},
+              value: ${dealWithNumber(heal)},
             },
           ]
         }
@@ -623,10 +621,10 @@ export default {
 
 |地区|本土新增确诊|本土新增无症状|本土近7日确诊|中高风险地区|
 |:--:|---:|---:|---:|---:|
-${(0, ncov_china_1.renderMarkdownTable)(cityInfo)}
+${renderMarkdownTable(cityInfo)}
 
-${(0, ncov_china_1.renderNewsCard)(contents, area)}
+${renderNewsCard(contents, area)}
 `
-  const timeStr = (0, ncov_china_1.getFormatTimeStr)(recentTime)
-  ;(0, ncov_china_1.writeMdWithContent)(timeStr, content)
+  const timeStr = getFormatTimeStr(recentTime)
+  writeMdWithContent(timeStr, content)
 })()
