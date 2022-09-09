@@ -10,7 +10,7 @@ import {
   readFileList
 } from './configs/ncov'
 
-import { WorldlistItem, NcovRes } from './configs/ncov/types'
+import type { WorldlistItem, NcovRes } from './configs/ncov/types'
 
 /**
  * @func getNcovText

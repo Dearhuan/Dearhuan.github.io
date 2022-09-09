@@ -133,3 +133,13 @@ export interface ChartLineDataItem {
   y2: string
   y3: string
 }
+
+export interface ResUnion {
+  chinaRealTimeInfo: ChinaRealTimeInfo
+  provinceInfos: ProvinceInfo
+  cityRes: CityRes
+  trendInfoRes: TrendInfoRes
+  cityTrendRes: CityTrendRes
+  contentsRes: ContentsRes
+  trendChartInfoRes: TrendChartInfoRes
+}
