@@ -324,7 +324,7 @@ ${ChartList.filter((item) => {
   return item.isCountry
 })
   .map((x) => {
-    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>`
+    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>\n`
   })
   .join('')}
 
@@ -342,7 +342,7 @@ ${ChartList.filter((item) => {
   return !item.isCountry
 })
   .map((x) => {
-    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>`
+    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>\n`
   })
   .join('')}
 
@@ -351,7 +351,7 @@ import * as echarts from 'echarts'
 export default {
   mounted () {
     ${ChartList.map((item) => {
-      return `this[${item.propName}] = echarts.init(document.getElementById("${item.id}"), "dark")`
+      return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`
     })}
 
     const option_gd_mod = {
