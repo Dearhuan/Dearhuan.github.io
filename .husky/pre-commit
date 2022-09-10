@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# commit前进行eslint检查&prettier格式化
-# yarn lint && yarn format
+npx --no-install yarn format
