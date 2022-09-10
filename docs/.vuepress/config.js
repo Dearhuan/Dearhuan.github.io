@@ -11,7 +11,7 @@ module.exports = {
   base: '/',
   title: 'Hello',
   head: [
-    ['link', { rel: 'icon', href: '/images/logo.jpg' }],
+    ['link', { rel: 'icon', href: '/images/jaychou.jpg' }],
     ['link', { rel: 'stylesheet', href: '/css/default.css' }]
   ],
   theme: defaultTheme({

@@ -2,7 +2,7 @@
 home: true
 heroText: Hello's Blog
 tagline: 人生若只如初见
-heroImage: /images/hero.png
+heroImage: /images/jaychou.jpg
 actions:
   - text: Let's Go!
     link: /notes/vuepress-hello.html
