@@ -7,3 +7,7 @@
 [clean-code-javascript](https://github.com/ryanmcdermott/clean-code-javascript)
 
 [疫情数据(腾讯)](https://feiyan.wecity.qq.com/wuhan/dist/index.html#/?tab=shishitongbao&randId=0.13653898872564252)
+
+[通信行程卡模拟(Cloudflare)](https://tripcard.pages.dev)
+
+[通信行程卡模拟(Netlify)](https://kind-snyder-68dad8.netlify.app)

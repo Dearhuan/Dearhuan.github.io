@@ -18,82 +18,86 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
 
 ;(async () => {
   // 全国信息
+  const params_chinaRealTimeInfo = URL_Object['getChinaRealTimeInfo']
   const res = await getApiData<ChinaRealTimeInfo>(
-    URL_Object['getChinaRealTimeInfo']['url'],
+    params_chinaRealTimeInfo['url'],
     {
       req: {},
-      func: URL_Object['getChinaRealTimeInfo']['func'],
-      service: URL_Object['getChinaRealTimeInfo']['service']
+      func: params_chinaRealTimeInfo['func'],
+      service: params_chinaRealTimeInfo['service']
     }
   )
 
   // 省份信息
+  const params_provinceInfoByCode = URL_Object['getProvinceInfoByCode']
   const res_province = await getApiData<ProvinceInfo>(
-    URL_Object['getProvinceInfoByCode']['url'],
+    params_provinceInfoByCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getProvinceInfoByCode']['func'],
-      service: URL_Object['getProvinceInfoByCode']['service']
+      func: params_provinceInfoByCode['func'],
+      service: params_provinceInfoByCode['service']
     }
   )
 
   // 城市信息
+  const params_cityInfoByProvCode = URL_Object['getCityInfoByProvCode']
   const res_cityList = await getApiData<CityRes>(
-    URL_Object['getCityInfoByProvCode']['url'],
+    params_cityInfoByProvCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getCityInfoByProvCode']['func'],
-      service: URL_Object['getCityInfoByProvCode']['service']
+      func: params_cityInfoByProvCode['func'],
+      service: params_cityInfoByProvCode['service']
     }
   )
 
   // 省份趋势信息
+  const params_provinceInfoHisByCode = URL_Object['getProvinceInfoHisByCode']
   const res_trendInfo = await getApiData<TrendInfoRes>(
-    URL_Object['getProvinceInfoHisByCode']['url'],
+    params_provinceInfoHisByCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: URL_Object['getProvinceInfoHisByCode']['func'],
-      service: URL_Object['getProvinceInfoHisByCode']['service']
+      func: params_provinceInfoHisByCode['func'],
+      service: params_provinceInfoHisByCode['service']
     }
   )
 
   // 城市趋势信息
+  const params_cityInfoHisByCode = URL_Object['getCityInfoHisByCode']
   const res_cityTrendInfo = await getApiData<CityTrendRes>(
-    URL_Object['getCityInfoHisByCode']['url'],
+    params_cityInfoHisByCode['url'],
     {
       req: { cityCode: GuangZhouCityCode },
-      func: URL_Object['getCityInfoHisByCode']['func'],
-      service: URL_Object['getCityInfoHisByCode']['service']
+      func: params_cityInfoHisByCode['func'],
+      service: params_cityInfoHisByCode['service']
     }
   )
 
   // 城市新闻消息
-  const res_news = await getApiData<ContentsRes>(
-    URL_Object['getTopicContent']['url'],
-    {
-      req: {
-        areaCode: GuangDongProvinceCode,
-        hotnewsReq: {
-          limit: 10,
-          locationCode: GuangDongProvinceCode,
-          offset: 0,
-          reqType: 1,
-          tab: 'shishitongbao'
-        },
-        queryList: [{}]
+  const params_topicContent = URL_Object['getTopicContent']
+  const res_news = await getApiData<ContentsRes>(params_topicContent['url'], {
+    req: {
+      areaCode: GuangDongProvinceCode,
+      hotnewsReq: {
+        limit: 10,
+        locationCode: GuangDongProvinceCode,
+        offset: 0,
+        reqType: 1,
+        tab: 'shishitongbao'
       },
-      func: URL_Object['getTopicContent']['func'],
-      service: URL_Object['getTopicContent']['service']
-    }
-  )
+      queryList: [{}]
+    },
+    func: params_topicContent['func'],
+    service: params_topicContent['service']
+  })
 
   // 趋势图表信息
+  const params_trendChartInfo = URL_Object['getChartInfo']
   const res_chartInfo = await getApiData<TrendChartInfoRes>(
-    URL_Object['getChartInfo']['url'],
+    params_trendChartInfo['url'],
     {
       req: {},
-      func: URL_Object['getChartInfo']['func'],
-      service: URL_Object['getChartInfo']['service']
+      func: params_trendChartInfo['func'],
+      service: params_trendChartInfo['service']
     }
   )
 

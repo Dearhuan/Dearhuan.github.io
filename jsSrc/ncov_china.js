@@ -4,53 +4,64 @@ const ncov_china_1 = require('./configs/ncov_china')
 const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
 ;(async () => {
   // 全国信息
+  const params_chinaRealTimeInfo =
+    ncov_china_1.URL_Object['getChinaRealTimeInfo']
   const res = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getChinaRealTimeInfo']['url'],
+    params_chinaRealTimeInfo['url'],
     {
       req: {},
-      func: ncov_china_1.URL_Object['getChinaRealTimeInfo']['func'],
-      service: ncov_china_1.URL_Object['getChinaRealTimeInfo']['service']
+      func: params_chinaRealTimeInfo['func'],
+      service: params_chinaRealTimeInfo['service']
     }
   )
   // 省份信息
+  const params_provinceInfoByCode =
+    ncov_china_1.URL_Object['getProvinceInfoByCode']
   const res_province = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getProvinceInfoByCode']['url'],
+    params_provinceInfoByCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getProvinceInfoByCode']['func'],
-      service: ncov_china_1.URL_Object['getProvinceInfoByCode']['service']
+      func: params_provinceInfoByCode['func'],
+      service: params_provinceInfoByCode['service']
     }
   )
   // 城市信息
+  const params_cityInfoByProvCode =
+    ncov_china_1.URL_Object['getCityInfoByProvCode']
   const res_cityList = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getCityInfoByProvCode']['url'],
+    params_cityInfoByProvCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getCityInfoByProvCode']['func'],
-      service: ncov_china_1.URL_Object['getCityInfoByProvCode']['service']
+      func: params_cityInfoByProvCode['func'],
+      service: params_cityInfoByProvCode['service']
     }
   )
   // 省份趋势信息
+  const params_provinceInfoHisByCode =
+    ncov_china_1.URL_Object['getProvinceInfoHisByCode']
   const res_trendInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getProvinceInfoHisByCode']['url'],
+    params_provinceInfoHisByCode['url'],
     {
       req: { provinceCode: GuangDongProvinceCode },
-      func: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['func'],
-      service: ncov_china_1.URL_Object['getProvinceInfoHisByCode']['service']
+      func: params_provinceInfoHisByCode['func'],
+      service: params_provinceInfoHisByCode['service']
     }
   )
   // 城市趋势信息
+  const params_cityInfoHisByCode =
+    ncov_china_1.URL_Object['getCityInfoHisByCode']
   const res_cityTrendInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getCityInfoHisByCode']['url'],
+    params_cityInfoHisByCode['url'],
     {
       req: { cityCode: GuangZhouCityCode },
-      func: ncov_china_1.URL_Object['getCityInfoHisByCode']['func'],
-      service: ncov_china_1.URL_Object['getCityInfoHisByCode']['service']
+      func: params_cityInfoHisByCode['func'],
+      service: params_cityInfoHisByCode['service']
     }
   )
   // 城市新闻消息
+  const params_topicContent = ncov_china_1.URL_Object['getTopicContent']
   const res_news = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getTopicContent']['url'],
+    params_topicContent['url'],
     {
       req: {
         areaCode: GuangDongProvinceCode,
@@ -63,17 +74,18 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
         },
         queryList: [{}]
       },
-      func: ncov_china_1.URL_Object['getTopicContent']['func'],
-      service: ncov_china_1.URL_Object['getTopicContent']['service']
+      func: params_topicContent['func'],
+      service: params_topicContent['service']
     }
   )
   // 趋势图表信息
+  const params_trendChartInfo = ncov_china_1.URL_Object['getChartInfo']
   const res_chartInfo = await (0, ncov_china_1.getApiData)(
-    ncov_china_1.URL_Object['getChartInfo']['url'],
+    params_trendChartInfo['url'],
     {
       req: {},
-      func: ncov_china_1.URL_Object['getChartInfo']['func'],
-      service: ncov_china_1.URL_Object['getChartInfo']['service']
+      func: params_trendChartInfo['func'],
+      service: params_trendChartInfo['service']
     }
   )
   const resData = {
