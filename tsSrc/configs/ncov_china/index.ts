@@ -127,7 +127,7 @@ export const readFileList = (path: string) => {
   for (const name of files) {
     name.indexOf('.md') > -1 &&
       filesList.push({
-        text: name,
+        text: name.split('.md')[0],
         link: `/${base}/${name}`
       })
   }

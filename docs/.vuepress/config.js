@@ -68,6 +68,10 @@ module.exports = {
             link: '/notes/weatherBot.md'
           },
           {
+            text: '自动更新疫情数据',
+            link: '/notes/autoUpdateNcovBlog.md'
+          },
+          {
             text: 'Github自动commit',
             link: '/notes/github-auto-commit.md'
           },
