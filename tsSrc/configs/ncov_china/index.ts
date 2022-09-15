@@ -336,7 +336,7 @@ ${ChartList.filter((item) => {
 
 |地区|本土新增确诊|本土新增无症状|新增境外输入|本土近7日确诊|
 |:--:|---:|---:|---:|---:|
-|全国|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
+|${area}|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
 
 ${ChartList.filter((item) => {
   return !item.isCountry
