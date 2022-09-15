@@ -104,72 +104,92 @@ module.exports = {
             link: '/notes/theme.toggle.md'
           },
           {
-            text: 'TypeScript使用示例',
-            link: '/notes/ts-demo.md'
+            text: 'TypeScript笔记',
+            link: '/notes/ts-study-base.md',
+            children: [
+              {
+                text: 'TypeScript使用示例',
+                link: '/notes/ts-demo.md'
+              },
+              {
+                text: 'TypeScript基础类型',
+                link: '/notes/ts-study-base.md'
+              },
+              {
+                text: 'TypeScript断言',
+                link: '/notes/ts-study-declare.md'
+              },
+              {
+                text: 'TypeScript类型守卫',
+                link: '/notes/ts-study-typeGuard.md'
+              },
+              {
+                text: 'TypeScript联合类型和类型别名',
+                link: '/notes/ts-study-unionType.md'
+              },
+              {
+                text: 'TypeScript交叉类型',
+                link: '/notes/ts-study-crossType.md'
+              },
+              {
+                text: 'TypeScript函数',
+                link: '/notes/ts-study-function.md'
+              },
+              {
+                text: 'TypeScript数组和对象',
+                link: '/notes/ts-study-array&object.md'
+              },
+              {
+                text: 'TypeScript接口',
+                link: '/notes/ts-study-interface.md'
+              },
+              {
+                text: 'TypeScript类',
+                link: '/notes/ts-study-class.md'
+              },
+              {
+                text: 'TypeScript泛型',
+                link: '/notes/ts-study-generic.md'
+              },
+              {
+                text: 'TypeScript装饰器',
+                link: '/notes/ts-study-decorators.md'
+              },
+              {
+                text: 'TypeScript4.0新特性',
+                link: '/notes/ts-study-4.md'
+              },
+              {
+                text: 'TypeScript编译上下文',
+                link: '/notes/ts-study-options.md'
+              },
+              {
+                text: 'TypeScript开发辅助工具',
+                link: '/notes/ts-study-tools.md'
+              },
+              {
+                text: 'TypeScript工具泛型',
+                link: '/notes/ts-generic.md'
+              },
+              {
+                text: 'Ts封装Axios',
+                link: '/notes/ts-axios.md'
+              }
+            ]
           },
           {
-            text: 'TypeScript基础类型',
-            link: '/notes/ts-study-base.md'
-          },
-          {
-            text: 'TypeScript断言',
-            link: '/notes/ts-study-declare.md'
-          },
-          {
-            text: 'TypeScript类型守卫',
-            link: '/notes/ts-study-typeGuard.md'
-          },
-          {
-            text: 'TypeScript联合类型和类型别名',
-            link: '/notes/ts-study-unionType.md'
-          },
-          {
-            text: 'TypeScript交叉类型',
-            link: '/notes/ts-study-crossType.md'
-          },
-          {
-            text: 'TypeScript函数',
-            link: '/notes/ts-study-function.md'
-          },
-          {
-            text: 'TypeScript数组和对象',
-            link: '/notes/ts-study-array&object.md'
-          },
-          {
-            text: 'TypeScript接口',
-            link: '/notes/ts-study-interface.md'
-          },
-          {
-            text: 'TypeScript类',
-            link: '/notes/ts-study-class.md'
-          },
-          {
-            text: 'TypeScript泛型',
-            link: '/notes/ts-study-generic.md'
-          },
-          {
-            text: 'TypeScript装饰器',
-            link: '/notes/ts-study-decorators.md'
-          },
-          {
-            text: 'TypeScript4.0新特性',
-            link: '/notes/ts-study-4.md'
-          },
-          {
-            text: 'TypeScript编译上下文',
-            link: '/notes/ts-study-options.md'
-          },
-          {
-            text: 'TypeScript开发辅助工具',
-            link: '/notes/ts-study-tools.md'
-          },
-          {
-            text: 'TypeScript工具泛型',
-            link: '/notes/ts-generic.md'
-          },
-          {
-            text: 'Ts封装Axios',
-            link: '/notes/ts-axios.md'
+            text: 'TypeScript类型体操',
+            link: '/notes/ts-pattern-matching.md',
+            children: [
+              {
+                text: 'TypeScript类型体操-模式匹配',
+                link: '/notes/ts-pattern-matching.md'
+              },
+              {
+                text: 'TypeScript类型体操-重新构造做变换',
+                link: '/notes/ts-reconstruct.md'
+              }
+            ]
           },
           {
             text: 'postcss-px-to-viewport使用',
