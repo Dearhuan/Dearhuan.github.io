@@ -188,6 +188,10 @@ module.exports = {
               {
                 text: 'TypeScript类型体操-重新构造做变换',
                 link: '/notes/ts-reconstruct.md'
+              },
+              {
+                text: 'TypeScript类型体操-递归复用做循环',
+                link: '/notes/ts-recursive-reuse.md'
               }
             ]
           },
