@@ -100,6 +100,14 @@ module.exports = {
             link: '/notes/skeleton.md'
           },
           {
+            text: '瀑布流-演示',
+            link: '/notes/waterfall.md'
+          },
+          {
+            text: '瀑布流-绝对定位版',
+            link: '/notes/waterfall-in-js.md'
+          },
+          {
             text: '前端主题切换',
             link: '/notes/theme.toggle.md'
           },
