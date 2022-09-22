@@ -92,7 +92,7 @@ const getData = (num = 5) => {
         div.appendChild(numDiv)
         div.style.height = getRandomHeight(4, 1) + 'px'
         div.style.background = getRgbColor()
-        div.style.transitionDelay = `0.${i+2}s`
+        div.style.transitionDelay = `${i/5}s`
         fragment.appendChild(div)
       }
       waterfall.appendChild(fragment)

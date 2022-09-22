@@ -98,13 +98,14 @@ const getData = (num = 5) => {
       for (let i = 0; i < num; i++) {
         const div = document.createElement('div')
         const numDiv = document.createElement('div')
-        div.className = 'waterfall-item'
+        div.className = 'waterfall-item animate__animated animate__slideInUp'
         numDiv.className = 'num'
         numDiv.textContent = index.value + 1;
         index.value++
         div.appendChild(numDiv)
         div.style.height = getRandomHeight(4, 1) + 'px'
         div.style.background = getRgbColor()
+        div.style.transitionDelay = `${i/5}s`
         fragment.appendChild(div)
       }
       waterfall.appendChild(fragment)
@@ -189,13 +190,35 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.1s;
+  /* transition: all 0.1s; */
 }
 
 .num {
   font-size: 18px;
   color: #fff;
   text-align: center;
+}
+.animate__animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes slideInUp {
+  from {
+    -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+.animate__slideInUp {
+  -webkit-animation-name: slideInUp;
+  animation-name: slideInUp;
 }
 </style>
 ```
