@@ -180,6 +180,12 @@ onUnmounted(() => {
   /* transition: all 0.1s; */
 }
 
+@media (max-width: 419px) {
+  .waterfall-item {
+    width: 41vw;
+  }
+}
+
 .num {
   font-size: 18px;
   color: #fff;
