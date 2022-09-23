@@ -1,4 +1,8 @@
+const path = require('path')
+
 const { defaultTheme } = require('@vuepress/theme-default')
+
+const { registerComponentsPlugin } = require('@vuepress/plugin-register-components')
 
 const routes = require('./public/json/others.json')
 const chinaRoutes = require('./public/json/chinaRoutes.json')
@@ -13,6 +17,11 @@ module.exports = {
   head: [
     ['link', { rel: 'icon', href: '/images/jaychou.jpg' }],
     ['link', { rel: 'stylesheet', href: '/css/default.css' }]
+  ],
+  plugins: [
+    registerComponentsPlugin({
+      componentsDir: path.resolve(__dirname, './components')
+    })
   ],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
