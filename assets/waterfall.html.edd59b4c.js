@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-b9754ee4","path":"/notes/waterfall.html","title":"","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1663901440000,"contributors":[{"name":"GitHub Action","email":"actions@github.com","commits":1}]},"filePathRelative":"notes/waterfall.md"}');export{t as data};
