@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-59bf2a2c","path":"/notes/ts-study-crossType.html","title":"TypeScript-\u4EA4\u53C9\u7C7B\u578B","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1663924848000,"contributors":[{"name":"Hello","email":"clearhuan@qq.com","commits":1}]},"filePathRelative":"notes/ts-study-crossType.md"}');export{t as data};
