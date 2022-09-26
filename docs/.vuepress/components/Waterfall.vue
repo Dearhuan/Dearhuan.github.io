@@ -1,27 +1,29 @@
-# 瀑布流-绝对定位版
-
-::: tip
-- 使用absolute定位，动态计算top,left设置元素的位置
-- 不断获取最小列的索引，优先从最小列插入元素
-- 获取尾部元素高度设置容器高度
-- resize,scroll添加防抖函数
-:::
-
-## 在vue中使用,[查看演示](https://dearhuan.github.io/notes/waterfall.html)
-
-```vue {151,157}
 <template>
-  <div id="waterfall" class="waterfall"></div>
+  <div :id="container" class="waterfall">
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const index = ref(0)
-
-const gap = ref(10)
-
 const loading = ref(false)
+
+const props = defineProps({
+  gap: {
+    type: Number,
+    required: true,
+    default: 10
+  },
+  container: {
+    type: String,
+    required: true,
+    default: ''
+  }
+})
+
+const gap = ref(props.gap)
+const container = ref(props.container)
 
 const getRandNum = (min, max) => {
   return parseInt(Math.random() * (max - min + 1) + min);
@@ -91,7 +93,7 @@ const debounce = (fn, delay, immdiate = false, resultCallback) => {
 }
 
 const getData = (num = 5) => {
-  const waterfall = document.getElementById('waterfall')
+  const waterfall = document.getElementById(container.value)
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const fragment = document.createDocumentFragment()
@@ -115,7 +117,7 @@ const getData = (num = 5) => {
 }
 
 const layout = () => {
-  const waterfall = document.getElementById('waterfall')
+  const waterfall = document.getElementById(container.value)
   const items = waterfall.children || []
   const gapVal = gap.value
   let heightArr = []
@@ -157,7 +159,7 @@ const funcScroll =  async () => {
 }
 
 onMounted(async () => {
-  const waterfall = document.getElementById('waterfall')
+  const waterfall = document.getElementById(container.value)
   await getData(20)
   layout()
 
@@ -219,127 +221,3 @@ onUnmounted(() => {
   animation-name: slideInUp;
 }
 </style>
-```
-## 在js中使用
-```js
-class WaterFall {
-  constructor(container, options) {
-    this.gap = options.gap || 0;
-    this.container = container;
-    this.items = container.children || [];
-    this.heightArr = [];
-    this.renderIndex = 0;
-    window.addEventListener('resize', () => {
-      this.renderIndex = 0;
-      this.heightArr = [];
-      this.layout()
-    });
-    this.container.addEventListener('DOMSubtreeModified', () => {
-      this.layout();
-    })
-  }
-  layout () {
-    if (this.items.length === 0) return;
-    const gap = this.gap;
-    const pageWidth = this.container.offsetWidth;
-    const itemWidth = this.items[0].offsetWidth;
-    const columns = parseInt(pageWidth / (itemWidth + gap)); // 总共有多少列
-    while (this.renderIndex < this.items.length) {
-      let top, left;
-      if (this.renderIndex < columns) { // 第一列
-        top = 0; left = (itemWidth + gap) * this.renderIndex;
-        this.heightArr.push(this.items[this.renderIndex].offsetHeight)
-      } else {
-        const minIndex = this.getMinIndex(this.heightArr);
-        top = this.heightArr[minIndex] + gap;
-        left = this.items[minIndex].offsetLeft
-        this.heightArr[minIndex] += (this.items[this.renderIndex].offsetHeight + gap);
-      }
-      this.container.style.height = this.getMaxHeight(this.heightArr) + 'px';
-      this.items[this.renderIndex].style.top = top + 'px';
-      this.items[this.renderIndex].style.left = left + 'px';
-      this.renderIndex++;
-    }
-  
-  getMinIndex (heightArr) {
-    let minIndex = 0;
-    let min = heightArr[minIndex]
-    for (let i = 1; i < heightArr.length; i++) {
-      if (heightArr[i] < min) {
-        min = heightArr[i]
-        minIndex = i;
-      }
-    }
-    return minIndex;
-  }
-  getMaxHeight (heightArr) {
-    let maxHeight = heightArr[0]
-    for (let i = 1; i < heightArr.length; i++) {
-      if (heightArr[i] > maxHeight) {
-        maxHeight = heightArr[i]
-      }
-    }
-    return maxHeight;
-  }
-}
-```
-
-```js
-const getRandNum = (min, max) => {
-  return parseInt(Math.random() * (max - min + 1) + min);
-};
-const getRgbColor = (flag) => {
-  var r = getRandNum(0, 255);
-  var g = getRandNum(0, 255);
-  var b = getRandNum(0, 255);
-  return flag ? `rgba(${r},${g},${b},${Math.random().toFixed(2)*1})` : `rgba(${r},${g},${b})`;
-}
-
-const getRandomHeight = (max = 5, min = 1) => {
-  return ((Math.floor(Math.random() * (max - min + 1))) + min) * 100
-}
-
-let index = 0;
-const waterfall = document.getElementById('waterfall')
-const getData = (num = 5) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const fragment = document.createDocumentFragment();
-      for (let i = 0; i < num; i++) {
-        const div = document.createElement('div');
-        const numDiv = document.createElement('div');
-        div.className = 'waterfall-item'
-        numDiv.className = 'num'
-        numDiv.textContent = index + 1;
-        index++
-        div.appendChild(numDiv);
-        div.style.height = getRandomHeight(4, 1) + 'px'
-        div.style.background = getRgbColor()
-        fragment.appendChild(div);
-      }
-      waterfall.appendChild(fragment);
-      resolve()
-    }, 1000)
-  })
-}
-
-getData(20)
-
-window.onload = function () {
-  const waterfall = document.getElementById('waterfall');
-  const water = new WaterFall(waterfall, { gap: 10 })
-  water.layout()
-}
-
-var loading = false;
-window.onscroll = async function () {
-  const scrollTop = document.documentElement.scrollTop; // 滚动条位置
-  const clientHeight = document.documentElement.clientHeight;
-  const scrollHeight = document.body.scrollHeight; // 完整高度
-  if ((scrollTop + clientHeight >= scrollHeight) && !loading) {
-    loading = true;
-    await getData();
-    loading = false;
-  }
-}
-```

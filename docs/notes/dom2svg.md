@@ -1,6 +1,6 @@
 ## html2canvas生成海报
 <!-- <template> -->
-  <div id="box">
+  <div id="content-box">
     <div class="content">
       <div class="content-top">
         <img class="poster"
@@ -119,7 +119,7 @@ const savePoster = () => {
   margin: 0;
   padding: 0;
 }
-#box {
+#content-box {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -170,7 +170,7 @@ const savePoster = () => {
 
 ```vue
 <template>
-  <div id="box">
+  <div id="content-box">
     <div class="content">
       <div class="content-top">
         <img class="poster"
@@ -289,7 +289,7 @@ const savePoster = () => {
   margin: 0;
   padding: 0;
 }
-#box {
+#content-box {
   display: flex;
   justify-content: center;
   flex-direction: column;

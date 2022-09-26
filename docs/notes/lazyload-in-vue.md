@@ -1,14 +1,11 @@
 ## 图片懒加载-IntersectionObserver
 <!-- <template> -->
-  <div class="container">
-    <div class="sunshine" v-for="(item) in list" :key="item.id">
-      <img :data-src="item.src" :ref="setItemRef" alt="">
-    </div>
-  </div>
+  <lazyLoad :list="list"/>
+  <lazyLoad :list="arr"/>
 <!-- </template> -->
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const list = ref([
   {
@@ -28,6 +25,13 @@ const list = ref([
     id: 3,
   },
   {
+    src: '/images/okxbot.png',
+    id: 7,
+  }
+])
+
+const arr = ref([
+  {
     src: '/images/jaychou.jpg',
     id: 4,
   },
@@ -35,15 +39,28 @@ const list = ref([
     src: '/images/weather.png',
     id: 5,
   },
-  {
-    src: '/images/css-doodle.png',
-    id: 6,
-  },
-  {
-    src: '/images/okxbot.png',
-    id: 7,
-  }
 ])
+</script>
+
+## 组件封装
+```vue
+// components/LazyLoad.vue
+<template>
+  <div class="container">
+    <div class="sunshine" v-for="(item) in list" :key="item.id">
+      <img :data-src="item.src" :ref="setItemRef" alt="">
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, nextTick, onMounted } from 'vue'
+
+const props = defineProps({
+  list: Array
+})
+
+const list = ref(props.list)
 
 const imgsRef = ref([])
 
@@ -91,22 +108,18 @@ onMounted(() => {
   }
 }
 </style>
+```
 
-```vue
+## 组件使用
+
+```vue {2-3}
 <template>
-  <div class="container">
-    <div class="sunshine"
-         v-for="(item) in list"
-         :key="item.id">
-      <img :data-src="item.src"
-           :ref="setItemRef"
-           alt="">
-    </div>
-  </div>
+  <lazyLoad :list="list"/>
+  <lazyLoad :list="arr"/>
 </template>
 
 <script setup>
-import { ref, nextTick, onMounted } from 'vue'
+import { ref } from 'vue'
 
 const list = ref([
   {
@@ -126,6 +139,13 @@ const list = ref([
     id: 3,
   },
   {
+    src: '/images/okxbot.png',
+    id: 7,
+  }
+])
+
+const arr = ref([
+  {
     src: '/images/jaychou.jpg',
     id: 4,
   },
@@ -133,62 +153,6 @@ const list = ref([
     src: '/images/weather.png',
     id: 5,
   },
-  {
-    src: '/images/css-doodle.png',
-    id: 6,
-  },
-  {
-    src: '/images/okxbot.png',
-    id: 7,
-  }
 ])
-
-const imgsRef = ref([])
-
-const observeImgs = () => {
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(item => {
-      console.log(item.isIntersecting)
-      if (item.isIntersecting) {
-        // 可见
-        item.target.src = item.target.dataset.src
-        delete item.target.dataset.src
-        io.unobserve(item.target)
-      }
-    })
-  })
-  // 循环观察dom
-  imgsRef.value.forEach(item => {
-    io.observe(item)
-  })
-}
-
-const setItemRef = el => {
-  if (el) {
-    imgsRef.value.push(el)
-  }
-}
-
-onMounted(() => {
-  nextTick(() => {
-    observeImgs()
-  })
-})
-
 </script>
-
-<style lang="scss" scoped>
-.container {
-  .sunshine {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: 100%;
-      height: 600px;
-      object-fit: contain;
-    }
-  }
-}
-</style>
 ```
