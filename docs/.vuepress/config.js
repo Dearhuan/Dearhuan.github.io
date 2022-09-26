@@ -1,4 +1,8 @@
+const path = require('path')
+
 const { defaultTheme } = require('@vuepress/theme-default')
+
+// const { registerComponentsPlugin } = require('@vuepress/plugin-register-components')
 
 const routes = require('./public/json/others.json')
 const chinaRoutes = require('./public/json/chinaRoutes.json')
@@ -14,6 +18,11 @@ module.exports = {
     ['link', { rel: 'icon', href: '/images/jaychou.jpg' }],
     ['link', { rel: 'stylesheet', href: '/css/default.css' }]
   ],
+  // plugins: [
+  //   registerComponentsPlugin({
+  //     componentsDir: path.resolve(__dirname, './components')
+  //   })
+  // ],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
     navbar: [
@@ -100,6 +109,26 @@ module.exports = {
             link: '/notes/skeleton.md'
           },
           {
+            text: 'html2canvas生成海报',
+            link: '/notes/dom2svg.md'
+          },
+          {
+            text: '虚拟列表',
+            link: '/notes/virtual-scroll-list.md'
+          },
+          {
+            text: '图片懒加载',
+            link: '/notes/lazyload-in-vue.md'
+          },
+          {
+            text: '瀑布流-演示',
+            link: '/notes/waterfall.md'
+          },
+          {
+            text: '瀑布流-绝对定位版',
+            link: '/notes/waterfall-in-js.md'
+          },
+          {
             text: '前端主题切换',
             link: '/notes/theme.toggle.md'
           },
@@ -182,15 +211,15 @@ module.exports = {
             link: '/notes/ts-pattern-matching.md',
             children: [
               {
-                text: 'TypeScript类型体操-模式匹配',
+                text: '模式匹配',
                 link: '/notes/ts-pattern-matching.md'
               },
               {
-                text: 'TypeScript类型体操-重新构造做变换',
+                text: '重新构造做变换',
                 link: '/notes/ts-reconstruct.md'
               },
               {
-                text: 'TypeScript类型体操-递归复用做循环',
+                text: '递归复用做循环',
                 link: '/notes/ts-recursive-reuse.md'
               }
             ]
