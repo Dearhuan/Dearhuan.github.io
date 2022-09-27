@@ -1,0 +1,1 @@
+import{_ as l,o as r,c as t,b as n,r as o}from"./app.56bf2b4e.js";const c={};function _(e,f){const a=o("waterfall");return r(),t("div",null,[n(a,{gap:10,container:e.waterfall},null,8,["container"])])}var m=l(c,[["render",_],["__file","waterfall.html.vue"]]);export{m as default};
