@@ -183,16 +183,11 @@ export const writeZhNcovCategroy = (
 
   const linkList = ref([])
 
-  linkList.value = [
-    ${fileList
-      .map((x) => {
-        return `{
-          text: ${x.text},
-          link: .${x.link.replace('md', 'html')}
-        }`
-      })
-      .join('')}
-  ]
+  linkList.value = [${fileList
+    .map((x) => {
+      return `{text: ${x.text},link: .${x.link.replace('md', 'html')}},`
+    })
+    .join('')}]
   </script>`
   fs.writeFileSync(writePath, html)
   console.log('写入ZhNcovCategroy...')
