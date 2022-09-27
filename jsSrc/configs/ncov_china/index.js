@@ -13,6 +13,7 @@ exports.renderResData =
   exports.joinWithPlus =
   exports.getApiData =
   exports.writeMdWithContent =
+  exports.writeZhNcovCategroy =
   exports.writeFileList =
   exports.readFileList =
   exports.ChartList =
@@ -20,6 +21,7 @@ exports.renderResData =
   exports.BaseUrl =
   exports.BaseApiInfo =
   exports.jsonFilePath =
+  exports.zhNcovCategroy =
   exports.base =
   exports.mdPath =
   exports.rootPath =
@@ -31,6 +33,7 @@ const enums_1 = require('./enums')
 exports.rootPath = path_1.default.resolve(__dirname, '../../../')
 exports.mdPath = exports.rootPath + '/docs/chinaNcovs'
 exports.base = 'chinaNcovs'
+exports.zhNcovCategroy = 'zhNcovCategroy'
 exports.jsonFilePath =
   exports.rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
 exports.BaseApiInfo = {
@@ -136,6 +139,7 @@ const readFileList = (path) => {
   const files = fs_1.default.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
+      name.indexOf('20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
         link: `/${exports.base}/${name}`
@@ -146,13 +150,56 @@ const readFileList = (path) => {
 exports.readFileList = readFileList
 const writeFileList = (path, data) => {
   try {
-    fs_1.default.writeFileSync(path, JSON.stringify(data))
-    console.log('写入路由到JSON文件---')
+    const obj = [
+      {
+        text: '国内疫情数据',
+        link: `${exports.mdPath}/${exports.zhNcovCategroy}.md`,
+        children: data.map((x) => {
+          return {
+            text: x.text,
+            link: x.link
+          }
+        })
+      }
+    ]
+    fs_1.default.writeFileSync(path, JSON.stringify(obj))
+    console.log('写入路由到JSON文件...')
   } catch (error) {
     console.log(error)
   }
 }
 exports.writeFileList = writeFileList
+const writeZhNcovCategroy = (fileList) => {
+  const writePath = `${exports.mdPath}/${exports.zhNcovCategroy}.md`
+  const html = `<div v-for="(item, i) in linkList" :key="i">
+                  <h3>{{ item.title }}</h3>
+                  <div>
+                    <card :defaultValue="item.children"/>
+                  </div>
+                </div>
+
+                <script setup>
+                import { ref } from 'vue'
+
+                const linkList = ref([])
+
+                linkList.value = [
+                  ${fileList
+                    .map((x) => {
+                      return `{
+                        text: ${x.text},
+                        link: ${x.link
+                          .replace(`/${exports.base}`, '')
+                          .replace('md', 'html')}
+                      }`
+                    })
+                    .join('')}
+                ]
+                </script>`
+  fs_1.default.writeFileSync(writePath, html)
+  console.log('写入ZhNcovCategroy...')
+}
+exports.writeZhNcovCategroy = writeZhNcovCategroy
 /**
  * @func writeMdWithContent
  * @param {string} timeStr
@@ -167,8 +214,9 @@ const writeMdWithContent = (timeStr, content) => {
     const filesList = (0, exports.readFileList)(exports.mdPath)
     console.log(exports.mdPath)
     console.log(filesList)
-    console.log('读取文件目录生成路由---')
+    console.log('读取文件目录生成路由...')
     ;(0, exports.writeFileList)(exports.jsonFilePath, filesList)
+    ;(0, exports.writeZhNcovCategroy)(filesList)
   }, 500)
 }
 exports.writeMdWithContent = writeMdWithContent

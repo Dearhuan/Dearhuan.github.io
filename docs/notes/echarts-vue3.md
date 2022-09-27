@@ -111,7 +111,21 @@ option.value = {
 </script>
 
 ::: warning 存在问题
-图例legend没有展示
+- 图例legend没有展示
+- resize事件监听报错
+```log:no-line-numbers
+Uncaught TypeError: Cannot read properties of undefined (reading 'type')
+  at LineView2.render (LineView.js:567:36)
+  at Task2.progress (Chart.js:233:20)
+  at Task2._doProgress (task.js:187:10)
+  at Task2.perform (task.js:153:16)
+  at echarts.js:1821:24
+  at GlobalModel2.<anonymous> (Global.js:654:10)
+  at Array.forEach (<anonymous>)
+  at each (util.js:205:13)
+  at GlobalModel2.eachSeries (Global.js:651:5)
+  at renderSeries (echarts.js:1809:15)
+```
 :::
 
 ```vue

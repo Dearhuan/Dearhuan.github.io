@@ -16,6 +16,8 @@ export const mdPath = rootPath + '/docs/chinaNcovs'
 
 export const base = 'chinaNcovs'
 
+export const zhNcovCategroy = 'zhNcovCategroy'
+
 export const jsonFilePath =
   rootPath + '/docs/.vuepress/public/json/chinaRoutes.json'
 
@@ -126,6 +128,7 @@ export const readFileList = (path: string) => {
   const files = fs.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
+      name.indexOf('20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
         link: `/${base}/${name}`
@@ -142,11 +145,59 @@ export const writeFileList = (
   }[]
 ) => {
   try {
-    fs.writeFileSync(path, JSON.stringify(data))
-    console.log('写入路由到JSON文件---')
+    const obj = [
+      {
+        text: '国内疫情数据',
+        link: `${mdPath}/${zhNcovCategroy}.md`,
+        children: data.map((x) => {
+          return {
+            text: x.text,
+            link: x.link
+          }
+        })
+      }
+    ]
+    fs.writeFileSync(path, JSON.stringify(obj))
+    console.log('写入路由到JSON文件...')
   } catch (error) {
     console.log(error)
   }
+}
+
+export const writeZhNcovCategroy = (
+  fileList: {
+    text: string
+    link: string
+  }[]
+) => {
+  const writePath = `${mdPath}/${zhNcovCategroy}.md`
+  const html = `<div v-for="(item, i) in linkList" :key="i">
+                  <h3>{{ item.title }}</h3>
+                  <div>
+                    <card :defaultValue="item.children"/>
+                  </div>
+                </div>
+
+                <script setup>
+                import { ref } from 'vue'
+
+                const linkList = ref([])
+
+                linkList.value = [
+                  ${fileList
+                    .map((x) => {
+                      return `{
+                        text: ${x.text},
+                        link: ${x.link
+                          .replace(`/${base}`, '')
+                          .replace('md', 'html')}
+                      }`
+                    })
+                    .join('')}
+                ]
+                </script>`
+  fs.writeFileSync(writePath, html)
+  console.log('写入ZhNcovCategroy...')
 }
 
 /**
@@ -167,9 +218,10 @@ export const writeMdWithContent = (timeStr: string, content: string) => {
 
     console.log(filesList)
 
-    console.log('读取文件目录生成路由---')
+    console.log('读取文件目录生成路由...')
 
     writeFileList(jsonFilePath, filesList)
+    writeZhNcovCategroy(filesList)
   }, 500)
 }
 

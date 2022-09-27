@@ -30,9 +30,6 @@ const value = ref(props.defaultValue)
 </script>
 
 <style lang="scss" scoped>
-button {
-  background: #4e6ef2;
-}
 .g-card-link {
   display: flex;
   flex-wrap: wrap;
@@ -41,8 +38,8 @@ button {
   line-height: 38px;
   .g-card-item {
     background: blue;
-    width: 113px;
-    max-width: 138px;
+    padding: 0 10px;
+    border-radius: 5px;
     height: 38px;
     cursor: pointer;
     overflow: hidden;
