@@ -185,7 +185,7 @@ export const writeZhNcovCategroy = (
 
   linkList.value = [${fileList
     .map((x) => {
-      return `{text: ${x.text},link: .${x.link.replace('md', 'html')}},`
+      return `{"text": "${x.text}","link": ".${x.link.replace('md', 'html')}"},`
     })
     .join('')}]
   </script>`
