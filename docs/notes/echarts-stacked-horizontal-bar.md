@@ -2,14 +2,22 @@
 
 ## 效果示例
 
-<div id="main" style="width:100%;height:1000px;"></div>
+<div :id="uid" style="width:100%;height:1000px;"></div>
 
 <script>
 import * as echarts from 'echarts';
 
 export default {
+  data() {
+    return {
+      uid: ''
+    }
+  },
+  beforeMount() {
+    this.uid = `echarts-box-${new Date().getTime()}`
+  },
   mounted() {
-    this.chart = echarts.init(document.getElementById('main'),'dark')
+    this.chart = echarts.init(document.getElementById(this.uid),'dark')
 
     var option = {
       tooltip: {trigger: 'axis',axisPointer: {type: 'shadow'}},

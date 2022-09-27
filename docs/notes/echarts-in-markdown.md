@@ -2,14 +2,22 @@
 
 ## 效果示例
 
-<div id="main" style="width:100%;height:800px;"></div>
+<div :id="uid" style="width:100%;height:800px;"></div>
 
 <script>
 import * as echarts from 'echarts';
 
 export default {
+  data() {
+    return {
+      uid: ''
+    }
+  },
+  beforeMount() {
+    this.uid = `echarts-box-${new Date().getTime()}`
+  },
   mounted() {
-    this.chart = echarts.init(document.getElementById('main'),'dark')
+    this.chart = echarts.init(document.getElementById(this.uid),'dark')
 
     var option;
 
@@ -124,14 +132,22 @@ yarn add echarts --save
 :::
 
 ```vue
-<div id="main" style="width:100%;height:800px;"></div>
+<div :id="uid" style="width:100%;height:800px;"></div>
 
 <script>
 import * as echarts from 'echarts';
 
 export default {
+  data() {
+    return {
+      uid: ''
+    }
+  },
+  beforeMount() {
+    this.uid = `echarts-box-${new Date().getTime()}`
+  },
   mounted() {
-    this.chart = echarts.init(document.getElementById('main'),'dark')
+    this.chart = echarts.init(document.getElementById(this.uid),'dark')
 
     var option;
 
@@ -233,11 +249,7 @@ export default {
     };
 
     this.chart.setOption(option)
-  },
-  beforeDestroy() {
-    this.chart.dispose()
-    this.chart = null
-  },
+  }
 }
 </script>
 ```
