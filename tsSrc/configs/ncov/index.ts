@@ -30,7 +30,7 @@ export const readFileList = (path: string) => {
       name.indexOf('.20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
-        link: `/${base}/${name}`
+        link: `/${name}`
       })
   }
   return filesList

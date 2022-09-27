@@ -131,30 +131,18 @@ export const readFileList = (path: string) => {
       name.indexOf('20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
-        link: `/${base}/${name}`
+        link: `/${name}`
       })
   }
   return filesList
 }
 
-export const writeFileList = (
-  path: string,
-  data: {
-    text: string
-    link: string
-  }[]
-) => {
+export const writeFileList = (path: string) => {
   try {
     const obj = [
       {
         text: '目录',
         link: `/${base}/${zhNcovCategroy}.md`
-        // children: data.map((x) => {
-        //   return {
-        //     text: x.text,
-        //     link: x.link
-        //   }
-        // })
       }
     ]
     fs.writeFileSync(path, JSON.stringify(obj))
@@ -221,7 +209,7 @@ export const writeMdWithContent = (timeStr: string, content: string) => {
 
     console.log('读取文件目录生成路由...')
 
-    writeFileList(jsonFilePath, filesList)
+    writeFileList(jsonFilePath)
     writeZhNcovCategroy(filesList)
   }, 500)
 }
