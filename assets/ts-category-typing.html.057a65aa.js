@@ -1,1 +1,0 @@
-const t=JSON.parse('{"key":"v-5730d05a","path":"/notes/ts-category-typing.html","title":"","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1664246509000,"contributors":[{"name":"GitHub Action","email":"actions@github.com","commits":1}]},"filePathRelative":"notes/ts-category-typing.md"}');export{t as data};
