@@ -1,0 +1,26 @@
+[
+  {
+    "text": "Js工具代码示例",
+    "link": "/tools/jsTool.md"
+  },
+  {
+    "text": "文件下载代码片段",
+    "link": "/tools/ts-file-tool.md"
+  },
+  {
+    "text": "常用类型检查",
+    "link": "/tools/ts-is.md"
+  },
+  {
+    "text": "Vscode代码片段",
+    "link": "/tools/snippets.md"
+  },
+  {
+    "text": "前端监控-Sentry",
+    "link": "/tools/sentry.md"
+  },
+  {
+    "text": "网站记录",
+    "link": "/tools/some-website.md"
+  }
+]
