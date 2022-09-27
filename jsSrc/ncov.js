@@ -47,7 +47,7 @@ const writeMdWithContent = (timeStr, content) => {
         const obj = [
           {
             text: '目录',
-            link: `./${ncov_1.base}/${ncov_1.othersNcovCategory}.md`
+            link: `/${ncov_1.base}/${ncov_1.othersNcovCategory}.md`
           }
         ]
         fs_1.default.writeFileSync(path, JSON.stringify(obj))

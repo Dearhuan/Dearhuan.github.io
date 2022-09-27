@@ -153,7 +153,7 @@ const writeFileList = (path, data) => {
     const obj = [
       {
         text: '目录',
-        link: `./${exports.base}/${exports.zhNcovCategroy}.md`
+        link: `/${exports.base}/${exports.zhNcovCategroy}.md`
         // children: data.map((x) => {
         //   return {
         //     text: x.text,
