@@ -55,11 +55,17 @@ import { ref } from 'vue'
 
 const linkList = ref([])
 
-linkList.value = [${fileList
+linkList.value = [${`{
+  "title": "海外疫情数据",
+  "children": [${fileList
     .map((x) => {
-      return `{"text": "${x.text}","link": ".${x.link.replace('md', 'html')}"},`
+      return `{"title": "${x.text}","link": ".${x.link.replace(
+        'md',
+        'html'
+      )}"},`
     })
     .join('')}]
+}`}]
 </script>`
   fs.writeFileSync(writePath, html)
   console.log('写入othersNcovCategory...')
