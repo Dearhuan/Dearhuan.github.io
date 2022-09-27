@@ -36,10 +36,12 @@ module.exports = {
     sidebar: [
       {
         text: '工具',
+        collapsible: true,
         children: toolsRoutes
       },
       {
         text: '记录',
+        collapsible: true,
         children: notesRoutes
       },
       {
@@ -50,6 +52,22 @@ module.exports = {
         text: '国内疫情数据',
         children: chinaRoutes
       }
-    ]
+    ],
+    slidebarDepth: 2,
+    lastUpdatedText: '最后更新时间',
+    contributorsText: '贡献者',
+    search: true,
+    searchMaxSuggestions: 10,
+    serviceWorker: {
+      updatePopup: true, 
+      updatePopup: { 
+         message: "有内容更新", 
+         buttonText: "更新" 
+      }
+    },
+    prevLinks: true,
+    nextLinks: true,
+    editLink: true,
+    editLinkText: '在GitHub上编辑此页！'
   })
 }

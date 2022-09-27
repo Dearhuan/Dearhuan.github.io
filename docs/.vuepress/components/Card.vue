@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, PropType } from 'vue'
+import { ref, PropType } from 'vue'
 
 interface CardItem {
   title: string
