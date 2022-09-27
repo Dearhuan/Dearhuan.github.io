@@ -37,7 +37,7 @@ const readFileList = (path) => {
   const files = fs_1.default.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
-      name.indexOf('.20') > -1 &&
+      name.indexOf('20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
         link: `/${name}`
