@@ -4,10 +4,13 @@ import axios from 'axios'
 import {
   rootPath,
   mdPath,
+  base,
   jsonFilePath,
   SINA_URL,
   Exclude_Countrys,
-  readFileList
+  readFileList,
+  othersNcovCategory,
+  writeOthersNcovCategory
 } from './configs/ncov'
 
 import type { WorldlistItem, NcovRes } from './configs/ncov/types'
@@ -52,22 +55,23 @@ const writeMdWithContent = (timeStr: string, content: string) => {
 
     console.log('读取文件目录生成路由---')
 
-    const writeFileList = (
-      path: string,
-      data: {
-        text: string
-        link: string
-      }[]
-    ) => {
+    const writeFileList = (path: string) => {
       try {
-        fs.writeFileSync(path, JSON.stringify(data))
+        const obj = [
+          {
+            text: '目录',
+            link: `./${base}/${othersNcovCategory}.md`
+          }
+        ]
+        fs.writeFileSync(path, JSON.stringify(obj))
         console.log('写入路由到JSON文件---')
       } catch (error) {
         console.log(error)
       }
     }
 
-    writeFileList(jsonFilePath, filesList)
+    writeFileList(jsonFilePath)
+    writeOthersNcovCategory(filesList)
   }, 500)
 }
 

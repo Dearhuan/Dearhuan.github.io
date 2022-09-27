@@ -7,6 +7,8 @@ export const mdPath = rootPath + '/docs/others'
 
 export const base = 'others'
 
+export const othersNcovCategory = 'othersNcovCategory'
+
 export const jsonFilePath = rootPath + '/docs/.vuepress/public/json/others.json'
 
 export const SINA_URL =
@@ -25,10 +27,45 @@ export const readFileList = (path: string) => {
   const files = fs.readdirSync(path)
   for (const name of files) {
     name.indexOf('.md') > -1 &&
+      name.indexOf('.20') > -1 &&
       filesList.push({
         text: name.split('.md')[0],
         link: `/${base}/${name}`
       })
   }
   return filesList
+}
+
+export const writeOthersNcovCategory = (
+  fileList: {
+    text: string
+    link: string
+  }[]
+) => {
+  const writePath = `${mdPath}/${othersNcovCategory}.md`
+  const html = `<div v-for="(item, i) in linkList" :key="i">
+  <h3>{{ item.title }}</h3>
+  <div>
+    <card :defaultValue="item.children"/>
+  </div>
+</div>
+
+<script setup>
+import { ref } from 'vue'
+
+const linkList = ref([])
+
+linkList.value = [
+  ${fileList
+    .map((x) => {
+      return `{
+        text: ${x.text},
+        link: .${x.link.replace('md', 'html')}
+      }`
+    })
+    .join('')}
+]
+</script>`
+  fs.writeFileSync(writePath, html)
+  console.log('写入othersNcovCategory...')
 }

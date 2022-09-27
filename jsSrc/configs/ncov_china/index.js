@@ -152,14 +152,14 @@ const writeFileList = (path, data) => {
   try {
     const obj = [
       {
-        text: '国内疫情数据',
-        link: `${exports.mdPath}/${exports.zhNcovCategroy}.md`,
-        children: data.map((x) => {
-          return {
-            text: x.text,
-            link: x.link
-          }
-        })
+        text: '目录',
+        link: `./${exports.base}/${exports.zhNcovCategroy}.md`
+        // children: data.map((x) => {
+        //   return {
+        //     text: x.text,
+        //     link: x.link
+        //   }
+        // })
       }
     ]
     fs_1.default.writeFileSync(path, JSON.stringify(obj))
@@ -172,30 +172,28 @@ exports.writeFileList = writeFileList
 const writeZhNcovCategroy = (fileList) => {
   const writePath = `${exports.mdPath}/${exports.zhNcovCategroy}.md`
   const html = `<div v-for="(item, i) in linkList" :key="i">
-                  <h3>{{ item.title }}</h3>
-                  <div>
-                    <card :defaultValue="item.children"/>
-                  </div>
-                </div>
+    <h3>{{ item.title }}</h3>
+    <div>
+      <card :defaultValue="item.children"/>
+    </div>
+  </div>
 
-                <script setup>
-                import { ref } from 'vue'
+  <script setup>
+  import { ref } from 'vue'
 
-                const linkList = ref([])
+  const linkList = ref([])
 
-                linkList.value = [
-                  ${fileList
-                    .map((x) => {
-                      return `{
-                        text: ${x.text},
-                        link: ${x.link
-                          .replace(`/${exports.base}`, '')
-                          .replace('md', 'html')}
-                      }`
-                    })
-                    .join('')}
-                ]
-                </script>`
+  linkList.value = [
+    ${fileList
+      .map((x) => {
+        return `{
+          text: ${x.text},
+          link: .${x.link.replace('md', 'html')}
+        }`
+      })
+      .join('')}
+  ]
+  </script>`
   fs_1.default.writeFileSync(writePath, html)
   console.log('写入ZhNcovCategroy...')
 }

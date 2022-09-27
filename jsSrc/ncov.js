@@ -42,15 +42,22 @@ const writeMdWithContent = (timeStr, content) => {
     console.log(ncov_1.mdPath)
     console.log(filesList)
     console.log('读取文件目录生成路由---')
-    const writeFileList = (path, data) => {
+    const writeFileList = (path) => {
       try {
-        fs_1.default.writeFileSync(path, JSON.stringify(data))
+        const obj = [
+          {
+            text: '目录',
+            link: `./${ncov_1.base}/${ncov_1.othersNcovCategory}.md`
+          }
+        ]
+        fs_1.default.writeFileSync(path, JSON.stringify(obj))
         console.log('写入路由到JSON文件---')
       } catch (error) {
         console.log(error)
       }
     }
-    writeFileList(ncov_1.jsonFilePath, filesList)
+    writeFileList(ncov_1.jsonFilePath)
+    ;(0, ncov_1.writeOthersNcovCategory)(filesList)
   }, 500)
 }
 const createContent = async () => {

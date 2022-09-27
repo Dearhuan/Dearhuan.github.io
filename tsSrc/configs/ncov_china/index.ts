@@ -147,14 +147,14 @@ export const writeFileList = (
   try {
     const obj = [
       {
-        text: '国内疫情数据',
-        link: `${mdPath}/${zhNcovCategroy}.md`,
-        children: data.map((x) => {
-          return {
-            text: x.text,
-            link: x.link
-          }
-        })
+        text: '目录',
+        link: `./${base}/${zhNcovCategroy}.md`
+        // children: data.map((x) => {
+        //   return {
+        //     text: x.text,
+        //     link: x.link
+        //   }
+        // })
       }
     ]
     fs.writeFileSync(path, JSON.stringify(obj))
@@ -172,30 +172,28 @@ export const writeZhNcovCategroy = (
 ) => {
   const writePath = `${mdPath}/${zhNcovCategroy}.md`
   const html = `<div v-for="(item, i) in linkList" :key="i">
-                  <h3>{{ item.title }}</h3>
-                  <div>
-                    <card :defaultValue="item.children"/>
-                  </div>
-                </div>
+    <h3>{{ item.title }}</h3>
+    <div>
+      <card :defaultValue="item.children"/>
+    </div>
+  </div>
 
-                <script setup>
-                import { ref } from 'vue'
+  <script setup>
+  import { ref } from 'vue'
 
-                const linkList = ref([])
+  const linkList = ref([])
 
-                linkList.value = [
-                  ${fileList
-                    .map((x) => {
-                      return `{
-                        text: ${x.text},
-                        link: ${x.link
-                          .replace(`/${base}`, '')
-                          .replace('md', 'html')}
-                      }`
-                    })
-                    .join('')}
-                ]
-                </script>`
+  linkList.value = [
+    ${fileList
+      .map((x) => {
+        return `{
+          text: ${x.text},
+          link: .${x.link.replace('md', 'html')}
+        }`
+      })
+      .join('')}
+  ]
+  </script>`
   fs.writeFileSync(writePath, html)
   console.log('写入ZhNcovCategroy...')
 }
