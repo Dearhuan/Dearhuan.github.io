@@ -152,7 +152,7 @@ const writeFileList = (path) => {
   try {
     const obj = [
       {
-        text: '目录',
+        text: '历史记录',
         link: `/${exports.base}/${exports.zhNcovCategroy}.md`
       }
     ]

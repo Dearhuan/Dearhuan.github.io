@@ -59,7 +59,7 @@ const writeMdWithContent = (timeStr: string, content: string) => {
       try {
         const obj = [
           {
-            text: '目录',
+            text: '历史记录',
             link: `/${base}/${othersNcovCategory}.md`
           }
         ]

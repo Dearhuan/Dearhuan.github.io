@@ -141,7 +141,7 @@ export const writeFileList = (path: string) => {
   try {
     const obj = [
       {
-        text: '目录',
+        text: '历史记录',
         link: `/${base}/${zhNcovCategroy}.md`
       }
     ]
