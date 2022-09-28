@@ -166,7 +166,9 @@ exports.writeFileList = writeFileList
 const writeZhNcovCategroy = (fileList) => {
   const writePath = `${exports.mdPath}/${exports.zhNcovCategroy}.md`
   const html = `---
-prev: /others/othersNcovCategory.html
+prev: 
+  text: '海外疫情数据'
+  link: /others/othersNcovCategory.html
 next: 
 ---
 
