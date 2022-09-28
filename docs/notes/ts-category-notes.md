@@ -1,3 +1,9 @@
+---
+prev: 
+  text: '磨砂玻璃渐变背景-CSS-doodle'
+  link: /notes/css-doodle.html
+next: /notes/ts-demo.md
+---
 <!-- <template> -->
   <div v-for="(item, i) in linkList" :key="i">
     <h3>{{ item.title }}</h3>

@@ -1,3 +1,9 @@
+---
+prev: /notes/postcss-px-to-viewport.md
+next: 
+  text: 'TypeScript笔记'
+  link: /notes/ts-category-notes.html
+---
 # 磨砂玻璃渐变背景-CSS-doodle
 
 ![磨砂玻璃渐变背景-CSS-doodle](/images/css-doodle.png)

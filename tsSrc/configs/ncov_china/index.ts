@@ -159,12 +159,17 @@ export const writeZhNcovCategroy = (
   }[]
 ) => {
   const writePath = `${mdPath}/${zhNcovCategroy}.md`
-  const html = `<div v-for="(item, i) in linkList" :key="i">
-    <h3>{{ item.title }}</h3>
-    <div>
-      <card :defaultValue="item.children"/>
-    </div>
+  const html = `---
+prev: /others/othersNcovCategory.html
+next: 
+---
+
+<div v-for="(item, i) in linkList" :key="i">
+  <h3>{{ item.title }}</h3>
+  <div>
+    <card :defaultValue="item.children"/>
   </div>
+</div>
 
   <script setup>
   import { ref } from 'vue'

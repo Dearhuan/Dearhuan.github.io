@@ -1,3 +1,7 @@
+---
+prev: /tools/ts-file-tool.md
+next: /tools/snippets.md
+---
 # 常用类型检查
 
 ```ts

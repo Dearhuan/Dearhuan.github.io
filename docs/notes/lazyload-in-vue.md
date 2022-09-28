@@ -1,4 +1,12 @@
-## 图片懒加载-IntersectionObserver
+---
+prev: 
+  text: '虚拟列表'
+  link: /notes/virtual-scroll-list.html
+next: 
+  text: '瀑布流'
+  link: /notes/waterfall.html
+---
+# 图片懒加载-IntersectionObserver
 <!-- <template> -->
   <lazyLoad :list="list"/>
   <lazyLoad :list="arr"/>

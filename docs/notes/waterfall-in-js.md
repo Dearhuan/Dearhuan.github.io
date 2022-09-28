@@ -1,3 +1,9 @@
+---
+prev: 
+  text: '瀑布流'
+  link: /notes/waterfall.html
+next: /notes/theme-toggle.md
+---
 # 瀑布流-绝对定位版
 
 ::: tip
@@ -7,21 +13,29 @@
 - resize,scroll添加防抖函数
 :::
 
-## 在vue中使用,[查看演示](https://dearhuan.github.io/notes/waterfall.html)
+## 在vue中使用,[查看演示](./waterfall.md)
 
-```vue {151,157}
+```vue
 <template>
-  <div id="waterfall" class="waterfall"></div>
+  <div id="waterfall" class="waterfall">
+  </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const index = ref(0)
-
-const gap = ref(10)
-
 const loading = ref(false)
+
+const props = defineProps({
+  gap: {
+    type: Number,
+    required: true,
+    default: 10
+  }
+})
+
+const gap = ref(props.gap)
 
 const getRandNum = (min, max) => {
   return parseInt(Math.random() * (max - min + 1) + min);

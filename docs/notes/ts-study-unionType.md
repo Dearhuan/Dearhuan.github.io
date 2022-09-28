@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-typeGuard.md
+next: /notes/ts-study-crossType.md
+---
 # TypeScript-联合类型和类型别名
 
 - 联合类型

@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-axios.md
+next: /notes/ts-pattern-matching.md
+---
 <!-- <template> -->
   <div v-for="(item, i) in linkList" :key="i">
     <h3>{{ item.title }}</h3>

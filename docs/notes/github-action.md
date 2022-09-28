@@ -1,3 +1,7 @@
+---
+prev: /notes/autoUpdateNcovBlog.md
+next: /notes/github-auto-commit.md
+---
 # GitHub Action初探
 
 ::: tip 

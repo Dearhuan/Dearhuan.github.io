@@ -1,3 +1,9 @@
+---
+prev: 
+  text: 'TypeScript笔记'
+  link: /notes/ts-category-notes.html
+next: /notes/ts-study-base.md
+---
 # Typescript使用示例
 
 ```ts

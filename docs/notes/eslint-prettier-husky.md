@@ -1,3 +1,7 @@
+---
+prev: /notes/echarts-vue3.md
+next: /notes/skeleton.md
+---
 # eslint+prettier+stylelint+husky配置
 
 ## 配置Eslint

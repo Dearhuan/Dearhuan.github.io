@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-pattern-matching.md
+next: /notes/ts-recursive-reuse.md
+---
 # TypeScript 套路二之重新构造做变换
 
 类型编程主要的目的就是对类型做各种转换，那么如何对类型做修改呢？

@@ -1,4 +1,8 @@
-# 在Markdown中使用可交互的echarts可视化图表
+---
+prev: /notes/vuepress-hello.md
+next: /notes/components-use.md
+---
+# VuePress使用可交互的echarts可视化图表
 
 ## 效果示例
 

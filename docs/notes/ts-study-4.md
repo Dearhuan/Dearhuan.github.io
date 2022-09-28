@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-decorators.md
+next: /notes/ts-study-options.md
+---
 # TypeScript 4.0新特性
 
 TypeScript 4.0 带来了很多新的特性，这里我们只简单介绍其中的两个新特性。

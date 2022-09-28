@@ -1,3 +1,9 @@
+---
+prev: /notes/ts-generic.md
+next: 
+  text: 'TypeScript类型体操'
+  link: /notes/ts-category-typing.html
+---
 # Ts封装Axios
 
 ## Axios几个常用类型

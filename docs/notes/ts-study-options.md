@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-4.md
+next: /notes/ts-study-tools.md
+---
 # TypeScript-编译上下文
 
 ### 1 tsconfig.json 的作用

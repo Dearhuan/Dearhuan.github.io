@@ -1,3 +1,10 @@
+---
+prev: /tools/sentry.md
+next: 
+---
+
+# Some WebSite
+
 <!-- <template> -->
   <div v-for="(item, i) in linkList" :key="i">
     <h3>{{ item.title }}</h3>

@@ -1,4 +1,8 @@
-## Vuepress中使用Vue3封装Echarts图表
+---
+prev: /notes/echarts-stacked-horizontal-bar.md
+next: /notes/eslint-prettier-husky.md
+---
+# Vuepress中使用Vue3封装Echarts图表
 <!-- <template> -->
   <myChart :option="option"
            :dark="dark" />

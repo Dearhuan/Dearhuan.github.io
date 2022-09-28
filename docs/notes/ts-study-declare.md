@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-base.md
+next: /notes/ts-study-typeGuard.md
+---
 # TypeScript-断言
 
 - 类型断言

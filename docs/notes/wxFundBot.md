@@ -1,3 +1,8 @@
+---
+prev: 
+next: /notes/OkxHelper.md
+---
+
 # 如何搭建一款企业微信+邮箱通知基金机器人
 
 ![wxFundbot](/images/wxFundbot.png)

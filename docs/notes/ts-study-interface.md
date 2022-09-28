@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-array&object.md
+next: /notes/ts-study-class.md
+---
 # TypeScript-接口
 
 在面向对象语言中，接口是一个很重要的概念，它是对行为的抽象，而具体如何行动需要由类去实现。

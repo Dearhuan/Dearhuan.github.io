@@ -1,7 +1,6 @@
 ---
-lang: zh-CN
-title: VuePress+GitHub action进行博客搭建部署+自动集成
-description: 页面的描述
+prev: /notes/github-auto-commit.md
+next: /notes/echarts-in-markdown.md
 ---
 # 10分钟搭建部署并自动集成一款Vuepress Blog
 

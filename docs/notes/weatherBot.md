@@ -1,3 +1,7 @@
+---
+prev: /notes/OkxHelper.md
+next: /notes/autoUpdateNcovBlog.md
+---
 # 搭建一款天气数据推送机器人
 
 ![weather](/images/weather.png)

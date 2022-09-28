@@ -48,7 +48,14 @@ const readFileList = (path) => {
 exports.readFileList = readFileList
 const writeOthersNcovCategory = (fileList) => {
   const writePath = `${exports.mdPath}/${exports.othersNcovCategory}.md`
-  const html = `<div v-for="(item, i) in linkList" :key="i">
+  const html = `---
+prev: /notes/ts-recursive-reuse.html
+next: 
+  text: '国内疫情数据'
+  link: /chinaNcovs/zhNcovCategroy.html
+---
+
+<div v-for="(item, i) in linkList" :key="i">
   <h3>{{ item.title }}</h3>
   <div>
     <card :defaultValue="item.children"/>

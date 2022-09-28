@@ -1,3 +1,8 @@
+---
+prev: /notes/dom2svg.md
+next: /notes/lazyload-in-vue.md
+---
+
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 

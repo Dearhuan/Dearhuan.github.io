@@ -1,4 +1,10 @@
-## html2canvas生成海报
+---
+prev: /notes/skeleton.md
+next: 
+  text: '虚拟列表'
+  link: /notes/virtual-scroll-list.html
+---
+# html2canvas生成海报
 <!-- <template> -->
   <div id="content-box">
     <div class="content">

@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-generic.md
+next: /notes/ts-study-4.md
+---
 # TypeScript-装饰器
 
 ### 1 装饰器是什么

@@ -1,0 +1,10 @@
+:root {
+  --content-width: 880px;
+  scroll-behavior: smooth;
+}
+.home .hero img {
+  max-height: 360px;
+}
+.home .hero img, .navbar .logo {
+  border-radius: 50%;
+}

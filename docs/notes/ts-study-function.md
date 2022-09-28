@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-crossType.md
+next: /notes/ts-study-array&object.md
+---
 # TypeScript-函数
 
 - TypeScript 函数与 JavaScript 函数的区别

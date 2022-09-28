@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-tools.md
+next: /notes/ts-axios.md
+---
 # TypeScript-工具泛型
 
 ```ts{11}

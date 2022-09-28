@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-options.md
+next: /notes/ts-generic.md
+---
 # TypeScript-开发辅助工具
 
 ### 1 TypeScript Playground

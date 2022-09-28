@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-unionType.md
+next: /notes/ts-study-function.md
+---
 # TypeScript-交叉类型
 
 在 TypeScript 中交叉类型是将多个类型合并为一个类型。通过 & 运算符可以将现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性。

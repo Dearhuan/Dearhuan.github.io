@@ -1,5 +1,5 @@
 <template>
-  <div :id="container" class="waterfall">
+  <div id="waterfall" class="waterfall">
   </div>
 </template>
 
@@ -14,16 +14,10 @@ const props = defineProps({
     type: Number,
     required: true,
     default: 10
-  },
-  container: {
-    type: String,
-    required: true,
-    default: ''
   }
 })
 
 const gap = ref(props.gap)
-const container = ref(props.container)
 
 const getRandNum = (min, max) => {
   return parseInt(Math.random() * (max - min + 1) + min);
@@ -93,7 +87,7 @@ const debounce = (fn, delay, immdiate = false, resultCallback) => {
 }
 
 const getData = (num = 5) => {
-  const waterfall = document.getElementById(container.value)
+  const waterfall = document.getElementById('waterfall')
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const fragment = document.createDocumentFragment()
@@ -117,7 +111,7 @@ const getData = (num = 5) => {
 }
 
 const layout = () => {
-  const waterfall = document.getElementById(container.value)
+  const waterfall = document.getElementById('waterfall')
   const items = waterfall.children || []
   const gapVal = gap.value
   let heightArr = []
@@ -159,7 +153,7 @@ const funcScroll =  async () => {
 }
 
 onMounted(async () => {
-  const waterfall = document.getElementById(container.value)
+  const waterfall = document.getElementById('waterfall')
   await getData(20)
   layout()
 

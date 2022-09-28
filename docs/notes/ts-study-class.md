@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-interface.md
+next: /notes/ts-study-generic.md
+---
 # TypeScript-类
 
 - 1 类的属性与方法

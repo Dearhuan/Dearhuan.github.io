@@ -18,7 +18,6 @@ module.exports = {
   title: 'Hello',
   head: [
     ['link', { rel: 'icon', href: '/images/jaychou.jpg' }],
-    ['link', { rel: 'stylesheet', href: '/css/default.css' }]
   ],
   plugins: [
     registerComponentsPlugin({
@@ -27,6 +26,8 @@ module.exports = {
   ],
   theme: defaultTheme({
     logo: '/images/logo.jpg',
+    repo: 'Dearhuan/Dearhuan.github.io',
+    docsDir: 'docs',
     navbar: [
       {
         text: '首页',
@@ -54,20 +55,19 @@ module.exports = {
       }
     ],
     slidebarDepth: 2,
-    lastUpdatedText: '最后更新时间',
+    lastUpdatedText: '上次更新',
     contributorsText: '贡献者',
-    search: true,
-    searchMaxSuggestions: 10,
-    serviceWorker: {
-      updatePopup: true, 
-      updatePopup: { 
-         message: "有内容更新", 
-         buttonText: "更新" 
-      }
-    },
-    prevLinks: true,
-    nextLinks: true,
-    editLink: true,
-    editLinkText: '在GitHub上编辑此页！'
+    // 404 page
+    notFound: [
+      '这里什么都没有',
+      '我们怎么到这来了？',
+      '这是一个 404 页面',
+      '看起来我们进入了错误的链接',
+    ],
+    backToHome: '返回首页',
+    editLinkText: '在 GitHub 上编辑此页',
+    openInNewWindow: '在新窗口打开',
+    toggleColorMode: '切换颜色模式',
+    toggleSidebar: '切换侧边栏',
   })
 }

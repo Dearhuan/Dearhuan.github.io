@@ -1,9 +1,8 @@
 ---
-lang: zh-CN
-title: Sentry
-description: 页面的描述
+prev: /tools/snippets.md
+next: /tools/some-website.md
 ---
-# 使用 Sentry 对应用进行监控，少 bug 少加班
+# Sentry
 
 # 为什么我们需要应用监控
 

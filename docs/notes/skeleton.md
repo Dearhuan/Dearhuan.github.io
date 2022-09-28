@@ -1,3 +1,7 @@
+---
+prev: /notes/eslint-prettier-husky.md
+next: /notes/dom2svg.md
+---
 # 自定义骨架屏
 
 ::: tip 

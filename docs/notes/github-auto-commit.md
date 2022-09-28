@@ -1,4 +1,8 @@
-# 使用GitHub Actions完成Github自动提交
+---
+prev: /notes/github-action.md
+next: /notes/vuepress-hello.md
+---
+# GitHub Actions完成Github自动提交
 
 自动保持 GitHub 提交状态常绿。
 

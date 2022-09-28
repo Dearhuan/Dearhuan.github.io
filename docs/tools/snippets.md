@@ -1,8 +1,10 @@
 ---
-lang: zh-CN
-title: Vscode代码片段
-description: Vscode代码片段
+prev: /tools/ts-is.md
+next: /tools/sentry.md
 ---
+
+# VSCode Snippets
+
 ::: tip Usage
 Vscode>文件>首选项>Config User Snippets
 :::

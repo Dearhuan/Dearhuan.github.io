@@ -1,8 +1,10 @@
 ---
-lang: zh-CN
-title: 工具方法
-description: 页面的描述
+prev: 
+next: /tools/ts-file-tool.md
 ---
+
+# Js工具代码示例
+
 ## 带图带事件的**桌面通知**
 
 网页也可以以桌面弹框的形式进行通知，先看个效果图：

@@ -1,3 +1,8 @@
+---
+prev: /notes/waterfall-in-js.md
+next: /notes/postcss-px-to-viewport.md
+---
+
 # 前端主题切换
 
 ### CSS变量+类名切换

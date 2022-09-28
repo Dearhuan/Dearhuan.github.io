@@ -1,3 +1,9 @@
+---
+prev: /notes/ts-reconstruct.md
+next: 
+  text: '海外疫情数据'
+  link: /others/othersNcovCategory.html
+---
 # TypeScript 套路二之递归复用做循环
 
 ## 递归复用

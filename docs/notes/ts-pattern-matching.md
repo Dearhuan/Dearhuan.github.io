@@ -1,3 +1,9 @@
+---
+prev: 
+  text: 'TypeScript类型体操'
+  link: /notes/ts-category-typing.html
+next: /notes/ts-reconstruct.md
+---
 # TypeScript 套路一之模式匹配
 
 ## 模式匹配

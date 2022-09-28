@@ -16,6 +16,10 @@
     "link": "/notes/autoUpdateNcovBlog.md"
   },
   {
+    "text": "GitHub Action初探",
+    "link": "/notes/github-action.md"
+  },
+  {
     "text": "Github自动commit",
     "link": "/notes/github-auto-commit.md"
   },
@@ -24,8 +28,20 @@
     "link": "/notes/vuepress-hello.md"
   },
   {
-    "text": "在Markdown中进行echarts可视化",
+    "text": "VuePress中进行echarts可视化",
     "link": "/notes/echarts-in-markdown.md"
+  },
+  {
+    "text": "VuePress自定义组件",
+    "link": "/notes/components-use.md"
+  },
+  {
+    "text": "VuePress自定义样式",
+    "link": "/notes/vuepress-fix-style.md"
+  },
+  {
+    "text": "VuePress-Markdown与内置组件",
+    "link": "/notes/vuepress-markdown.md"
   },
   {
     "text": "Echarts-堆叠柱状图示例",
@@ -38,10 +54,6 @@
   {
     "text": "Eslint-Prettier-husky",
     "link": "/notes/eslint-prettier-husky.md"
-  },
-  {
-    "text": "GitHub Action初探",
-    "link": "/notes/github-action.md"
   },
   {
     "text": "骨架屏",
@@ -69,7 +81,15 @@
   },
   {
     "text": "前端主题切换",
-    "link": "/notes/theme.toggle.md"
+    "link": "/notes/theme-toggle.md"
+  },
+  {
+    "text": "postcss-px-to-viewport使用",
+    "link": "/notes/postcss-px-to-viewport.md"
+  },
+  {
+    "text": "磨砂玻璃渐变背景-CSS-doodle",
+    "link": "/notes/css-doodle.md"
   },
   {
     "text": "TypeScript笔记",
@@ -162,21 +182,5 @@
         "link": "/notes/ts-recursive-reuse.md"
       }
     ]
-  },
-  {
-    "text": "postcss-px-to-viewport使用",
-    "link": "/notes/postcss-px-to-viewport.md"
-  },
-  {
-    "text": "磨砂玻璃渐变背景-CSS-doodle",
-    "link": "/notes/css-doodle.md"
-  },
-  {
-    "text": "VuePress自定义组件",
-    "link": "/notes/components-use.md"
-  },
-  {
-    "text": "VuePress自定义样式",
-    "link": "/notes/vuepress-fix-style.md"
   }
 ]

@@ -1,3 +1,7 @@
+---
+prev: /notes/wxFundBot.md
+next: /notes/weatherBot.md
+---
 # 搭建一款Okx数据推送机器人
 
 ![okxBot](/images/okxbot.png)

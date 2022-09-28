@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-study-function.md
+next: /notes/ts-study-interface.md
+---
 # TypeScript-数组和对象
 
 - 数组解构

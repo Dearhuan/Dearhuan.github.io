@@ -1,3 +1,7 @@
+---
+prev: /notes/weatherBot.md
+next: /notes/github-action.md
+---
 # 自动更新疫情数据小记
 
 ::: tip 目的/动机

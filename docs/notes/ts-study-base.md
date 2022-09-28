@@ -1,3 +1,7 @@
+---
+prev: /notes/ts-demo.md
+next: /notes/ts-study-declare.md
+---
 # TypeScript-基础类型
 
 - Boolean 类型

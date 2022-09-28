@@ -1,3 +1,7 @@
+---
+prev: /tools/jsTool.md
+next: /tools/ts-is.md
+---
 # 文件下载代码片段
 
 ```ts
