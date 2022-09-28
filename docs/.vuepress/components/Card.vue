@@ -22,7 +22,7 @@ interface CardItem {
 const props = defineProps({
   defaultValue: {
     type: Array as PropType<CardItem[]>,
-    require: true
+    required: true
   }
 })
 

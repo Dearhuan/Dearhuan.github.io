@@ -68,6 +68,10 @@
     "link": "/notes/virtual-scroll-list.md"
   },
   {
+    "text": "时间线",
+    "link": "/notes/timeLineCard.md"
+  },
+  {
     "text": "图片懒加载",
     "link": "/notes/lazyload-in-vue.md"
   },

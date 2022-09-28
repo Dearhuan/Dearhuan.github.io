@@ -1,7 +1,5 @@
 ---
-prev: 
-  text: '虚拟列表'
-  link: /notes/virtual-scroll-list.html
+prev: /notes/timeLineCard.md
 next: 
   text: '瀑布流'
   link: /notes/waterfall.html

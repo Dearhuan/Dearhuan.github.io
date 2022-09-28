@@ -1,6 +1,6 @@
 ---
 prev: /notes/dom2svg.md
-next: /notes/lazyload-in-vue.md
+next: /notes/timeLineCard.md
 ---
 
 <script setup>
