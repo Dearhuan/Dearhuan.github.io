@@ -184,7 +184,12 @@ onUnmounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* transition: all 0.1s; */
+}
+
+@media (max-width: 480px) {
+  .waterfall-item {
+    width: 44%;
+  }
 }
 
 .num {

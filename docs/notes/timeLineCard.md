@@ -2,14 +2,12 @@
 prev: 
   text: '虚拟列表'
   link: /notes/virtual-scroll-list.html
-next: /notes/lazyload-in-vue.md
+next: /notes/myButton.md
 ---
 
 # VuePress时间线组件
 
 <timeLineCard :timeLineList="list" />
-
-<pagination />
 
 <script setup>
 import { ref } from 'vue'
@@ -49,7 +47,7 @@ list.value = [
 ```vue
 <template>
   <div v-for="(item, i) in timeLineList" :key="i">
-    <h3>
+    <h3 v-if="item.time">
       <a :href="`#_${item.time}`" class="header-anchor" aria-hidden="true">#</a>
       {{ item.time }}
     </h3>

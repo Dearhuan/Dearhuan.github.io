@@ -72,6 +72,14 @@
     "link": "/notes/timeLineCard.md"
   },
   {
+    "text": "按钮-Button",
+    "link": "/notes/myButton.md"
+  },
+  {
+    "text": "分页器",
+    "link": "/notes/pagination.md"
+  },
+  {
     "text": "图片懒加载",
     "link": "/notes/lazyload-in-vue.md"
   },

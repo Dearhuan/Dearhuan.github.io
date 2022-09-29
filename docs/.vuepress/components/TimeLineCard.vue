@@ -1,6 +1,6 @@
 <template>
   <div v-for="(item, i) in timeLineList" :key="i">
-    <h3>
+    <h3 v-if="item.time">
       <a :href="`#_${item.time}`" class="header-anchor" aria-hidden="true">#</a>
       {{ item.time }}
     </h3>
@@ -10,7 +10,7 @@
     </div>
     <details v-else class="custom-container details">
       <summary v-if="item.title">{{ item.title }}</summary>
-      <p>{{ item.content }}</p>
+      <p>{{ item.content }}</p> 
     </details>
   </div>
 </template>

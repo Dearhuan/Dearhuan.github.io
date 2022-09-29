@@ -6,7 +6,7 @@
     <span v-if="currentPage > 3">...</span>
     <a @click="changePage(item)"
        href="javascript:;"
-       :class="{disabled: currentPage === item}"
+       :class="{active: currentPage === item}"
        v-for="item in list"
        :key="item">{{ item }}</a>
     <span v-if="currentPage < pages - 2">...</span>
@@ -37,7 +37,7 @@ const props = defineProps({
 const emit = defineEmits()
 
 const pages = computed(() => {
-  Math.ceil(props.total / props.pagesize)
+  return Math.ceil(props.total / props.pagesize)
 })
 
 const currentPage = ref(props.page || 1)
@@ -45,7 +45,7 @@ const currentPage = ref(props.page || 1)
 const list = computed(() => {
   const result = []
   if (pages.value <= 5) {
-    for (let i = 1; i < pages.value; i++) {
+    for (let i = 1; i <= pages.value; i++) {
       result.push(i)
     }
   } else {
@@ -54,7 +54,7 @@ const list = computed(() => {
         result.push(i)
       }
     } else if (currentPage.value >= pages.value - 1) {
-      for (let i = pages.value - 4; i < pages.value; i++) {
+      for (let i = pages.value - 4; i <= pages.value; i++) {
         result.push(i)
       }
     } else {
@@ -89,7 +89,6 @@ const changePage = (type) => {
 .pagination {
   display: flex;
   justify-content: center;
-  padding: 30px;
   > a {
     display: inline-block;
     padding: 5px 10px;
@@ -99,12 +98,12 @@ const changePage = (type) => {
     &:hover {
       color: aquamarine;
     }
-    &:active {
+    &.active {
       background: aquamarine;
       color: #fff;
       border-color: aquamarine;
     }
-    &:disabled {
+    &.disabled {
       cursor: not-allowed;
       opacity: 0.4;
       &:hover {
