@@ -51,9 +51,9 @@ html.dark {
 
 <div id="box" :class="theme">
   <div class="box">{{ theme }}</div>
-  <button @click="changeTheme('default')">default</button>
-  <button @click="changeTheme('dark')">dark</button>
-  <button @click="changeTheme('pink')">pink</button>
+  <my-button size="large" @click="changeTheme('default')">default</my-button>
+  <my-button size="large" type="info" @click="changeTheme('dark')">dark</my-button>
+  <my-button size="large" color="pink" @click="changeTheme('pink')">pink</my-button>
 </div>
 
 <script setup lang="ts">
@@ -93,32 +93,27 @@ html.dark {
   height: 200px;
   border: 1px solid #000;
   border-radius: 20px;
+  margin-bottom: 10px;
   /* 使用变量 */
   color: var(--theme-color);
   background: var(--theme-background);
-}
-
-button {
-  width: 80px;
-  height: 40px;
-  margin: 10px;
 }
 </style>
 
 ```vue
 <div id="box" :class="theme">
   <div class="box">{{ theme }}</div>
-  <button @click="changeTheme('default')">default</button>
-  <button @click="changeTheme('dark')">dark</button>
-  <button @click="changeTheme('pink')">pink</button>
+  <my-button size="large" @click="changeTheme('default')">default</my-button>
+  <my-button size="large" type="info" @click="changeTheme('dark')">dark</my-button>
+  <my-button size="large" color="pink" @click="changeTheme('pink')">pink</my-button>
 </div>
 
-<script setup>
+<script setup lang="ts">
   import { ref } from 'vue'
 
-  let theme = ref('default')
+  let theme = ref<string>('default')
 
-  const changeTheme = (val) => {
+  const changeTheme = (val:string) => {
     theme.value = val
     document.getElementById('box').className = val
   }
@@ -150,15 +145,10 @@ button {
   height: 200px;
   border: 1px solid #000;
   border-radius: 20px;
+  margin-bottom: 10px;
   /* 使用变量 */
   color: var(--theme-color);
   background: var(--theme-background);
-}
-
-button {
-  width: 80px;
-  height: 40px;
-  margin: 10px;
 }
 </style>
 ```

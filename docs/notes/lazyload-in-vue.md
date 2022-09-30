@@ -1,5 +1,5 @@
 ---
-prev: /notes/pagination.md
+prev: /notes/table.md
 next: 
   text: '瀑布流'
   link: /notes/waterfall.html

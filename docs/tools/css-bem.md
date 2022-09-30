@@ -1,5 +1,5 @@
 ---
-prev: /tools/snippets.md
+prev: /tools/sentry.md
 next: /tools/some-website.md
 ---
 

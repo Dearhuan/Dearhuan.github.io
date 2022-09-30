@@ -1,6 +1,6 @@
 ---
 prev: /notes/myButton.md
-next: /notes/lazyload-in-vue.md
+next: /notes/table.md
 ---
 
 # 分页器组件
