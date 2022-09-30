@@ -10,7 +10,8 @@
   ]"
           :disabled="disabled"
           :type="nativeType"
-          :style="buttonStyle">
+          :style="buttonStyle"
+          @click="handleClick">
     <span>
       <slot></slot>
     </span>
@@ -28,6 +29,10 @@ type ButtonSize = 'large' | 'default' | 'small' | ''
 type BUttonType = 'primary' | 'success' | 'warning' | 'danger' | 'info' | ''
 
 const nativeType = ref('button')
+
+const emit = defineEmits({
+  click: (evt: MouseEvent) => evt instanceof MouseEvent
+})
 
 const props = defineProps({
   // 尺寸
@@ -72,8 +77,6 @@ const buttonStyle = computed(() => {
 
   const buttonColor = props.color || typeColor.value
 
-  console.log(buttonColor)
-
   if (buttonColor) {
     const color = new TinyColor(buttonColor)
     const shadeBgColor = color.shade(10).toString()
@@ -107,6 +110,11 @@ const buttonStyle = computed(() => {
   }
   return styles
 })
+
+const handleClick = (evt: MouseEvent) => {
+  emit('click', evt)
+}
+
 </script>
 
 <style lang="scss">

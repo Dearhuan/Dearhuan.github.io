@@ -1,8 +1,11 @@
 import { unref, computed } from 'vue'
 
+// 组件的命名前缀
 const defaultNamespace = 'el'
+// 描述组件状态的变量
 const statePrefix = 'is-'
 
+// 返回符合BEM规范的命名
 const _bem = (
   namespace: string,
   block: string,
@@ -23,6 +26,7 @@ const _bem = (
   return cls
 }
 
+// 定义命名空间，返回BEM方法
 export const useNamespace = (block: string) => {
   const namespace = computed(() => defaultNamespace)
   const b = (blockSuffix = '') =>
@@ -66,3 +70,5 @@ export const useNamespace = (block: string) => {
     is
   }
 }
+
+export type useNamespaceReturn = ReturnType<typeof useNamespace>

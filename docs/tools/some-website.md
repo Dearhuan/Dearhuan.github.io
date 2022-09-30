@@ -1,5 +1,5 @@
 ---
-prev: /tools/sentry.md
+prev: /tools/css-bem.md
 next: 
 ---
 

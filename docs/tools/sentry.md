@@ -1,6 +1,6 @@
 ---
 prev: /tools/snippets.md
-next: /tools/some-website.md
+next: /tools/css-bem.md
 ---
 # Sentry
 

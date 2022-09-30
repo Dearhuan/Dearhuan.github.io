@@ -50,21 +50,24 @@ next:
   link: /chinaNcovs/zhNcovCategroy.html
 ---
 
-<div v-for="(item, i) in linkList" :key="i">
-  <h3>{{ item.title }}</h3>
-  <div>
-    <card :defaultValue="item.children"/>
+<div>
+  <h3>{{ title }}</h3>
+  <div class="btn-box">
+    <my-button v-for="(item, i) in linkList"
+               :key="i"
+               :type="i % 2 == 0 ? 'primary' : 'danger'"
+               @click="handleClick(item.link)">{{ item.title }}</my-button>
   </div>
 </div>
 
 <script setup>
 import { ref } from 'vue'
 
+const title = ref('海外疫情数据记录')
+
 const linkList = ref([])
 
-linkList.value = [${`{
-  "title": "海外疫情数据",
-  "children": [${fileList
+linkList.value = [${fileList
     .map((x) => {
       return `{"title": "${x.text}","link": ".${x.link.replace(
         'md',
@@ -72,8 +75,30 @@ linkList.value = [${`{
       )}"},`
     })
     .join('')}]
-}`}]
-</script>`
+
+const handleClick = (link) => {
+  const a = document.createElement('a')
+  a.style.display = 'none'
+  a.href = link
+  a.rel = 'external nofollow'
+  a.target = '_blank'
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+}
+</script>
+
+<style lang="scss" scoped>
+.btn-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.el-button + .el-button {
+  margin-left: 0;
+}
+</style>
+`
   fs.writeFileSync(writePath, html)
   console.log('写入othersNcovCategory...')
 }
