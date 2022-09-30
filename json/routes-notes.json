@@ -80,6 +80,10 @@
     "link": "/notes/pagination.md"
   },
   {
+    "text": "表格",
+    "link": "/notes/table.md"
+  },
+  {
     "text": "图片懒加载",
     "link": "/notes/lazyload-in-vue.md"
   },
