@@ -20,6 +20,10 @@
     "link": "/tools/sentry.md"
   },
   {
+    "text": "Bem规范",
+    "link": "/tools/css-bem.md"
+  },
+  {
     "text": "网站记录",
     "link": "/tools/some-website.md"
   }
