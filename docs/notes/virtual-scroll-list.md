@@ -3,6 +3,20 @@ prev: /notes/dom2svg.md
 next: /notes/timeLineCard.md
 ---
 
+<div class="container"
+     ref="container"
+     :style="{ height: containerHeight + 'px' }">
+  <div class="empty"
+       :style="{ height: emptyHeight + 'px' }"></div>
+  <ul class="list"
+      :style="{ transform: `translateY(${translateY})` }">
+    <li v-for="item in listData"
+        :key="item"
+        class="item"
+        :style="{ height: itemHeight + 'px' }">{{ item }}</li>
+  </ul>
+</div>
+
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
@@ -27,22 +41,6 @@ onMounted(() => {
   })
 })
 </script>
-
-<!-- <template> -->
-  <div class="container"
-       ref="container"
-       :style="{ height: containerHeight + 'px' }">
-    <div class="empty"
-         :style="{ height: emptyHeight + 'px' }"></div>
-    <ul class="list"
-        :style="{ transform: `translateY(${translateY})` }">
-      <li v-for="item in listData"
-          :key="item"
-          class="item"
-          :style="{ height: itemHeight + 'px' }">{{ item }}</li>
-    </ul>
-  </div>
-<!-- </template> -->
 
 <style lang="scss" scoped>
 .container {

@@ -133,10 +133,10 @@ next: /notes/pagination.md
 ## 自定义颜色
 
 <div class="mb-10 mt-10">
-  <my-button color="#626aef" :dark="isDark">Default</my-button>
-  <my-button color="#626aef" :dark="isDark" plain>Plain</my-button>
-  <my-button color="#626aef" :dark="isDark" disabled>Disabled</my-button>
-  <my-button color="#626aef" :dark="isDark" disabled plain
+  <my-button color="#626aef">Default</my-button>
+  <my-button color="#626aef" plain>Plain</my-button>
+  <my-button color="#626aef" disabled>Disabled</my-button>
+  <my-button color="#626aef" disabled plain
     >Disabled Plain</my-button
     >
 </div>
@@ -144,10 +144,10 @@ next: /notes/pagination.md
 :::details 代码
 ```vue
 <div class="mb-10 mt-10">
-  <my-button color="#626aef" :dark="isDark">Default</my-button>
-  <my-button color="#626aef" :dark="isDark" plain>Plain</my-button>
-  <my-button color="#626aef" :dark="isDark" disabled>Disabled</my-button>
-  <my-button color="#626aef" :dark="isDark" disabled plain
+  <my-button color="#626aef">Default</my-button>
+  <my-button color="#626aef" plain>Plain</my-button>
+  <my-button color="#626aef" disabled>Disabled</my-button>
+  <my-button color="#626aef" disabled plain
     >Disabled Plain</my-button
     >
 </div>
