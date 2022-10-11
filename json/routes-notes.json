@@ -44,6 +44,10 @@
     "link": "/notes/vuepress-markdown.md"
   },
   {
+    "text": "Vue3-Teleport",
+    "link": "/notes/teleport.md"
+  },
+  {
     "text": "Echarts-堆叠柱状图示例",
     "link": "/notes/echarts-stacked-horizontal-bar.md"
   },
