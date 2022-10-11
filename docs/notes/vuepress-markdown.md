@@ -1,6 +1,6 @@
 ---
 prev: /notes/vuepress-fix-style.md
-next: /notes/echarts-stacked-horizontal-bar.md
+next: /notes/teleport.md
 ---
 
 # VuePress中的markdown语法与内置组件
@@ -200,3 +200,36 @@ CodeGroupItem 组件的Wrapper。
 
 所有内容首先都必须是合法的 Markdown ，然后才是一个 Vue SFC 。
 :::
+
+## 代码块
+
+### 行号
+
+在代码块添加 :line-numbers / :no-line-numbers 标记来覆盖配置项中的设置。
+
+**输入**
+````md
+```ts
+// 行号默认是启用的
+const line2 = 'This is line 2'
+const line3 = 'This is line 3'
+```
+
+```ts:no-line-numbers
+// 行号被禁用
+const line2 = 'This is line 2'
+const line3 = 'This is line 3'
+```
+````
+**输出**
+```ts
+// 行号默认是启用的
+const line2 = 'This is line 2'
+const line3 = 'This is line 3'
+```
+
+```ts:no-line-numbers
+// 行号被禁用
+const line2 = 'This is line 2'
+const line3 = 'This is line 3'
+```

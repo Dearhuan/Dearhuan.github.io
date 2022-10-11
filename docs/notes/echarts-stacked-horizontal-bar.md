@@ -1,5 +1,5 @@
 ---
-prev: /notes/vuepress-markdown.md
+prev: /notes/teleport.md
 next: /notes/echarts-vue3.md
 ---
 # VuePress使用echarts图表
