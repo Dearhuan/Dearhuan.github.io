@@ -1,0 +1,1 @@
+const p=(o,s,c=!1,n)=>{let e=null,t=!1;function f(...u){if(e&&clearTimeout(e),c&&!t){const i=o.apply(this,u);n&&typeof n=="function"&&n(i),t=!0}else e=setTimeout(()=>{const i=o.apply(this,u);n&&typeof n=="function"&&n(i),t=!1,e=null},s)}return f.cancel=function(){e&&clearTimeout(e),e=null,t=!1},f};export{p as u};
