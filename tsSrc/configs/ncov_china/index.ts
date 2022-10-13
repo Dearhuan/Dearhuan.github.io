@@ -417,9 +417,28 @@ ${ChartList.filter((item) => {
   })
   .join('')}
 
+## ${area}疫情热点动态
+<timeLineThree :timeLineList="timeLineList" />
+
 <script>
 import * as echarts from 'echarts'
 export default {
+  data() {
+    return {
+      timeLineList: []
+    }
+  },
+  created() {
+    this.timeLinelist = ${contents.map((item) => {
+      return {
+        content: item.desc.slice(0, 100),
+        time: item.publicTime.slice(5),
+        title: item.title,
+        origin: item.from,
+        link: item.jumpLink.url
+      }
+    })}
+  },
   mounted () {
     ${ChartList.map((item) => {
       return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`
@@ -857,8 +876,6 @@ export default {
 |地区|本土新增确诊|本土新增无症状|本土近7日确诊|中高风险地区|
 |:--:|---:|---:|---:|---:|
 ${renderMarkdownTable(cityInfo)}
-
-${renderNewsCard(contents, area)}
 `
   const timeStr = getFormatTimeStr(recentTime)
 

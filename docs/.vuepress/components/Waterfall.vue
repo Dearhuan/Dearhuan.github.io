@@ -5,6 +5,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useDebounce } from '../hooks'
 
 const index = ref(0)
 const loading = ref(false)
@@ -56,36 +57,6 @@ const getMaxHeight = (heightArr) => {
   return maxHeight
 }
 
-//防抖函数带回调
-const debounce = (fn, delay, immdiate = false, resultCallback) => {
-  let timer = null
-  let isInvoke = false
-  function _debounce(...arg) {
-    if (timer) clearTimeout(timer)
-    if (immdiate && !isInvoke) {
-      const result = fn.apply(this, arg)
-      if (resultCallback && typeof resultCallback === 'function') resultCallback(result)
-      isInvoke = true
-    } else {
-      timer = setTimeout(() => {
-        const result = fn.apply(this, arg)
-        if (resultCallback && typeof resultCallback === 'function') resultCallback(result)
-        isInvoke = false
-        timer = null
-      }, delay)
-    }
-
-  }
-
-  _debounce.cancel = function () {
-    if (timer) clearTimeout(timer)
-    timer = null
-    isInvoke = false
-  }
-
-  return _debounce
-}
-
 const getData = (num = 5) => {
   const waterfall = document.getElementById('waterfall')
   return new Promise((resolve, reject) => {
@@ -120,7 +91,6 @@ const layout = () => {
   const pageWidth = waterfall.offsetWidth
   const itemWidth = items[0].offsetWidth
   const columns = parseInt(pageWidth / (itemWidth + gapVal))
-  console.log(pageWidth, itemWidth, columns)
   while(renderIndex < items.length){
     let top, left
     if(renderIndex < columns){
@@ -157,13 +127,13 @@ onMounted(async () => {
   await getData(20)
   layout()
 
-  window.addEventListener('resize', debounce(layout, 200, true))
+  window.addEventListener('resize', useDebounce(layout, 200, true))
 
   waterfall.addEventListener('DOMSubtreeModified', () => {
     layout()
   })
 
-  window.onscroll = debounce(funcScroll, 200, true)
+  window.onscroll = useDebounce(funcScroll, 200, true)
 })
 
 onUnmounted(() => {
