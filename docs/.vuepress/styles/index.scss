@@ -21,7 +21,7 @@
   font-weight: 600;
 }
 .home .hero h1, .home .hero .description {
-  background: linear-gradient(to right, #2cecff 21%, #ff0031 92%);
+  background: linear-gradient(135deg, #2cecff 21%, #ff0031 92%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -30,5 +30,5 @@
 }
 .home .hero .action-button.primary {
   border: none;
-  background: linear-gradient(to right, #2cecff 21%, #ff0031 92%);
+  background: linear-gradient(200deg, #2cecff 21%, #ff0031 92%);
 }
