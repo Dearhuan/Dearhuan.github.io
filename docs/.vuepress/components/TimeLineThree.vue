@@ -7,7 +7,8 @@
       </div>
       <div v-else-if="typeof item.content == 'string'">{{ item.content }}</div>
       <p v-if="item.origin && !item.time">{{ item.origin }}</p>
-      <p v-if="item.origin && item.time" v-text="`${item.origin} - ${item.time}`"></p>
+      <p v-else-if="item.origin && item.time" v-text="`${item.origin} - ${item.time}`"></p>
+      <p v-else-if="!item.origin && item.time">{{ item.time }}</p>
       <a v-if="item.link" :href="item.link" target="_blank" rel="noopener noreferrer"
         v-text="item.linkText ? item.linkText : '阅读原文'">
       </a>

@@ -30,7 +30,6 @@ list.value = [
     content: ['Neque sunt voluptatibus repellat pariatur ut enim. Eveniet rerum suscipit eveniet amet dignissimos.Doloremque et distinctio quod molestiae ut.','Neque sunt voluptatibus repellat pariatur ut enim. Eveniet rerum suscipit eveniet amet dignissimos.Doloremque et distinctio quod molestiae ut.'],
     time: '10-11 08:57',
     title: '深圳10月10日新增14例确诊病例和19例无症状感染者',
-    origin: '信息来源：界面新闻',
     link: 'https://h5.baike.qq.com/mobile/landing.html?docid=20221011A016LQ00&amp;isNews=1&amp;adtag=wxjk.yqssc.yqdt',
   },
   {
@@ -54,7 +53,8 @@ list.value = [
       </div>
       <div v-else-if="typeof item.content == 'string'">{{ item.content }}</div>
       <p v-if="item.origin && !item.time">{{ item.origin }}</p>
-      <p v-if="item.origin && item.time" v-text="`${item.origin} - ${item.time}`"></p>
+      <p v-else-if="item.origin && item.time" v-text="`${item.origin} - ${item.time}`"></p>
+      <p v-else-if="!item.origin && item.time">{{ item.time }}</p>
       <a v-if="item.link" :href="item.link" target="_blank" rel="noopener noreferrer"
         v-text="item.linkText ? item.linkText : '阅读原文'">
       </a>
