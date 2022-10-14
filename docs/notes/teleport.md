@@ -83,16 +83,16 @@ const open = ref(false)
 
 你可以点击下面这个按钮，然后通过浏览器的开发者工具，在 <Badge type="tip" text="<body>" vertical="middle" /> 标签下找到模态框元素：
 
-<my-button type="primary" @click="open = true">Open Modal</my-button>
+<My-button type="primary" @click="open = true">Open Modal</My-button>
 
 <Teleport to="body">
-  <div v-if="open" class="modal">
+  <div v-if="open" ref="modal" class="modal">
     <p>Hello from the modal!</p>
-    <my-button @click="open = false">Close</my-button>
+    <My-button @click="open = false">Close</My-button>
   </div>
 </Teleport>
 
-<modal :show="showModal" @close="showModal = false">
+<Modal :show="showModal" @close="showModal = false">
   <template #header>
     <h3>Test Header</h3>
   </template>
@@ -100,14 +100,23 @@ const open = ref(false)
     <h3>test body content</h3>
     <p>hello,this is body content area.</p>
   </template>
-</modal>
+</Modal>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { onClickOutside } from '@vueuse/core'
 
 const open = ref(false)
 
 const showModal = ref(false)
+
+const modal = ref(null)
+
+onMounted(()=> {
+  onClickOutside(modal, ()=> {
+    open.value = false
+  })
+})
 </script>
 
 <style scoped>

@@ -2,33 +2,66 @@
   --content-width: 880px;
   scroll-behavior: smooth;
 }
+
 .home .hero img {
   max-height: 360px;
 }
+
 @media (max-width: 480px) {
   .home .hero img {
     max-height: 260px;
   }
 }
-.home .hero img, .navbar .logo {
+
+.home .hero img,
+.navbar .logo {
   border-radius: 50%;
 }
+
 .home .hero h1 {
   font-size: 4rem;
   font-weight: 700;
 }
+
 .home .hero .description {
   font-weight: 600;
 }
-.home .hero h1, .home .hero .description {
+
+.home .hero h1,
+.home .hero .description {
   background: linear-gradient(135deg, #2cecff 21%, #ff0031 92%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .navbar {
   opacity: 0.9;
 }
+
 .home .hero .action-button.primary {
   border: none;
   background: linear-gradient(200deg, #2cecff 21%, #ff0031 92%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #2cecff 21%, #ff0031 92%);
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
 }
