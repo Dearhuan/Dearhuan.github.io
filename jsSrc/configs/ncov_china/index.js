@@ -427,7 +427,7 @@ export default {
         })
         .join('')}]
     }
-  }
+  },
   mounted () {
     ${exports.ChartList.map((item) => {
       return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`

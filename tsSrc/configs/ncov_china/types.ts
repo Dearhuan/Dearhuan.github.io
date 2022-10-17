@@ -58,6 +58,12 @@ export interface ProvinceMapItem {
   name: string
   localAdd: number
   asymptomAdd: number
+  localAddCityData: LocalAddCityDataItem[]
+}
+
+export interface LocalAddCityDataItem {
+  name: string
+  num: string
 }
 export interface ProvinceMapRes {
   provinceMapData: ProvinceMapItem[]

@@ -28,28 +28,6 @@ const props = defineProps({
 
 const chinaMap = ref()
 
-const randomNum = () => Math.round(Math.random() * 20);
-
-const list = [
-  { name: '北京', value: 10 }, { name: '天津', value: randomNum() },
-  { name: '上海', value: randomNum() }, { name: '重庆', value: randomNum() },
-  { name: '河北', value: randomNum() }, { name: '河南', value: randomNum() },
-  { name: '云南', value: randomNum() }, { name: '辽宁', value: randomNum() },
-  { name: '黑龙江', value: randomNum() }, { name: '湖南', value: randomNum() },
-  { name: '安徽', value: randomNum() }, { name: '山东', value: randomNum() },
-  { name: '新疆', value: 0 }, { name: '江苏', value: randomNum() },
-  { name: '浙江', value: randomNum() }, { name: '江西', value: randomNum() },
-  { name: '湖北', value: randomNum() }, { name: '广西', value: randomNum() },
-  { name: '甘肃', value: randomNum() }, { name: '山西', value: randomNum() },
-  { name: '内蒙古', value: randomNum() }, { name: '陕西', value: randomNum() },
-  { name: '吉林', value: randomNum() }, { name: '福建', value: randomNum() },
-  { name: '贵州', value: randomNum() }, { name: '广东', value: randomNum() },
-  { name: '青海', value: randomNum() }, { name: '西藏', value: randomNum() },
-  { name: '四川', value: randomNum() }, { name: '宁夏', value: randomNum() },
-  { name: '海南', value: randomNum() }, { name: '台湾', value: randomNum() },
-  { name: '香港', value: randomNum() }, { name: '澳门', value: randomNum() }
-];
-
 const initChart = () => {
   const chart = echarts.init(chinaMap.value)
   echarts.registerMap('china', chinaJSON)
@@ -63,7 +41,13 @@ const initChart = () => {
       x: 'center'
     },
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
+      formatter: (params) => {
+        return `${params.name}: ${props.dataList.find((x)=>{
+          return x.name === params.name
+        })?.value ?? 0} <br/>
+        `
+      }
     },
 
     //左侧小导航图标
@@ -74,19 +58,25 @@ const initChart = () => {
       pieces: [
         {
           gt:-1,
-          lt: 10,
-          label: '正常',
+          lt: 1,
+          label: '0人',
           color: '#85daef'
+        },
+        {
+          gt: 1,
+          lt: 10,
+          label: '1-10人',
+          color: '#9feaa5'
         },
         {
           gt:10,
           lt: 20,
-          label: '一般',
+          label: '10-20人',
           color: '#74e2ca'
         },
         {
           gt:20,
-          label: '严重',
+          label: '20人及以上',
           color: '#5475f5'
         }
       ],
@@ -103,7 +93,9 @@ const initChart = () => {
           show: true  //省份名称
         },
         emphasis: {
-          show: false
+          label: {
+            show: true
+          }
         }
       },
       data: props.dataList  //数据
