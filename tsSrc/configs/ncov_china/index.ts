@@ -335,6 +335,8 @@ export const renderResData = (params: ResUnion) => {
     trendChartInfoRes
   } = params
 
+  const { provinceMapData } = provinceMapInfo
+
   const {
     chinaTotal,
     chinaDayModify,
@@ -432,7 +434,7 @@ export default {
   data(){
     return {
       title: '新增本土确诊',
-      dataList: [${provinceMapInfo
+      dataList: [${provinceMapData
         .map((x) => {
           return `{name: '${x.name.replace('省', '')}', value: ${x.localAdd}},`
         })
