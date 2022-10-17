@@ -9,7 +9,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     params_provinceMapInfo['url'],
     {
       req: {},
-      fun: params_provinceMapInfo['func'],
+      func: params_provinceMapInfo['func'],
       service: params_provinceMapInfo['service']
     }
   )
@@ -99,7 +99,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     }
   )
   const resData = {
-    provinceMapInfo: res_provinceMapInfo.rsp,
+    provinceMapInfo: res_provinceMapInfo.args.rsp,
     chinaRealTimeInfo: res.args.rsp,
     provinceInfos: res_province.args.rsp,
     cityRes: res_cityList.args.rsp,
