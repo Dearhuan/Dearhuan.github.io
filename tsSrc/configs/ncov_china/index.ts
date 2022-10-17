@@ -38,7 +38,8 @@ export const BaseUrl = {
   GetProvinceInfoHisByCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getProvinceInfoHisByCode`,
   GetCityInfoHisByCodeURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getCityInfoHisByCode`,
   GetTopicContentURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.OUTER_SERVICE}/getTopicContent`,
-  GetChartInfoURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`
+  GetChartInfoURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`,
+  GetProvinceMapInfoURL: `${BaseApiInfo.BASE_URL}${BaseApiInfo.SERVICE}/getProvinceMapInfo`
 }
 
 export const URL_Object = {
@@ -76,6 +77,11 @@ export const URL_Object = {
     func: 'getChartInfo',
     service: BaseApiInfo.OUTER_DATA_SERVICE,
     url: BaseUrl.GetChartInfoURL
+  },
+  getProvinceMapInfo: {
+    func: 'getProvinceMapInfo',
+    service: BaseApiInfo.SERVICE,
+    url: BaseUrl.GetProvinceMapInfoURL
   }
 }
 
@@ -319,6 +325,7 @@ export const getFormatTimeStr = (timeStr: string): string => {
 
 export const renderResData = (params: ResUnion) => {
   const {
+    provinceMapInfo,
     chinaRealTimeInfo,
     provinceInfos,
     cityRes,
@@ -391,6 +398,8 @@ export const renderResData = (params: ResUnion) => {
 |:--:|---:|---:|---:|---:|
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
+<ChinaMap :dataList="dataList" :title="title"/>
+
 ${ChartList.filter((item) => {
   return item.isCountry
 })
@@ -420,6 +429,16 @@ ${ChartList.filter((item) => {
 <script>
 import * as echarts from 'echarts'
 export default {
+  data(){
+    return {
+      title: '新增本土确诊',
+      dataList: [${provinceMapInfo
+        .map((x) => {
+          return `{name: '${x.name.replace('省', '')}', value: ${x.localAdd}},`
+        })
+        .join('')}]
+    }
+  }
   mounted () {
     ${ChartList.map((item) => {
       return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`

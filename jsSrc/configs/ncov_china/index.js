@@ -52,7 +52,8 @@ exports.BaseUrl = {
   GetProvinceInfoHisByCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getProvinceInfoHisByCode`,
   GetCityInfoHisByCodeURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getCityInfoHisByCode`,
   GetTopicContentURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.OUTER_SERVICE}/getTopicContent`,
-  GetChartInfoURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`
+  GetChartInfoURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.OUTER_DATA_SERVICE}/getChartInfo`,
+  GetProvinceMapInfoURL: `${exports.BaseApiInfo.BASE_URL}${exports.BaseApiInfo.SERVICE}/getProvinceMapInfo`
 }
 exports.URL_Object = {
   getChinaRealTimeInfo: {
@@ -89,6 +90,11 @@ exports.URL_Object = {
     func: 'getChartInfo',
     service: exports.BaseApiInfo.OUTER_DATA_SERVICE,
     url: exports.BaseUrl.GetChartInfoURL
+  },
+  getProvinceMapInfo: {
+    func: 'getProvinceMapInfo',
+    service: exports.BaseApiInfo.SERVICE,
+    url: exports.BaseUrl.GetProvinceMapInfoURL
   }
 }
 exports.ChartList = [
@@ -315,6 +321,7 @@ const getFormatTimeStr = (timeStr) => {
 exports.getFormatTimeStr = getFormatTimeStr
 const renderResData = (params) => {
   const {
+    provinceMapInfo,
     chinaRealTimeInfo,
     provinceInfos,
     cityRes,
@@ -379,6 +386,8 @@ const renderResData = (params) => {
 |:--:|---:|---:|---:|---:|
 |全国|${localNowConfirm}|${noinfectDesc}|${nowImport}|${confirm}|
 
+<ChinaMap :dataList="dataList" :title="title"/>
+
 ${exports.ChartList.filter((item) => {
   return item.isCountry
 })
@@ -408,6 +417,16 @@ ${exports.ChartList.filter((item) => {
 <script>
 import * as echarts from 'echarts'
 export default {
+  data(){
+    return {
+      title: '新增本土确诊',
+      dataList: [${provinceMapInfo
+        .map((x) => {
+          return `{name: '${x.name.replace('省', '')}', value: ${x.localAdd}},`
+        })
+        .join('')}]
+    }
+  }
   mounted () {
     ${exports.ChartList.map((item) => {
       return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`

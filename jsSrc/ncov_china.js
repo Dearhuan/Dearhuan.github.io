@@ -3,6 +3,16 @@ Object.defineProperty(exports, '__esModule', { value: true })
 const ncov_china_1 = require('./configs/ncov_china')
 const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
 ;(async () => {
+  // 全国新增本土确诊
+  const params_provinceMapInfo = ncov_china_1.URL_Object['getProvinceMapInfo']
+  const res_provinceMapInfo = await (0, ncov_china_1.getApiData)(
+    params_provinceMapInfo['url'],
+    {
+      req: {},
+      fun: params_provinceMapInfo['func'],
+      service: params_provinceMapInfo['service']
+    }
+  )
   // 全国信息
   const params_chinaRealTimeInfo =
     ncov_china_1.URL_Object['getChinaRealTimeInfo']
@@ -89,6 +99,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     }
   )
   const resData = {
+    provinceMapInfo: res_provinceMapInfo.rsp,
     chinaRealTimeInfo: res.args.rsp,
     provinceInfos: res_province.args.rsp,
     cityRes: res_cityList.args.rsp,

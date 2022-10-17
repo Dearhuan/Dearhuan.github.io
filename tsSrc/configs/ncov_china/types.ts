@@ -54,6 +54,15 @@ export interface ProvinceInfo {
   }
 }
 
+export interface ProvinceMapItem {
+  name: string
+  localAdd: number
+  asymptomAdd: number
+}
+export interface ProvinceMapRes {
+  provinceMapData: ProvinceMapItem[]
+}
+
 export interface CityRes {
   cityInfo: CityInfo[]
 }
@@ -135,6 +144,7 @@ export interface ChartLineDataItem {
 }
 
 export interface ResUnion {
+  provinceMapInfo: ProvinceMapRes
   chinaRealTimeInfo: ChinaRealTimeInfo
   provinceInfos: ProvinceInfo
   cityRes: CityRes

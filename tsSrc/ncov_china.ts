@@ -5,6 +5,7 @@ import {
   renderResData
 } from './configs/ncov_china'
 import type {
+  ProvinceMapRes,
   ChinaRealTimeInfo,
   ProvinceInfo,
   CityRes,
@@ -17,6 +18,17 @@ import type {
 const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
 
 ;(async () => {
+  // 全国新增本土确诊
+  const params_provinceMapInfo = URL_Object['getProvinceMapInfo']
+  const res_provinceMapInfo = await getApiData<ProvinceMapRes>(
+    params_provinceMapInfo['url'],
+    {
+      req: {},
+      fun: params_provinceMapInfo['func'],
+      service: params_provinceMapInfo['service']
+    }
+  )
+
   // 全国信息
   const params_chinaRealTimeInfo = URL_Object['getChinaRealTimeInfo']
   const res = await getApiData<ChinaRealTimeInfo>(
@@ -102,6 +114,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
   )
 
   const resData = {
+    provinceMapInfo: res_provinceMapInfo.rsp,
     chinaRealTimeInfo: res.args.rsp,
     provinceInfos: res_province.args.rsp,
     cityRes: res_cityList.args.rsp,
