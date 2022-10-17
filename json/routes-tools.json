@@ -26,5 +26,9 @@
   {
     "text": "网站记录",
     "link": "/tools/some-website.md"
+  },
+  {
+    "text": "中国城市经纬度",
+    "link": "/tools/china-city-lxly.md"
   }
 ]
