@@ -56,6 +56,10 @@
     "link": "/notes/echarts-vue3.md"
   },
   {
+    "text": "Echarts-中国地图",
+    "link": "/notes/echarts-china-map.md"
+  },
+  {
     "text": "Eslint-Prettier-husky",
     "link": "/notes/eslint-prettier-husky.md"
   },
