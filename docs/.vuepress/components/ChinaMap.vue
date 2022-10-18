@@ -17,9 +17,6 @@ const props = defineProps({
   title: {
     type: String
   },
-  seriesTitle: {
-    type: String
-  },
   // 数据范围图例
   pieces: {
     type: Array
@@ -43,9 +40,14 @@ const initChart = () => {
     tooltip: {
       trigger: 'item',
       formatter: (params) => {
-        return `${params.name}: ${props.dataList.find((x)=>{
+        return `${params.name}: ${props.dataList.find((x) => {
           return x.name === params.name
         })?.value ?? 0} <br/>
+        ${props.dataList.filter((d) => {
+          return d.name === params.name
+        })[0].addList.map((p) => {
+          return `${p.name}: ${p.num}`
+        })}
         `
       }
     },
@@ -84,7 +86,6 @@ const initChart = () => {
 
     //配置属性
     series: [{
-      name: '数据',
       type: 'map',
       mapType: 'china',
       roam: true,

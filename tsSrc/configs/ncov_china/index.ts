@@ -436,7 +436,13 @@ export default {
       title: '新增本土确诊',
       dataList: [${provinceMapData
         .map((x) => {
-          return `{name: '${x.name.replace('省', '')}', value: ${x.localAdd}},`
+          return `{name: '${x.name.replace('省', '')}', value: ${
+            x.localAdd
+          }, addList: [${x.localAddCityData
+            .map((a) => {
+              return `{name: '${a.name}', num: a.num}`
+            })
+            .join('')}]},`
         })
         .join('')}]
     }
