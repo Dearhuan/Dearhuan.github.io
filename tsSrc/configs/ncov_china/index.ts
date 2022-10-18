@@ -440,11 +440,11 @@ export default {
             x.localAdd
           }, addList: [${x.localAddCityData
             .map((a) => {
-              return `{name: '${a.name}', num: a.num}`
+              return `{name: '${a.name}', num: ${a.num}},`
             })
             .join('')}]},`
         })
-        .join('')}]
+        .join('')}{name: '南海诸岛', value: 0, addList: []}]
     }
   },
   mounted () {

@@ -45,8 +45,8 @@ const initChart = () => {
         })?.value ?? 0} <br/>
         ${props.dataList.filter((d) => {
           return d.name === params.name
-        })[0].addList.map((p) => {
-          return `${p.name}: ${p.num}`
+        })[0]?.addList.map((p,i) => {
+          return `${i === 0 ? ',' : ''}${p.name}: ${p.num} <br/>`
         })}
         `
       }
