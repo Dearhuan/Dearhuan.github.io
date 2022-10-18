@@ -1,5 +1,5 @@
 ---
-prev: /notes/echarts-vue3.md
+prev: /notes/echarts-china-map.md
 next: /notes/skeleton.md
 ---
 # eslint+prettier+stylelint+husky配置

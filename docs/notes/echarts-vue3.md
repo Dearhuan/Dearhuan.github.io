@@ -1,6 +1,6 @@
 ---
 prev: /notes/echarts-stacked-horizontal-bar.md
-next: /notes/eslint-prettier-husky.md
+next: /notes/echarts-china-map.md
 ---
 # Vuepress中使用Vue3封装Echarts图表
 <!-- <template> -->

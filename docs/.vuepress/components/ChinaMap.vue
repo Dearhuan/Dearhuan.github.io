@@ -19,7 +19,34 @@ const props = defineProps({
   },
   // 数据范围图例
   pieces: {
-    type: Array
+    type: Array,
+    default: () => {
+      return [
+        {
+          gt:-1,
+          lt: 1,
+          label: '0人',
+          color: '#85daef'
+        },
+        {
+          gt: 1,
+          lt: 10,
+          label: '1-10人',
+          color: '#9feaa5'
+        },
+        {
+          gt:10,
+          lt: 20,
+          label: '10-20人',
+          color: '#74e2ca'
+        },
+        {
+          gt:20,
+          label: '20人及以上',
+          color: '#5475f5'
+        }
+      ]
+    }
   }
 })
 
@@ -57,31 +84,7 @@ const initChart = () => {
       show: true,
       x: 'left',
       y: 'bottom',
-      pieces: [
-        {
-          gt:-1,
-          lt: 1,
-          label: '0人',
-          color: '#85daef'
-        },
-        {
-          gt: 1,
-          lt: 10,
-          label: '1-10人',
-          color: '#9feaa5'
-        },
-        {
-          gt:10,
-          lt: 20,
-          label: '10-20人',
-          color: '#74e2ca'
-        },
-        {
-          gt:20,
-          label: '20人及以上',
-          color: '#5475f5'
-        }
-      ],
+      pieces: props.pieces,
     },
 
     //配置属性
