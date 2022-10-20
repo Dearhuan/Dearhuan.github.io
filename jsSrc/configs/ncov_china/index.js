@@ -389,10 +389,13 @@ const renderResData = (params) => {
 
 <ChinaMap :dataList="dataList" :title="title"/>
 
-<MyChart :option="option_ch_day" :dark="dark" :style="style"/>
-<MyChart :option="option_ch_add" :dark="dark" :style="style"/>
-<MyChart :option="option_ch_now" :dark="dark" :style="style"/>
-<MyChart :option="option_ch_total" :dark="dark" :style="style"/>
+${exports.ChartList.filter((item) => {
+  return item.isCountry
+})
+  .map((x) => {
+    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>\n`
+  })
+  .join('')}
 
 ## ${area}省疫情实时动态
 ### 截至${updateTime} ${dataFrom}
@@ -404,444 +407,460 @@ const renderResData = (params) => {
 |:--:|---:|---:|---:|---:|
 |${area}|昨日+${localAdd}|昨日+${asymptomAdd}|昨日+${importAdd}|昨日+${lastImportAddTotal}|
 
-<MyChart :option="option_gd_mod" :dark="dark" :style="style"/>
-<MyChart :option="option_gd_total" :dark="dark" :style="style"/>
-<MyChart :option="option_gz_mod" :dark="dark" :style="style"/>
-
-<script setup>
-import { ref } from 'vue'
-
-const title = ref('新增本土确诊')
-const dark = ref(true)
-const style = ref({
-  height: '500px'
+${exports.ChartList.filter((item) => {
+  return !item.isCountry
 })
+  .map((x) => {
+    return `<div id="${x.id}" style="width:100%;height:500px;margin-bottom:10px;"></div>\n`
+  })
+  .join('')}
 
-const dataList = ref([${provinceMapData
-    .map((x) => {
-      return `{name: '${x.name.replace('省', '')}', value: ${
-        x.localAdd
-      }, addList: [${x.localAddCityData
-        .map((a) => {
-          return `{name: '${a.name}', num: ${a.num}},`
+<script>
+import * as echarts from 'echarts'
+export default {
+  data(){
+    return {
+      title: '新增本土确诊',
+      dataList: [${provinceMapData
+        .map((x) => {
+          return `{name: '${x.name.replace('省', '')}', value: ${
+            x.localAdd
+          }, addList: [${x.localAddCityData
+            .map((a) => {
+              return `{name: '${a.name}', num: ${a.num}},`
+            })
+            .join('')}]},`
         })
-        .join('')}]},`
-    })
-    .join('')}{name: '南海诸岛', value: 0, addList: []}])
+        .join('')}{name: '南海诸岛', value: 0, addList: []}]
+    }
+  },
+  mounted () {
+    ${exports.ChartList.map((item) => {
+      return `this.${item.propName} = echarts.init(document.getElementById("${item.id}"), "dark")\n`
+    })}
 
-const option_ch_day = ref({
-  series: [
-    {
-      type: 'treemap',
-      data: [
+    const option_gd_mod = {
+      title: {
+        text: '${area}疫情新增趋势（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土新增确诊', '本土新增无症状', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${modifyHistory
+          .map((x) => {
+            return `"${x.day}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
         {
-          name: '本土新增确诊昨日+${localConfirmAdd}',
-          value: ${(0, exports.dealWithNumber)(localConfirmAdd)},
+          name: '本土新增确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${modifyHistory
+            .map((x) => {
+              return `${x.localAdd},`
+            })
+            .join('')}]
         },
         {
-          name: '新增无症状昨日+${noinfect}',
-          value: ${(0, exports.dealWithNumber)(noinfect)},
+          name: '本土新增无症状',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${modifyHistory
+            .map((x) => {
+              return `${x.asymptomAdd},`
+            })
+            .join('')}]
         },
         {
-          name: '新增境外输入昨日+${importDesc}',
-          value: ${(0, exports.dealWithNumber)(importDesc)},
-        },
-        {
-          name: '新增治愈昨日+${heal}',
-          value: ${(0, exports.dealWithNumber)(heal)},
-        },
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${modifyHistory
+            .map((x) => {
+              return `${x.importAdd},`
+            })
+            .join('')}]
+        }
       ]
-    }
-  ]
-})
+    };
 
-const option_ch_add = ref({
-  title: {
-    text: '新增疫情整体走势'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['本土确诊', '无症状感染', '新增境外输入']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${chinaAddHistoryData
-      .map((x) => {
-        return `"${x.x}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '本土确诊',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaAddHistoryData
-        .map((x) => {
-          return `${x.y1},`
-        })
-        .join('')}]
-    },
-    {
-      name: '无症状感染',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaAddHistoryData
-        .map((x) => {
-          return `${x.y3},`
-        })
-        .join('')}]
-    },
-    {
-      name: '新增境外输入',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaAddHistoryData
-        .map((x) => {
-          return `${x.y2},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_gd_total = {
+      title: {
+        text: '${area}疫情概览（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['累计确诊', '累计治愈']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${totalHistory
+          .map((x) => {
+            return `"${x.day}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '累计确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${totalHistory
+            .map((x) => {
+              return `${x.confirm},`
+            })
+            .join('')}]
+        },
+        {
+          name: '累计治愈',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${totalHistory
+            .map((x) => {
+              return `${x.heal},`
+            })
+            .join('')}]
+        }
+      ]
+    };
 
-const option_ch_now = ref({
-  title: {
-    text: '现有疫情整体走势'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['本土确诊', '无症状感染', '新增境外输入']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${chinaNowHistoryData
-      .map((x) => {
-        return `"${x.x}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '本土确诊',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaNowHistoryData
-        .map((x) => {
-          return `${x.y1},`
-        })
-        .join('')}]
-    },
-    {
-      name: '无症状感染',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaNowHistoryData
-        .map((x) => {
-          return `${x.y3},`
-        })
-        .join('')}]
-    },
-    {
-      name: '新增境外输入',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaNowHistoryData
-        .map((x) => {
-          return `${x.y2},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_gz_mod = {
+      title: {
+        text: '广州疫情新增趋势（人）'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土新增确诊', '本土新增无症状']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${cityModifyHistory
+          .map((x) => {
+            return `"${x.day.slice(4)}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土新增确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${cityModifyHistory
+            .map((x) => {
+              return `${x.confirm},`
+            })
+            .join('')}]
+        },
+        {
+          name: '本土新增无症状',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${cityModifyHistory
+            .map((x) => {
+              return `${x.noinfect},`
+            })
+            .join('')}]
+        }
+      ]
+    };
 
-const option_ch_total = ref({
-  title: {
-    text: '累计疫情整体走势'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['确诊(含港澳台)', '死亡(含港澳台)']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${chinaTotalHistoryData
-      .map((x) => {
-        return `"${x.x}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '确诊(含港澳台)',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaTotalHistoryData
-        .map((x) => {
-          return `${x.y0},`
-        })
-        .join('')}]
-    },
-    {
-      name: '死亡(含港澳台)',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${chinaTotalHistoryData
-        .map((x) => {
-          return `${x.y2},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_ch_day  = {
+      series: [
+        {
+          type: 'treemap',
+          data: [
+            {
+              name: '本土新增确诊昨日+${localConfirmAdd}',
+              value: ${(0, exports.dealWithNumber)(localConfirmAdd)},
+            },
+            {
+              name: '新增无症状昨日+${noinfect}',
+              value: ${(0, exports.dealWithNumber)(noinfect)},
+            },
+            {
+              name: '新增境外输入昨日+${importDesc}',
+              value: ${(0, exports.dealWithNumber)(importDesc)},
+            },
+            {
+              name: '新增治愈昨日+${heal}',
+              value: ${(0, exports.dealWithNumber)(heal)},
+            },
+          ]
+        }
+      ]
+    };
 
-const option_gd_mod = ref({
-  title: {
-    text: '${area}疫情新增趋势（人）'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['本土新增确诊', '本土新增无症状', '新增境外输入']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${modifyHistory
-      .map((x) => {
-        return `"${x.day}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '本土新增确诊',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${modifyHistory
-        .map((x) => {
-          return `${x.localAdd},`
-        })
-        .join('')}]
-    },
-    {
-      name: '本土新增无症状',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${modifyHistory
-        .map((x) => {
-          return `${x.asymptomAdd},`
-        })
-        .join('')}]
-    },
-    {
-      name: '新增境外输入',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${modifyHistory
-        .map((x) => {
-          return `${x.importAdd},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_ch_add = {
+      title: {
+        text: '新增疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土确诊', '无症状感染', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaAddHistoryData
+          .map((x) => {
+            return `"${x.x}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData
+            .map((x) => {
+              return `${x.y1},`
+            })
+            .join('')}]
+        },
+        {
+          name: '无症状感染',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData
+            .map((x) => {
+              return `${x.y3},`
+            })
+            .join('')}]
+        },
+        {
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaAddHistoryData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
 
-const option_gd_total = ref({
-  title: {
-    text: '${area}疫情概览（人）'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['累计确诊', '累计治愈']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${totalHistory
-      .map((x) => {
-        return `"${x.day}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '累计确诊',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${totalHistory
-        .map((x) => {
-          return `${x.confirm},`
-        })
-        .join('')}]
-    },
-    {
-      name: '累计治愈',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${totalHistory
-        .map((x) => {
-          return `${x.heal},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_ch_now = {
+      title: {
+        text: '现有疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['本土确诊', '无症状感染', '新增境外输入']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaNowHistoryData
+          .map((x) => {
+            return `"${x.x}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '本土确诊',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData
+            .map((x) => {
+              return `${x.y1},`
+            })
+            .join('')}]
+        },
+        {
+          name: '无症状感染',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData
+            .map((x) => {
+              return `${x.y3},`
+            })
+            .join('')}]
+        },
+        {
+          name: '新增境外输入',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaNowHistoryData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
 
-const option_gz_mod = ref({
-  title: {
-    text: '广州疫情新增趋势（人）'
-  },
-  tooltip: {
-    trigger: 'axis'
-  },
-  legend: {
-    data: ['本土新增确诊', '本土新增无症状']
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: [${cityModifyHistory
-      .map((x) => {
-        return `"${x.day.slice(4)}",`
-      })
-      .join('')}]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      name: '本土新增确诊',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${cityModifyHistory
-        .map((x) => {
-          return `${x.confirm},`
-        })
-        .join('')}]
-    },
-    {
-      name: '本土新增无症状',
-      type: 'line',
-      stack: 'Total',
-      smooth: true,
-      data: [${cityModifyHistory
-        .map((x) => {
-          return `${x.noinfect},`
-        })
-        .join('')}]
-    }
-  ]
-})
+    const option_ch_total = {
+      title: {
+        text: '累计疫情整体走势'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['确诊(含港澳台)', '死亡(含港澳台)']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: [${chinaTotalHistoryData
+          .map((x) => {
+            return `"${x.x}",`
+          })
+          .join('')}]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          name: '确诊(含港澳台)',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaTotalHistoryData
+            .map((x) => {
+              return `${x.y0},`
+            })
+            .join('')}]
+        },
+        {
+          name: '死亡(含港澳台)',
+          type: 'line',
+          stack: 'Total',
+          smooth: true,
+          data: [${chinaTotalHistoryData
+            .map((x) => {
+              return `${x.y2},`
+            })
+            .join('')}]
+        }
+      ]
+    };
 
+    this.chartGdMod.setOption(option_gd_mod);
+    this.chartGdTotal.setOption(option_gd_total);
+    this.chartGzMod.setOption(option_gz_mod);
+    this.chartChDay.setOption(option_ch_day);
+    this.chartChAdd.setOption(option_ch_add);
+    this.chartChNow.setOption(option_ch_now);
+    this.chartChTotal.setOption(option_ch_total);
+  }
+}
 </script>
 
 ## ${area}省各地区疫情情况
