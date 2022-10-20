@@ -1,6 +1,6 @@
 ---
 prev: /notes/vuepress-markdown.md
-next: /notes/echarts-stacked-horizontal-bar.md
+next: /notes/echarts-vue3.md
 ---
 
 # Teleport in Vue3

@@ -71,8 +71,10 @@ const props = defineProps({
 
 const chinaMap = ref()
 
+let chart = null
+
 const initChart = () => {
-  const chart = echarts.init(chinaMap.value)
+  chart = echarts.init(chinaMap.value)
   echarts.registerMap('china', chinaJSON)
 
   const option = {
@@ -126,6 +128,14 @@ const initChart = () => {
   };
 
   chart.setOption(option)
+
+  window.addEventListener('resize', () => {
+    chart.resize({
+      animation: {
+        duration: 300
+      }
+    })
+  })
 }
 
 onMounted(() => {

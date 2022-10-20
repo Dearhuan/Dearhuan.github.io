@@ -1,5 +1,5 @@
 <template>
-  <div :id="uid" :style="style"></div>
+  <div class="my-chart" :id="uid" :style="style"></div>
 </template>
 
 <script setup>
@@ -33,17 +33,18 @@ onBeforeMount(() => {
 })
 const dark = ref(props.dark)
 
-const chart = ref(null)
+// vue3中echarts实例使用普通变量进行定义
+let chart = null
 
 onMounted(() => {
-  chart.value = echarts.init(document.getElementById(uid.value), dark.value ? 'dark' : '')
+  chart = echarts.init(document.getElementById(uid.value), dark.value ? 'dark' : '')
 
-  chart.value.setOption(props.option, {
+  chart.setOption(props.option, {
     notMerge: true
   })
 
   window.addEventListener('resize', () => {
-    chart.value.resize({
+    chart.resize({
       animation: {
         duration: 300
       }
@@ -51,3 +52,9 @@ onMounted(() => {
   })
 })
 </script>
+
+<style lang="scss" scoped>
+.my-chart {
+  margin: 10px 0;
+}
+</style>
