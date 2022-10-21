@@ -221,6 +221,8 @@ const handleClick = (link) => {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  max-height: 750px;
+  overflow: scroll;
 }
 .el-button + .el-button {
   margin-left: 0;
