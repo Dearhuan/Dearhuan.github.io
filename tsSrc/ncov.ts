@@ -346,6 +346,13 @@ export default {
           .join('')}] },]
     }
     this.lastChart.setOption(lastOption);
+
+    window.onresize = () => {
+      this.chart.resize()
+      this.secondChart.resize()
+      this.thirdChart.resize()
+      this.lastChart.resize()
+    }
   }
 };
 </script>
