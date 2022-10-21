@@ -1,5 +1,9 @@
 [
   {
+    "text": "食谱",
+    "link": "/tools/cookbook.md"
+  },
+  {
     "text": "Js工具代码示例",
     "link": "/tools/jsTool.md"
   },

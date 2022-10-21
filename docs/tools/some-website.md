@@ -50,7 +50,11 @@ linkList.value = [
       {
         "title": "时间线示例Demo",
         "link": "https://juejin.cn/post/7073250328023400478"
-      }
+      },
+      {
+        "title": "豆果食谱",
+        "link": "https://www.douguo.com/"
+      },
     ]
   }
 ]
