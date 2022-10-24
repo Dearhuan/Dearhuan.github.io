@@ -40,7 +40,7 @@ jobs:
           
       # 生成静态文件
       - name: Build
-        run: npm install && npm run docs:build
+        run: npm install && export NODE_OPTIONS=--max_old_space_size=8192 && npm run docs:build
 
       # 部署到 GitHub Pages
       - name: Deploy
