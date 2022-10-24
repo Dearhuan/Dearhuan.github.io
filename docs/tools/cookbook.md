@@ -112,6 +112,6 @@ list.value = [
     ],
     link: 'https://www.douguo.com/cookbook/3208813.html',
     linkText: '图文'
-  },
+  }
 ]
 </script>
