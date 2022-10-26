@@ -165,7 +165,7 @@ list.value = [
       '4.差不多起锅给点水淀粉就好了(一勺淀粉加2勺水，拌匀就是水淀粉)。',
       '5.撒葱花装盘。'
     ],
-    link: 'https://m.meishichina.com/recipe/587645',
+    link: 'https://www.douguo.com/cookbook/1605903.html',
     linkText: '图文'
   },
   {
