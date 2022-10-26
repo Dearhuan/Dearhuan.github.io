@@ -55,6 +55,10 @@ linkList.value = [
         "title": "豆果食谱",
         "link": "https://www.douguo.com/"
       },
+      {
+        "title": "国内疫情数据大屏",
+        "link": "https://dearhuan.github.io/chartNcov/"
+      },
     ]
   }
 ]
