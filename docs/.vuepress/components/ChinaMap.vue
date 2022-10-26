@@ -59,7 +59,7 @@ const initChart = () => {
   echarts.registerMap('china', chinaJSON)
 
   const option = {
-    backgroundColor: '#FFFFFF',
+    // backgroundColor: '#FFFFFF',
     title: {
       text: props.title,
       subtext: '',
