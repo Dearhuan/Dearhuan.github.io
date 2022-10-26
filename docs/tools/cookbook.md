@@ -195,5 +195,19 @@ list.value = [
     link: 'https://www.douguo.com/cookbook/2343351.html',
     linkText: '图文'
   },
+  {
+    title: '红烧土豆',
+    content: [
+      '材料：土豆、生抽、老抽、耗油、白糖、淀粉、葱',
+      '步骤：',
+      '1.生抽、老抽、耗油、白糖、盐、淀粉、加水调料备用。',
+      '2.土豆切块、葱切末。',
+      '3.土豆放入烧开水的锅中煮10分钟捞出。',
+      '4.起锅热油，倒入土豆翻炒2分钟。',
+      '5.倒入酱汁煮2分钟使其充分入味，大火收汁，撒葱花。',
+    ],
+    link: 'https://www.douguo.com/cookbook/2454438.html',
+    linkText: '图文'
+  },
 ]
 </script>
