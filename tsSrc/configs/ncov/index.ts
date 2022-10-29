@@ -72,7 +72,7 @@ linkList.value = [${fileList
       return `{"title": "${x.text}","link": ".${x.link.replace(
         'md',
         'html'
-      )}"},`
+      )}"},\n`
     })
     .join('')}]
 

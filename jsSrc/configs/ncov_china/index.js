@@ -200,7 +200,7 @@ linkList.value = [${fileList
       return `{"title": "${x.text}","link": ".${x.link.replace(
         'md',
         'html'
-      )}"},`
+      )}"},\n`
     })
     .join('')}]
 
@@ -429,7 +429,7 @@ export default {
             x.localAdd
           }, addList: [${x.localAddCityData
             .map((a) => {
-              return `{name: '${a.name}', num: ${a.num}},`
+              return `{name: '${a.name}', num: ${a.num}},\n`
             })
             .join('')}]},`
         })
@@ -446,10 +446,17 @@ export default {
         text: '${area}疫情新增趋势（人）'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['本土新增确诊', '本土新增无症状', '新增境外输入']
+        top: 20,
+        data: [{name: '本土新增确诊',icon: 'rect'}, {name: '本土新增无症状',icon: 'rect'},{name: '新增境外输入',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -479,7 +486,10 @@ export default {
           name: '本土新增确诊',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${modifyHistory
             .map((x) => {
               return `${x.localAdd},`
@@ -490,7 +500,10 @@ export default {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${modifyHistory
             .map((x) => {
               return `${x.asymptomAdd},`
@@ -501,7 +514,10 @@ export default {
           name: '新增境外输入',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${modifyHistory
             .map((x) => {
               return `${x.importAdd},`
@@ -516,10 +532,17 @@ export default {
         text: '${area}疫情概览（人）'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['累计确诊', '累计治愈']
+        top: 20,
+        data: [{name: '累计确诊',icon: 'rect'},{name: '累计治愈',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -549,7 +572,10 @@ export default {
           name: '累计确诊',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${totalHistory
             .map((x) => {
               return `${x.confirm},`
@@ -560,7 +586,10 @@ export default {
           name: '累计治愈',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${totalHistory
             .map((x) => {
               return `${x.heal},`
@@ -575,10 +604,17 @@ export default {
         text: '广州疫情新增趋势（人）'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['本土新增确诊', '本土新增无症状']
+        top: 20,
+        data: [{name: '本土新增确诊',icon: 'rect'},{name: '本土新增无症状',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -608,7 +644,10 @@ export default {
           name: '本土新增确诊',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${cityModifyHistory
             .map((x) => {
               return `${x.confirm},`
@@ -619,7 +658,10 @@ export default {
           name: '本土新增无症状',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${cityModifyHistory
             .map((x) => {
               return `${x.noinfect},`
@@ -660,10 +702,17 @@ export default {
         text: '新增疫情整体走势'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['本土确诊', '无症状感染', '新增境外输入']
+        top: 20,
+        data: [{name: '本土确诊',icon: 'rect'}, {name: '无症状感染',icon: 'rect'},{name: '新增境外输入',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -693,7 +742,10 @@ export default {
           name: '本土确诊',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaAddHistoryData
             .map((x) => {
               return `${x.y1},`
@@ -704,7 +756,10 @@ export default {
           name: '无症状感染',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaAddHistoryData
             .map((x) => {
               return `${x.y3},`
@@ -715,7 +770,10 @@ export default {
           name: '新增境外输入',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaAddHistoryData
             .map((x) => {
               return `${x.y2},`
@@ -730,10 +788,17 @@ export default {
         text: '现有疫情整体走势'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['本土确诊', '无症状感染', '新增境外输入']
+        top: 20,
+        data: [{name: '本土确诊',icon: 'rect'}, {name: '无症状感染',icon: 'rect'},{name: '新增境外输入',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -763,7 +828,10 @@ export default {
           name: '本土确诊',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaNowHistoryData
             .map((x) => {
               return `${x.y1},`
@@ -774,7 +842,10 @@ export default {
           name: '无症状感染',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaNowHistoryData
             .map((x) => {
               return `${x.y3},`
@@ -785,7 +856,10 @@ export default {
           name: '新增境外输入',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaNowHistoryData
             .map((x) => {
               return `${x.y2},`
@@ -800,10 +874,17 @@ export default {
         text: '累计疫情整体走势'
       },
       tooltip: {
-        trigger: 'axis'
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
       },
       legend: {
-        data: ['确诊(含港澳台)', '死亡(含港澳台)']
+        top: 20,
+        data: [{name: '确诊(含港澳台)', con: 'rect'}, {name: '死亡(含港澳台)',icon: 'rect'}]
       },
       grid: {
         left: '3%',
@@ -833,7 +914,10 @@ export default {
           name: '确诊(含港澳台)',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaTotalHistoryData
             .map((x) => {
               return `${x.y0},`
@@ -844,7 +928,10 @@ export default {
           name: '死亡(含港澳台)',
           type: 'line',
           stack: 'Total',
-          smooth: true,
+          areaStyle: {},
+          emphasis: {
+            focus: 'series'
+          },
           data: [${chinaTotalHistoryData
             .map((x) => {
               return `${x.y2},`
