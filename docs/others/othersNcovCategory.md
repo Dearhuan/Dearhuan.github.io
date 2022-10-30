@@ -22,8 +22,7 @@ const title = ref('海外疫情数据记录')
 
 const linkList = ref([])
 
-linkList.value = [
-{"title": "20220819-1506","link": "./20220819-1506.html"},
+linkList.value = [{"title": "20220819-1506","link": "./20220819-1506.html"},
 {"title": "20220822-0742","link": "./20220822-0742.html"},
 {"title": "20220825-1046","link": "./20220825-1046.html"},
 {"title": "20220826-0714","link": "./20220826-0714.html"},
@@ -92,6 +91,7 @@ linkList.value = [
 {"title": "20221027-1019","link": "./20221027-1019.html"},
 {"title": "20221028-0941","link": "./20221028-0941.html"},
 {"title": "20221029-0725","link": "./20221029-0725.html"},
+{"title": "20221030-0723","link": "./20221030-0723.html"},
 ]
 
 const handleClick = (link) => {
