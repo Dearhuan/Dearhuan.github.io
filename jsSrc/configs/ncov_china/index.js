@@ -369,7 +369,6 @@ const renderResData = (params) => {
   const { hotnewsRsp } = contentsRes
   const { contents } = hotnewsRsp
   const { hotnewsRsp: gzHotnewsRsp } = contentsGzRes
-  console.log(contentsGzRes)
   const { contents: gzContents } = gzHotnewsRsp
   const { trendChartInfo } = trendChartInfoRes
   const chinaAddHistoryData = trendChartInfo.filter((x) => {
