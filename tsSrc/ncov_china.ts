@@ -110,10 +110,12 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = BaseApiInfo
       req: {
         areaCode: GuangZhouCityCode,
         hotnewsReq: {
+          areaCode: GuangZhouCityCode,
           limit: 10,
-          locationCode: GuangZhouCityCode,
+          locationCode: GuangDongProvinceCode,
           offset: 0,
           reqType: 1,
+          sortType: 1,
           tab: 'shishitongbao'
         },
         queryList: [{}]
