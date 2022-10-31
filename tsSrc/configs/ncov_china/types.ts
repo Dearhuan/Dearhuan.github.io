@@ -157,5 +157,6 @@ export interface ResUnion {
   trendInfoRes: TrendInfoRes
   cityTrendRes: CityTrendRes
   contentsRes: ContentsRes
+  contentsGzRes: ContentsRes
   trendChartInfoRes: TrendChartInfoRes
 }

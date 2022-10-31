@@ -334,6 +334,7 @@ export const renderResData = (params: ResUnion) => {
     trendInfoRes,
     cityTrendRes,
     contentsRes,
+    contentsGzRes,
     trendChartInfoRes
   } = params
 
@@ -378,6 +379,9 @@ export const renderResData = (params: ResUnion) => {
 
   const { hotnewsRsp } = contentsRes
   const { contents } = hotnewsRsp
+
+  const { hotnewsRsp: gzHotnewsRsp } = contentsGzRes
+  const { contents: gzContents } = gzHotnewsRsp
 
   const { trendChartInfo } = trendChartInfoRes
   const chinaAddHistoryData = trendChartInfo.filter((x) => {
@@ -989,6 +993,8 @@ export default {
 ${renderMarkdownTable(cityInfo)}
 
 ${renderNewsCard(contents, area)}
+
+${renderNewsCard(gzContents, '广州')}
 `
   const timeStr = getFormatTimeStr(recentTime)
 

@@ -330,6 +330,7 @@ const renderResData = (params) => {
     trendInfoRes,
     cityTrendRes,
     contentsRes,
+    contentsGzRes,
     trendChartInfoRes
   } = params
   const { provinceMapData } = provinceMapInfo
@@ -367,6 +368,8 @@ const renderResData = (params) => {
   const { modifyHistory: cityModifyHistory } = cityTrendRes
   const { hotnewsRsp } = contentsRes
   const { contents } = hotnewsRsp
+  const { hotnewsRsp: gzHotnewsRsp } = contentsGzRes
+  const { contents: gzContents } = gzHotnewsRsp
   const { trendChartInfo } = trendChartInfoRes
   const chinaAddHistoryData = trendChartInfo.filter((x) => {
     return x.chartName === enums_1.ChartName.CH_ADD_HISTORY
@@ -976,6 +979,8 @@ export default {
 ${(0, exports.renderMarkdownTable)(cityInfo)}
 
 ${(0, exports.renderNewsCard)(contents, area)}
+
+${(0, exports.renderNewsCard)(gzContents, '广州')}
 `
   const timeStr = (0, exports.getFormatTimeStr)(recentTime)
   ;(0, exports.writeMdWithContent)(timeStr, content)

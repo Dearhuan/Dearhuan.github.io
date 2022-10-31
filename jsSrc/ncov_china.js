@@ -68,7 +68,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
       service: params_cityInfoHisByCode['service']
     }
   )
-  // 城市新闻消息
+  // 城市新闻消息 - 广东
   const params_topicContent = ncov_china_1.URL_Object['getTopicContent']
   const res_news = await (0, ncov_china_1.getApiData)(
     params_topicContent['url'],
@@ -86,6 +86,26 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
       },
       func: params_topicContent['func'],
       service: params_topicContent['service']
+    }
+  )
+  // 城市新闻消息 - 广州
+  const params_gz_topicContent = ncov_china_1.URL_Object['getTopicContent']
+  const res_gz_news = await (0, ncov_china_1.getApiData)(
+    params_gz_topicContent['url'],
+    {
+      req: {
+        areaCode: GuangZhouCityCode,
+        hotnewsReq: {
+          limit: 10,
+          locationCode: GuangZhouCityCode,
+          offset: 0,
+          reqType: 1,
+          tab: 'shishitongbao'
+        },
+        queryList: [{}]
+      },
+      func: params_gz_topicContent['func'],
+      service: params_gz_topicContent['service']
     }
   )
   // 趋势图表信息
@@ -106,6 +126,7 @@ const { GuangDongProvinceCode, GuangZhouCityCode } = ncov_china_1.BaseApiInfo
     trendInfoRes: res_trendInfo.args.rsp,
     cityTrendRes: res_cityTrendInfo.args.rsp,
     contentsRes: res_news.args.rsp,
+    contentsGzRes: res_gz_news.args.rsp,
     trendChartInfoRes: res_chartInfo.args.rsp
   }
   ;(0, ncov_china_1.renderResData)(resData)
