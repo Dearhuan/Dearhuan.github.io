@@ -9,6 +9,8 @@ export interface ApiRequestParams {
       offset: number
       reqType: number
       tab: string
+      areaCode?: string
+      sortType?: number
     }
     queryList?: object[]
   }
