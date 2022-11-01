@@ -492,7 +492,6 @@ export default {
         {
           name: '本土新增确诊',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -506,7 +505,6 @@ export default {
         {
           name: '本土新增无症状',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -520,7 +518,6 @@ export default {
         {
           name: '新增境外输入',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -578,7 +575,6 @@ export default {
         {
           name: '累计确诊',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -592,7 +588,6 @@ export default {
         {
           name: '累计治愈',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -650,7 +645,6 @@ export default {
         {
           name: '本土新增确诊',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -664,7 +658,6 @@ export default {
         {
           name: '本土新增无症状',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -748,7 +741,6 @@ export default {
         {
           name: '本土确诊',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -762,7 +754,6 @@ export default {
         {
           name: '无症状感染',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -776,7 +767,6 @@ export default {
         {
           name: '新增境外输入',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -834,7 +824,6 @@ export default {
         {
           name: '本土确诊',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -848,7 +837,6 @@ export default {
         {
           name: '无症状感染',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -862,7 +850,6 @@ export default {
         {
           name: '新增境外输入',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -920,7 +907,6 @@ export default {
         {
           name: '确诊(含港澳台)',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
@@ -934,7 +920,6 @@ export default {
         {
           name: '死亡(含港澳台)',
           type: 'line',
-          stack: 'Total',
           areaStyle: {},
           emphasis: {
             focus: 'series'
