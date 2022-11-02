@@ -1,6 +1,6 @@
 ---
 prev: /notes/eslint-prettier-husky.md
-next: /notes/dom2svg.md
+next: /notes/skeleton-vue.md
 ---
 # 自定义骨架屏
 

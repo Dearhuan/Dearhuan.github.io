@@ -59,6 +59,10 @@ linkList.value = [
         "title": "国内疫情数据大屏",
         "link": "https://dearhuan.github.io/chartNcov/"
       },
+      {
+        "title": "Github趋势查询",
+        "link": "https://github.com/trending"
+      },
     ]
   }
 ]

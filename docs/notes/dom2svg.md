@@ -1,5 +1,5 @@
 ---
-prev: /notes/skeleton.md
+prev: /notes/skeleton-vue.md
 next: 
   text: '虚拟列表'
   link: /notes/virtual-scroll-list.html
