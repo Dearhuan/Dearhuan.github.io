@@ -60,8 +60,12 @@
     "link": "/notes/eslint-prettier-husky.md"
   },
   {
-    "text": "骨架屏",
+    "text": "骨架屏-方法版",
     "link": "/notes/skeleton.md"
+  },
+  {
+    "text": "骨架屏-组件版",
+    "link": "/notes/skeleton-vue.md"
   },
   {
     "text": "html2canvas生成海报",
