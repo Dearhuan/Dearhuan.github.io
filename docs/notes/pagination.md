@@ -1,5 +1,5 @@
 ---
-prev: /notes/myButton.md
+prev: /notes/modal.md
 next: /notes/table.md
 ---
 

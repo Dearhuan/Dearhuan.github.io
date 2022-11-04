@@ -193,7 +193,7 @@ const handleClick = (evt) => {
             <div class="modal-footer">
               <slot name="footer">
                 default footer
-                <my-button type="info" class="modal-default-button" @click="handleClick">OK</my-button>
+                <my-button type="primary" class="modal-default-button" @click="handleClick">OK</my-button>
               </slot>
             </div>
           </div>

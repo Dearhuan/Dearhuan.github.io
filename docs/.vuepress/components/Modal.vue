@@ -1,4 +1,6 @@
 <script setup>
+import { ref, watch } from 'vue'
+
 const props = defineProps({
   show: Boolean
 })
@@ -10,26 +12,48 @@ const emit = defineEmits({
 const handleClick = (evt) => {
   emit('close', evt)
 }
+
+const bodyOverflow = ref('')
+
+watch(
+  () => props.show,
+  (newVal) => {
+    if (!newVal) {
+      resetScroll()
+    } else {
+      forbidScroll()
+    }
+  }
+)
+
+const forbidScroll = () => {
+  bodyOverflow.value = document.body.style.overflow
+  document.body.style.overflow = 'hidden'
+}
+
+const resetScroll = () => {
+  document.body.style.overflow = bodyOverflow.value
+}
 </script>
 
 <template>
   <teleport to="body">
     <transition name="modal">
       <div v-if="show" class="modal-mask">
-        <div class="modal-wrapper">
+        <div class="modal-wrapper" @click.self="handleClick">
           <div class="modal-container">
             <div class="modal-header">
-              <slot name="header">default header</slot>
+              <slot name="header">消息提示</slot>
             </div>
 
             <div class="modal-body">
-              <slot name="body">default body</slot>
+              <slot name="body">消息内容</slot>
             </div>
 
             <div class="modal-footer">
               <slot name="footer">
                 default footer
-                <my-button type="info" class="modal-default-button" @click="handleClick">OK</my-button>
+                <my-button type="primary" class="modal-default-button" @click="handleClick">OK</my-button>
               </slot>
             </div>
           </div>
