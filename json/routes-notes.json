@@ -96,7 +96,11 @@
     "link": "/notes/myButton.md"
   },
   {
-    "text": "分页器",
+    "text": "消息弹窗-Modal",
+    "link": "/notes/modal.md"
+  },
+  {
+    "text": "分页器-Pagination",
     "link": "/notes/pagination.md"
   },
   {
