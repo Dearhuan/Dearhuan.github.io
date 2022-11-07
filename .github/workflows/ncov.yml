@@ -45,7 +45,7 @@ jobs:
       # 部署到 GitHub Pages
       - name: Deploy
         # 使用别人写好的一个 action
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           # 这里的 ACCESS_TOKEN 名字需要和下文中的相对应
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
