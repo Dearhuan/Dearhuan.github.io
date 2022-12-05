@@ -1,5 +1,5 @@
 ---
-prev: /notes/eslint-prettier-husky.md
+prev: /notes/git-commitizen.md
 next: /notes/skeleton-vue.md
 ---
 # 自定义骨架屏

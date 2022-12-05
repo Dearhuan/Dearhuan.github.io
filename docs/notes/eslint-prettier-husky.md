@@ -1,6 +1,6 @@
 ---
 prev: /notes/echarts-china-map.md
-next: /notes/skeleton.md
+next: /notes/git-commitizen.md
 ---
 # eslint+prettier+stylelint+husky配置
 
