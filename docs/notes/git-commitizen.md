@@ -1,6 +1,6 @@
 ---
 prev: /notes/eslint-prettier-husky.md
-next: /notes/skeleton.md
+next: /notes/project-standard.md
 ---
 # 使用commitizen规范git提交（commit信息）
 

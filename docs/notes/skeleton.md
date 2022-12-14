@@ -1,5 +1,5 @@
 ---
-prev: /notes/git-commitizen.md
+prev: /notes/project-standard.md
 next: /notes/skeleton-vue.md
 ---
 # 自定义骨架屏
