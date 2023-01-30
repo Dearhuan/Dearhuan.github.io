@@ -1,5 +1,5 @@
 ---
-prev: /notes/git-commitizen.md
+prev: /notes/git-stash.md
 next: /notes/skeleton.md
 ---
 # 项目规范文档 📚
