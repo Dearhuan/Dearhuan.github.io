@@ -64,6 +64,10 @@
     "link": "/notes/git-commitizen.md"
   },
   {
+    "text": "Git-Stash",
+    "link": "/notes/git-stash.md"
+  },
+  {
     "text": "项目规范文档",
     "link": "/notes/project-standard.md"
   },
