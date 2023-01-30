@@ -1,6 +1,6 @@
 ---
 prev: /notes/echarts-vue3.md
-next: /notes/eslint-prettier-husky.md
+next: /notes/echarts-custom-import.md
 ---
 
 # Echarts-中国地图
