@@ -1,5 +1,5 @@
 ---
-prev: /notes/pagination.md
+prev: /notes/useMessage.md
 next: /notes/lazyload-in-vue.md
 ---
 

@@ -1,6 +1,6 @@
 ---
 prev: /notes/modal.md
-next: /notes/table.md
+next: /notes/useMessage.md
 ---
 
 # 分页器组件
