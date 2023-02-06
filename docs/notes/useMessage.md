@@ -8,7 +8,7 @@ next: /notes/table.md
 
 <div class="mb-10 mt-10">
   <my-button @click="showMessage('Default')">Default</my-button>
-  <my-button @click="showSuccessMsg('Success')" type="success">Success</my-button>
+  <my-button @click="showSuccessMsg('Success', 500)" type="success">Success</my-button>
   <my-button @click="showInfoMsg('Info')" type="info">Info</my-button>
   <my-button @click="showWarningMsg('Warning')" type="warning">Warning</my-button>
   <my-button @click="showErrorMsg('Danger')" type="danger">Danger</my-button>
@@ -218,17 +218,17 @@ const useMessage = (params: Params = {}) => {
 
   return {
     showMessage,
-    showInfoMsg: (msg: string) => {
-      showMessage(msg, 'info')
+    showInfoMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'info', duration)
     },
-    showSuccessMsg: (msg: string) => {
-      showMessage(msg, 'success')
+    showSuccessMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'success', duration)
     },
-    showWarningMsg: (msg: string) => {
-      showMessage(msg, 'warning')
+    showWarningMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'warning', duration)
     },
-    showErrorMsg: (msg: string) => {
-      showMessage(msg, 'error')
+    showErrorMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'error', duration)
     }
   }
 }

@@ -200,17 +200,17 @@ export const useMessage = (params: Params = {}) => {
 
   return {
     showMessage,
-    showInfoMsg: (msg: string) => {
-      showMessage(msg, 'info')
+    showInfoMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'info', duration)
     },
-    showSuccessMsg: (msg: string) => {
-      showMessage(msg, 'success')
+    showSuccessMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'success', duration)
     },
-    showWarningMsg: (msg: string) => {
-      showMessage(msg, 'warning')
+    showWarningMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'warning', duration)
     },
-    showErrorMsg: (msg: string) => {
-      showMessage(msg, 'error')
+    showErrorMsg: (msg: string, duration?: number) => {
+      showMessage(msg, 'error', duration)
     }
   }
 }
