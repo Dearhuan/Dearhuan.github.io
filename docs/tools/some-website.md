@@ -70,6 +70,10 @@ linkList.value = [
         "link": "https://dearhuan.gitee.io/vip"
       },
       {
+        "title": "基金&天气查看器",
+        "link": "https://dearhuan.github.io/swiper-fund"
+      },
+      {
         "title": "烹饪记录",
         "link": "https://dearhuan.github.io/photoshow"
       }
