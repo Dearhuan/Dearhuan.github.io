@@ -1,6 +1,6 @@
 ---
 prev: /notes/teleport.md
-next: /notes/echarts-china-map.md
+next: /notes/useEcharts-vue3.md
 ---
 # Vuepress中使用Vue3封装Echarts图表
 

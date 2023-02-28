@@ -1,5 +1,5 @@
 ---
-prev: /notes/echarts-vue3.md
+prev: /notes/useEcharts-vue3.md
 next: /notes/echarts-custom-import.md
 ---
 
