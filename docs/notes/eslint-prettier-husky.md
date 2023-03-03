@@ -1,5 +1,5 @@
 ---
-prev: /notes/echarts-custom-import.md
+prev: /notes/i18n-vue3.md
 next: /notes/git-commitizen.md
 ---
 # eslint+prettier+stylelint+husky配置

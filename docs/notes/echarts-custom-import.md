@@ -1,6 +1,6 @@
 ---
 prev: /notes/echarts-china-map.md
-next: /notes/eslint-prettier-husky.md
+next: /notes/i18n-vue3.md
 ---
 # Vue3按需引入Echarts
 
