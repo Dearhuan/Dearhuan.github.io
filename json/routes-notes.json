@@ -64,6 +64,10 @@
     "link": "/notes/echarts-custom-import.md"
   },
   {
+    "text": "i18n-vue3-国际化",
+    "link": "/notes/i18n-vue3.md"
+  },
+  {
     "text": "Eslint-Prettier-husky",
     "link": "/notes/eslint-prettier-husky.md"
   },
