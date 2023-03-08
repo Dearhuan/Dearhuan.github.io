@@ -1,6 +1,6 @@
 ---
 prev: /notes/echarts-custom-import.md
-next: /notes/eslint-prettier-husky.md
+next: /notes/e-signature.md
 ---
 # vue3引入i18n国际化
 

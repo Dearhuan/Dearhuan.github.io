@@ -1,5 +1,5 @@
 ---
-prev: /notes/i18n-vue3.md
+prev: /notes/e-signature.md
 next: /notes/git-commitizen.md
 ---
 # eslint+prettier+stylelint+husky配置

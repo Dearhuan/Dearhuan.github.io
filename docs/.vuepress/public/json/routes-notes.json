@@ -68,6 +68,10 @@
     "link": "/notes/i18n-vue3.md"
   },
   {
+    "text": "电子签名",
+    "link": "/notes/e-signature.md"
+  },
+  {
     "text": "Eslint-Prettier-husky",
     "link": "/notes/eslint-prettier-husky.md"
   },
