@@ -16,7 +16,7 @@ import { RenderType, ThemeType } from '@/utils/echarts/echarts-type'
 const containerChart = ref<HTMLDivElement | null>(null)
 const { setOption } = useEcharts(
   containerChart as Ref<HTMLDivElement>, 
-  RenderType['SVGRenderer'] , 
+  RenderType['SVGRenderer'], 
   ThemeType['Light'])
 
 onMounted(() => {
@@ -33,7 +33,7 @@ onMounted(() => {
 // echarts/echarts-type.ts
 export enum RenderType {
   SVGRenderer = 'SVGRenderer',
-  CanvasRenderer = 'SVGRenderer'
+  CanvasRenderer = 'CanvasRenderer'
 }
 
 export enum ThemeType {
