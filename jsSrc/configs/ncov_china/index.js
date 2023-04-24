@@ -5,7 +5,8 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod }
   }
 Object.defineProperty(exports, '__esModule', { value: true })
-exports.renderResData =
+exports.renderNewsCardData =
+  exports.renderResData =
   exports.getFormatTimeStr =
   exports.renderNewsCard =
   exports.renderMarkdownTable =
@@ -971,3 +972,24 @@ ${(0, exports.renderNewsCard)(gzContents, '广州')}
   ;(0, exports.writeMdWithContent)(timeStr, content)
 }
 exports.renderResData = renderResData
+const renderNewsCardData = (params) => {
+  const { contentsRes, contentsGzRes } = params
+  const { hotnewsRsp } = contentsRes
+  const { contents } = hotnewsRsp
+  const { hotnewsRsp: gzHotnewsRsp } = contentsGzRes
+  const { contents: gzContents } = gzHotnewsRsp
+  const content = `
+${(0, exports.renderNewsCard)(contents, '广东')}
+
+${(0, exports.renderNewsCard)(gzContents, '广州')}
+`
+  const timeStr = (0, exports.getFormatTimeStr)(
+    `${new Date().getFullYear()}${contents[0].publicTime
+      .slice(5)
+      .replace(' ', '')
+      .replace(':', '')
+      .replace('-', '')}`
+  )
+  ;(0, exports.writeMdWithContent)(timeStr, content)
+}
+exports.renderNewsCardData = renderNewsCardData

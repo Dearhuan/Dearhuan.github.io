@@ -985,3 +985,30 @@ ${renderNewsCard(gzContents, '广州')}
 
   writeMdWithContent(timeStr, content)
 }
+
+export const renderNewsCardData = (
+  params: Pick<ResUnion, 'contentsRes' | 'contentsGzRes'>
+) => {
+  const { contentsRes, contentsGzRes } = params
+
+  const { hotnewsRsp } = contentsRes
+  const { contents } = hotnewsRsp
+
+  const { hotnewsRsp: gzHotnewsRsp } = contentsGzRes
+  const { contents: gzContents } = gzHotnewsRsp
+
+  const content = `
+${renderNewsCard(contents, '广东')}
+
+${renderNewsCard(gzContents, '广州')}
+`
+  const timeStr = getFormatTimeStr(
+    `${new Date().getFullYear()}${contents[0].publicTime
+      .slice(5)
+      .replace(' ', '')
+      .replace(':', '')
+      .replace('-', '')}`
+  )
+
+  writeMdWithContent(timeStr, content)
+}

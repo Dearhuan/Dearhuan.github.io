@@ -469,7 +469,7 @@ watch(targetDate, (newVal) => {
                 height: 80px;
                 border: 3px solid rgba(2, 63, 153, 0.5);
                 border-radius: 10px;
-                inset: -10px;
+                inset: -13px;
               }
 
               &::before {
