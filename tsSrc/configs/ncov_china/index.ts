@@ -1002,13 +1002,7 @@ ${renderNewsCard(contents, '广东')}
 
 ${renderNewsCard(gzContents, '广州')}
 `
-  const timeStr = getFormatTimeStr(
-    `${new Date().getFullYear()}${contents[0].publicTime
-      .slice(5)
-      .replace(' ', '')
-      .replace(':', '')
-      .replace('-', '')}`
-  )
+  const timeStr = getFormatTimeStr(`${contents[0].publicTime}`)
 
   writeMdWithContent(timeStr, content)
 }
