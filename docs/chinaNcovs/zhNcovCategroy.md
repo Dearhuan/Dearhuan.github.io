@@ -154,6 +154,7 @@ linkList.value = [{"title": "20220904-091108","link": "./20220904-091108.html"},
 {"title": "20235012-1","link": "./20235012-1.html"},
 {"title": "20235017-3","link": "./20235017-3.html"},
 {"title": "20235017-8","link": "./20235017-8.html"},
+{"title": "20235020-1","link": "./20235020-1.html"},
 ]
 
 const handleClick = (link) => {
