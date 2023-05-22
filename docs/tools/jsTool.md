@@ -1,5 +1,5 @@
 ---
-prev: /tools/cookbook.md
+prev: /tools/fundbook.md
 next: /tools/ts-file-tool.md
 ---
 

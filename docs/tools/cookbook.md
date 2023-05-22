@@ -1,6 +1,6 @@
 ---
 prev: 
-next: /tools/ts-file-tool.md
+next: /tools/cashbook.md
 ---
 
 # 食谱

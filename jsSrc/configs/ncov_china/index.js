@@ -7,6 +7,7 @@ var __importDefault =
 Object.defineProperty(exports, '__esModule', { value: true })
 exports.renderNewsCardData =
   exports.renderResData =
+  exports.dateFormater =
   exports.getFormatTimeStr =
   exports.renderNewsCard =
   exports.renderMarkdownTable =
@@ -322,6 +323,27 @@ const getFormatTimeStr = (timeStr) => {
   return `${year}${month}${day}-${hour}${minute}${misc}`
 }
 exports.getFormatTimeStr = getFormatTimeStr
+//格式化时间
+// dateFormater('YYYY-MM-DD HH:mm:ss')
+// dateFormater('YYYYMMDDHHmmss')
+const dateFormater = (formater, time) => {
+  const date = time ? new Date(time) : new Date(),
+    Y = date.getFullYear() + '',
+    M = date.getMonth() + 1,
+    D = date.getDate(),
+    H = date.getHours(),
+    m = date.getMinutes(),
+    s = date.getSeconds()
+  return formater
+    .replace(/YYYY|yyyy/g, Y)
+    .replace(/YY|yy/g, Y.substr(2, 2))
+    .replace(/MM/g, (M < 10 ? '0' : '') + M)
+    .replace(/DD/g, (D < 10 ? '0' : '') + D)
+    .replace(/HH|hh/g, (H < 10 ? '0' : '') + H)
+    .replace(/mm/g, (m < 10 ? '0' : '') + m)
+    .replace(/ss/g, (s < 10 ? '0' : '') + s)
+}
+exports.dateFormater = dateFormater
 const renderResData = (params) => {
   const {
     provinceMapInfo,
@@ -983,13 +1005,7 @@ ${(0, exports.renderNewsCard)(contents, '广东')}
 
 ${(0, exports.renderNewsCard)(gzContents, '广州')}
 `
-  const timeStr = (0, exports.getFormatTimeStr)(
-    `${new Date().getFullYear()}${contents[0].publicTime
-      .slice(5)
-      .replace(' ', '')
-      .replace(':', '')
-      .replace('-', '')}`
-  )
+  const timeStr = (0, exports.dateFormater)('YYYYMMDD-HHmmss')
   ;(0, exports.writeMdWithContent)(timeStr, content)
 }
 exports.renderNewsCardData = renderNewsCardData

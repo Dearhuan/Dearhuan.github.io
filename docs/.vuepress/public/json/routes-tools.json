@@ -4,6 +4,18 @@
     "link": "/tools/cookbook.md"
   },
   {
+    "text": "记账本",
+    "link": "/tools/cashbook.md"
+  },
+  {
+    "text": "天气本",
+    "link": "/tools/weather-tool.md"
+  },
+  {
+    "text": "基金本",
+    "link": "/tools/fundbook.md"
+  },
+  {
     "text": "Js工具代码示例",
     "link": "/tools/jsTool.md"
   },
