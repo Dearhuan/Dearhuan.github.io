@@ -1,6 +1,6 @@
 ---
 prev: /tools/cashbook.md
-next: /tools/jsTool.md
+next: /tools/oilbook.md
 ---
 # 自制基金本
 

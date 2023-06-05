@@ -1,6 +1,6 @@
 ---
 prev: /tools/cookbook.md
-next: /tools/weather-tool.md
+next: /tools/weatherbook.md
 ---
 # 自制记账本
 

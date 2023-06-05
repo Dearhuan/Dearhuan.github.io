@@ -1,5 +1,5 @@
 ---
-prev: /tools/fundbook.md
+prev: /tools/oilbook.md
 next: /tools/ts-file-tool.md
 ---
 
