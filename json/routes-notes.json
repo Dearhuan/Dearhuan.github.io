@@ -136,12 +136,32 @@
     "link": "/notes/modal.md"
   },
   {
+    "text": "全局提示-Message",
+    "link": "/notes/message.md"
+  },
+  {
+    "text": "通知提醒框-Notification",
+    "link": "/notes/notification.md"
+  },
+  {
+    "text": "文字滚动-TextScroll",
+    "link": "/notes/textscroll.md"
+  },
+  {
+    "text": "开关-Switch",
+    "link": "/notes/switch.md"
+  },
+  {
     "text": "分页器-Pagination",
     "link": "/notes/pagination.md"
   },
   {
     "text": "消息提示-useMessage",
     "link": "/notes/useMessage.md"
+  },
+  {
+    "text": "文字提示-Tooltip",
+    "link": "/notes/tooltip.md"
   },
   {
     "text": "表格",

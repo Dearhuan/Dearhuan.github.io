@@ -97,3 +97,38 @@ export const dayNameList = [
     dayNumber: 6,
   },
 ]
+
+export const requestAnimationFrame = typeof window !== 'undefined' ?
+  window.requestAnimationFrame : () => {}
+
+export const cancelAnimationFrame = typeof window !== 'undefined' ? 
+  window.cancelAnimationFrame : () => {}
+
+export function rafTimeout (fn, delay = 0, interval = false) {
+  const requestAnimationFrame = window.requestAnimationFrame
+  var start = null
+  function timeElapse (timestamp) {
+    if (!start) {
+      start = timestamp
+    }
+    const elapsed = timestamp - start
+    if (elapsed >= delay) {
+      fn()
+      if (interval) {
+        start = null
+        raf.id = requestAnimationFrame(timeElapse)
+      }
+    } else {
+      raf.id = requestAnimationFrame(timeElapse)
+    }
+  }
+  const raf = {
+    id: requestAnimationFrame(timeElapse)
+  }
+}
+
+export function cancelRaf (raf) {
+  if (raf && raf.id) {
+    cancelAnimationFrame(raf.id)
+  }
+}
