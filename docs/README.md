@@ -1,7 +1,7 @@
 ---
 home: true
 heroText: Hello's Blog
-tagline: 人生若只如初见
+tagline: 温文尔雅阁外动人
 heroImage: /images/jaychou.jpg
 actions:
   - text: 开始

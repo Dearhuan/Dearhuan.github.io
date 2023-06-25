@@ -1,6 +1,6 @@
 ---
 prev: /notes/pagination.md
-next: /notes/table.md
+next: /notes/tooltip.md
 ---
 # 消息提示hooks-useMessage 
 

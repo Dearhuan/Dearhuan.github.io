@@ -1,5 +1,5 @@
 ---
-prev: /notes/modal.md
+prev: /notes/switch.md
 next: /notes/useMessage.md
 ---
 
