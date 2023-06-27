@@ -152,6 +152,22 @@
     "link": "/notes/switch.md"
   },
   {
+    "text": "折叠面板-Collapse",
+    "link": "/notes/collapse.md"
+  },
+  {
+    "text": "选择器-Select",
+    "link": "/notes/select.md"
+  },
+  {
+    "text": "级联选择-Cascader",
+    "link": "/notes/cascader.md"
+  },
+  {
+    "text": "文件上传-Upload",
+    "link": "/notes/upload.md"
+  },
+  {
     "text": "分页器-Pagination",
     "link": "/notes/pagination.md"
   },

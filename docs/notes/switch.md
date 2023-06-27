@@ -1,6 +1,6 @@
 ---
 prev: /notes/textscroll.md
-next: /notes/pagination.md
+next: /notes/collapse.md
 ---
 
 # 开关 Switch

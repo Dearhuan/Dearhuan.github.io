@@ -1,5 +1,5 @@
 ---
-prev: /notes/switch.md
+prev: /notes/upload.md
 next: /notes/useMessage.md
 ---
 
