@@ -1,5 +1,5 @@
 ---
-prev: /notes/pagination.md
+prev: /notes/inputNumber.md
 next: /notes/tooltip.md
 ---
 # 消息提示hooks-useMessage 

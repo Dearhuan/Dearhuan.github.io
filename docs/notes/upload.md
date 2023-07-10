@@ -1,6 +1,6 @@
 ---
 prev: /notes/cascader.md
-next: /notes/pagination.md
+next: /notes/inputNumber.md
 ---
 # 上传 Upload
 

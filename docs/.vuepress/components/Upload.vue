@@ -295,11 +295,9 @@ function onError (content: any) {
   }
   .m-file-preview {
     position: relative;
-    padding: 8px;
     width: 100px;
     height: 100px;
     border-radius: 8px;
-    padding: 8px;
     border: 1px solid #d9d9d9;
     display: flex;
     align-items: center;
