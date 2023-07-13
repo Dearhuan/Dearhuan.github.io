@@ -1,6 +1,6 @@
 ---
 prev: /tools/fundbook.md
-next: /tools/jsTool.md
+next: /tools/loan-canlendar.md
 ---
 # 自制油价本
 

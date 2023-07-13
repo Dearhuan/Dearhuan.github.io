@@ -1,5 +1,5 @@
 ---
-prev: /tools/oilbook.md
+prev: /tools/loan-canlendar.md
 next: /tools/ts-file-tool.md
 ---
 
