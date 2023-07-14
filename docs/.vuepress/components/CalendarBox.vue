@@ -2,10 +2,10 @@
   <div class="container">
     <div class="title" v-if="title">{{ title }}</div>
     <div>
-      <div class="year-box flex" v-for="(item, i) in list" :key="i">
-        <div class="year flex">{{ item.year }}</div>
+      <div class="year-box flex-box" v-for="(item, i) in list" :key="i">
+        <div class="year flex-box">{{ item.year }}</div>
         <div class="months">
-          <div class="top flex">
+          <div class="top flex-box">
             <div class="month"
               :class="(m.isUnRelated && !m.isUnFinished) ? 'gray' : (!m.isUnRelated && m.isUnFinished) ? 'orange' : 'green'"
               v-for="(m, j) in item.topOption" :key="j">
@@ -13,7 +13,7 @@
               <div class="sub-text">{{ money }}</div>
             </div>
           </div>
-          <div class="bottom flex">
+          <div class="bottom flex-box">
             <div class="month"
               :class="(m.isUnRelated && !m.isUnFinished) ? 'gray' : (!m.isUnRelated && m.isUnFinished) ? 'orange' : 'green'"
               v-for="(m, j) in item.bottomOption" :key="j">
@@ -22,9 +22,14 @@
             </div>
           </div>
         </div>
+        <div class="sub-total flex-box">
+          <div class="sub-item blue">{{ `总计${item.paidItem + item.unPaidItem}期:${(item.paidItem + item.unPaidItem) * money}` }}</div>
+          <div class="sub-item green">{{ `已还${item.paidItem}期:${(item.paidItem) * money}` }}</div>
+          <div class="sub-item orange">{{ `待还${item.unPaidItem}期:${(item.unPaidItem) * money}` }}</div>
+        </div>
       </div>
     </div>
-    <div class="tooltips flex">
+    <div class="tooltips flex-box">
       <div class="tooltip" v-for="(item, i) in tooltips" :key="i">
         <div class="color-block" :class="item.color">{{ item.text }}</div>
       </div>
@@ -33,12 +38,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 interface Option {
   year: string | number
   topOption: Array<MonthItem>
   bottomOption: Array<MonthItem>
+  paidItem: number
+  unPaidItem: number
 }
 
 interface MonthItem {
@@ -48,53 +55,62 @@ interface MonthItem {
 }
 
 interface Props {
-  title?: string
-  money?: string | number
-  startDate: string
-  endDate: string
+  title?: string // 标题
+  money?: number // 金额
+  startDate: string // 起始日期
+  endDate: string // 截止日期
 }
 
 const props = withDefaults(defineProps<Props>(), {
   title: '',
   money: 9999,
-  startDate: '2023-04-24',
-  endDate: '2026-04-24'
+  startDate: '2000-05-20',
+  endDate: '2099-05-20'
 })
 
 const list = ref<Option[]>([])
+// 总览金额
+const totalMoney = ref<number>(0) // 总金额
+const paidMoney = ref<number>(0) // 已还金额
+const unPaidMoney = ref<number>(0) // 待还金额
 
 const topMonths = ['01', '02', '03', '04', '05', '06']
 const bottomMonths = ['07', '09', '09', '10', '11', '12']
 
-const tooltips = [
+// 日历底部总览信息
+const tooltips = ref([
+  {
+    color: 'blue',
+    name: 'total',
+    text: '总计'
+  },
   {
     color: 'gray',
+    name: 'other',
     text: '其他'
   },
   {
     color: 'green',
+    name: 'paid',
     text: '已还'
   },
   {
     color: 'orange',
+    name: 'unpaid',
     text: '待还'
   }
-]
+])
 
 const getList = () => {
   const currentDate = new Date()
   const startYear = new Date(props.startDate).getFullYear()
   const endYear = new Date(props.endDate).getFullYear()
   const startMonth = new Date(props.startDate).getMonth() + 1
-  const endMonth = new Date(props.endDate).getMonth() + 1
   const startDay = new Date(props.startDate).getDate()
-  const endDay = new Date(props.endDate).getDate()
   const count = (endYear - startYear) + 1
-  console.log(startYear, endYear, count)
   const arr: Option[] = []
   for (let i = 0; i < count; i++) {
     const year = startYear + i
-    console.log({ year })
     const topOption = topMonths.map(item => {
       const itemMonth = Number(item)
       let isUnRelated = false
@@ -144,19 +160,77 @@ const getList = () => {
     const obj = {
       year: year,
       topOption: topOption,
-      bottomOption: bottomOption
+      bottomOption: bottomOption,
+      paidItem: 0,
+      unPaidItem: 0
     }
     arr.push(obj)
   }
-  console.log({ arr })
   return arr
 }
-list.value = getList()
+
+onMounted(() => {
+  list.value = getList()
+  let paidCount = 0
+  list.value.forEach(item => {
+    let paidItem = 0
+    let unPaidItem = 0
+    item.topOption.forEach(top => {
+      if (top.isUnFinished && top.isUnRelated) {
+        paidCount++
+        paidItem++
+      }
+      if (top.isUnFinished && !top.isUnRelated) {
+        unPaidItem++
+      }
+    })
+    item.bottomOption.forEach(bot => {
+      if (bot.isUnFinished && bot.isUnRelated) {
+        paidCount++
+        paidItem++
+      }
+      if (bot.isUnFinished && !bot.isUnRelated) {
+        unPaidItem++
+      } 
+    })
+    item.paidItem = paidItem
+    item.unPaidItem = unPaidItem
+  })
+  paidMoney.value = paidCount * props.money
+  
+  const startDate = new Date(props.startDate)
+  const endDate = new Date(props.endDate)
+  const diffYear = endDate.getFullYear() - startDate.getFullYear() 
+  const diffMonth = diffYear * 12 + endDate.getMonth() - startDate.getMonth()
+  totalMoney.value = diffMonth * props.money
+  unPaidMoney.value = totalMoney.value - paidMoney.value
+
+  tooltips.value = tooltips.value.map(tip => {
+    const text = tip.name === 'total' ? 
+                  totalMoney.value : 
+                  tip.name === 'other' ?
+                  null : 
+                  tip.name === 'paid' ?
+                  paidMoney.value : 
+                  tip.name === 'unpaid' ?
+                  unPaidMoney.value : null
+    return {
+      color: tip.color,
+      name: tip.name,
+      text: `${tip.text}${text ? `(${text})` : ''}`
+    }
+  })
+})
 </script>
 
 <style lang="scss" scoped>
-.flex {
+.flex-box {
   display: flex;
+}
+
+.blue {
+  cursor: pointer;
+  background-color: rgb(13 126 228 / 69%);
 }
 
 .gray {
@@ -187,7 +261,6 @@ list.value = getList()
     background-color: rgb(13 126 228 / 69%);
     text-align: center;
     padding: 10px 0;
-    border-bottom: 1px solid #fff;
   }
 
   .year {
@@ -223,6 +296,22 @@ list.value = getList()
     .month:not(:last-child) {
       border-right: 1px solid #fff;
     }
+  }
+
+  .sub-total {
+    flex: 1;
+    flex-direction: column;
+    font-size: 12px;
+    border-left: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    .sub-item {
+      flex: 1;
+      max-width: 160px;
+    }
+  }
+
+  .sub-total:last-child {
+    border-bottom: none;
   }
 
   .year-box:last-child {
