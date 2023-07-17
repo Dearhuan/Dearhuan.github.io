@@ -23,9 +23,9 @@
           </div>
         </div>
         <div class="sub-total flex-box">
-          <div class="sub-item blue">{{ `总计${item.paidItem + item.unPaidItem}期:${(item.paidItem + item.unPaidItem) * money}` }}</div>
-          <div class="sub-item green">{{ `已还${item.paidItem}期:${(item.paidItem) * money}` }}</div>
-          <div class="sub-item orange">{{ `待还${item.unPaidItem}期:${(item.unPaidItem) * money}` }}</div>
+          <div class="sub-item blue">{{ `总计${item.paidItem + item.unPaidItem}期:${(item.paidItem + item.unPaidItem) * Number(money)}` }}</div>
+          <div class="sub-item green">{{ `已还${item.paidItem}期:${(item.paidItem) * Number(money)}` }}</div>
+          <div class="sub-item orange">{{ `待还${item.unPaidItem}期:${(item.unPaidItem) * Number(money)}` }}</div>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ interface MonthItem {
 
 interface Props {
   title?: string // 标题
-  money?: number // 金额
+  money?: string | number // 金额
   startDate: string // 起始日期
   endDate: string // 截止日期
 }
@@ -101,62 +101,46 @@ const tooltips = ref([
   }
 ])
 
-const getList = () => {
+const getMonthOption = (months: string[], year: number) => {
   const currentDate = new Date()
   const startYear = new Date(props.startDate).getFullYear()
-  const endYear = new Date(props.endDate).getFullYear()
   const startMonth = new Date(props.startDate).getMonth() + 1
   const startDay = new Date(props.startDate).getDate()
+  const option = months.map(item => {
+    const itemMonth = Number(item)
+    let isUnRelated = false
+    let isUnFinished = false
+    if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.startDate)) ||
+      (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.endDate))) {
+      isUnRelated = true
+    }
+    if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.startDate)) &&
+      (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.endDate))) {
+      isUnFinished = true
+    }
+    if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`).getMonth() > new Date(`${startYear}-${startMonth - 1}-${startDay}`).getMonth()) &&
+      (new Date(`${year}-${itemMonth + 1}-${currentDate.getDate()}`) < currentDate)) {
+      isUnFinished = true
+      isUnRelated = true
+    }
+    return {
+      month: item,
+      isUnRelated: isUnRelated,
+      isUnFinished: isUnFinished
+    } 
+  })
+  return option
+}
+
+const getList = () => {
+  const startYear = new Date(props.startDate).getFullYear()
+  const endYear = new Date(props.endDate).getFullYear()
   const count = (endYear - startYear) + 1
   const arr: Option[] = []
   for (let i = 0; i < count; i++) {
     const year = startYear + i
-    const topOption = topMonths.map(item => {
-      const itemMonth = Number(item)
-      let isUnRelated = false
-      let isUnFinished = false
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.startDate)) ||
-        (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.endDate))) {
-        isUnRelated = true
-      }
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.startDate)) &&
-        (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.endDate))) {
-        isUnFinished = true
-      }
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`).getMonth() > new Date(`${startYear}-${startMonth - 1}-${startDay}`).getMonth()) &&
-        (new Date(`${year}-${itemMonth + 1}-${currentDate.getDate()}`) < currentDate)) {
-        isUnFinished = true
-        isUnRelated = true
-      }
-      return {
-        month: item,
-        isUnRelated: isUnRelated,
-        isUnFinished: isUnFinished
-      }
-    })
-    const bottomOption = bottomMonths.map(item => {
-      const itemMonth = Number(item)
-      let isUnRelated = false
-      let isUnFinished = false
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.startDate)) ||
-        (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.endDate))) {
-        isUnRelated = true
-      }
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) > new Date(props.startDate)) &&
-        (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < new Date(props.endDate))) {
-        isUnFinished = true
-      }
-      if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`).getMonth() > new Date(`${startYear}-${startMonth - 1}-${startDay}`).getMonth()) &&
-        (new Date(`${year}-${itemMonth + 1}-${currentDate.getDate()}`) < currentDate)) {
-        isUnFinished = true
-        isUnRelated = true
-      }
-      return {
-        month: item,
-        isUnRelated: isUnRelated,
-        isUnFinished: isUnFinished
-      }
-    })
+    const topOption = getMonthOption(topMonths, year)
+    const bottomOption = getMonthOption(bottomMonths, year)
     const obj = {
       year: year,
       topOption: topOption,
@@ -196,13 +180,13 @@ onMounted(() => {
     item.paidItem = paidItem
     item.unPaidItem = unPaidItem
   })
-  paidMoney.value = paidCount * props.money
+  paidMoney.value = paidCount * Number(props.money)
   
   const startDate = new Date(props.startDate)
   const endDate = new Date(props.endDate)
   const diffYear = endDate.getFullYear() - startDate.getFullYear() 
   const diffMonth = diffYear * 12 + endDate.getMonth() - startDate.getMonth()
-  totalMoney.value = diffMonth * props.money
+  totalMoney.value = diffMonth * Number(props.money)
   unPaidMoney.value = totalMoney.value - paidMoney.value
 
   tooltips.value = tooltips.value.map(tip => {
