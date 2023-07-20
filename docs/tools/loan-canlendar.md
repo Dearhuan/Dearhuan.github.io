@@ -1,6 +1,6 @@
 ---
 prev: /tools/oilbook.md
-next: /tools/jsTool.md
+next: /tools/oilPriceCalculator.md
 ---
 
 # 分期日历本

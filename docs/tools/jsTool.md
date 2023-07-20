@@ -1,5 +1,5 @@
 ---
-prev: /tools/loan-canlendar.md
+prev: /tools/oilPriceCalculator.md
 next: /tools/ts-file-tool.md
 ---
 
