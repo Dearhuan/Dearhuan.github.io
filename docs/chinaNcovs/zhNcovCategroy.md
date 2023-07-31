@@ -207,20 +207,6 @@ linkList.value = [{"title": "20220904-091108","link": "./20220904-091108.html"},
 {"title": "20230719-030901","link": "./20230719-030901.html"},
 {"title": "20230720-014617","link": "./20230720-014617.html"},
 {"title": "20230721-014837","link": "./20230721-014837.html"},
-{"title": "20234209-7","link": "./20234209-7.html"},
-{"title": "20234212-1","link": "./20234212-1.html"},
-{"title": "20234214-3","link": "./20234214-3.html"},
-{"title": "20234220-0","link": "./20234220-0.html"},
-{"title": "20235007-5","link": "./20235007-5.html"},
-{"title": "20235012-1","link": "./20235012-1.html"},
-{"title": "20235017-3","link": "./20235017-3.html"},
-{"title": "20235017-8","link": "./20235017-8.html"},
-{"title": "20235020-1","link": "./20235020-1.html"},
-{"title": "20235108-0","link": "./20235108-0.html"},
-{"title": "20235117-4","link": "./20235117-4.html"},
-{"title": "20235118-8","link": "./20235118-8.html"},
-{"title": "20235120-8","link": "./20235120-8.html"},
-{"title": "20235121-5","link": "./20235121-5.html"},
 ]
 
 const handleClick = (link) => {
@@ -236,12 +222,34 @@ const handleClick = (link) => {
 </script>
 
 <style lang="scss" scoped>
+$count: 260;
+@function randomNum ($max, $min: 0, $u: 1) {
+  @return ($min + random($max)) * $u;
+}
+
+@function randomColor () {
+  @return rgb(randomNum(255), randomNum(255), randomNum(255));
+}
 .btn-box {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  max-height: 750px;
-  overflow: scroll;
+  cursor: pointer;
+
+  button {
+    color: #fff;
+    flex-shrink: 0;
+    border-radius: 30px;
+    border: none;
+  }
+  @for $i from 1 to $count {
+    button:nth-child(#{$i}) {
+      width: #{randomNum(140, 120)}px;
+      background: randomColor();
+    }
+  }
 }
 .el-button + .el-button {
   margin-left: 0;

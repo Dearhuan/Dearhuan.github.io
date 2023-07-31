@@ -5,7 +5,7 @@ next: /tools/jsTool.md
 
 # 油价计算器
 
-<OilPriceCalculator :consumption="4.5" :price="6.8" :volume="46"/>
+<OilPriceCalculator :consumption="4.5" :price="7" :volume="48.5"/>
 
 ## APIS
 
@@ -13,4 +13,4 @@ next: /tools/jsTool.md
 -- | -- | -- | -- | --
 consumption | 油耗 | number | 5 | true
 price | 油价 | number | 7 | true
-volume | 容积 | string | 46 | true
+volume | 容积 | string | 48.5 | true

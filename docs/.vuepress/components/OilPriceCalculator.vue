@@ -40,7 +40,7 @@ const CONSTANT = {
 const props = withDefaults(defineProps<Oil>(), {
   consumption: 5,
   price: 7,
-  volume: 46
+  volume: 48.5
 })
 
 const oilConsumption = ref()

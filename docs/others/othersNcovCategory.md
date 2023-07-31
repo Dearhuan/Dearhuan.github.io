@@ -10,7 +10,6 @@ next:
   <div class="btn-box">
     <my-button v-for="(item, i) in linkList"
                :key="i"
-               :type="i % 2 == 0 ? 'primary' : 'danger'"
                @click="handleClick(item.link)">{{ item.title }}</my-button>
   </div>
 </div>
@@ -160,12 +159,60 @@ const handleClick = (link) => {
 </script>
 
 <style lang="scss" scoped>
+$count: 123;
+@function randomNum ($max, $min: 0, $u: 1) {
+  @return ($min + random($max)) * $u;
+}
+
+@function randomColor () {
+  @return rgb(randomNum(255), randomNum(255), randomNum(255));
+}
+
 .btn-box {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
-  max-height: 750px;
-  overflow: scroll;
+  cursor: pointer;
+
+  button {
+    color: #fff;
+    flex-shrink: 0;
+    border-radius: 30px;
+  }
+  @for $i from 1 to $count {
+    button:nth-child(#{$i}) {
+      width: #{randomNum(140, 120)}px;
+      background: randomColor();
+    }
+  }
+}
+.btn-box:hover {
+  button {
+    opacity: 0;
+  }
+  @for $i from 1 to $count {
+    button:nth-child(#{$i}) {
+      animation: falldown .1s cubic-bezier(.43,.02,.64,1.5) #{50 * ($count - $i) + (random(50) - random(30))}ms forwards;
+    }
+  }
+}
+@keyframes falldown {
+  0% {
+      transform: translateY(-180px) scaleX(.1) scaleY(.3);
+      opacity: 1;
+  }
+  20% {
+      transform: translateY(-200px) scaleX(.6) scaleY(.3);
+  }
+  75% {
+      transform: translateY(0) scaleX(.6) scaleY(.3);
+  }
+  100% {
+      transform: translateY(0)  scaleX(1) scaleY(1);
+      opacity: 1;
+  }
 }
 .el-button + .el-button {
   margin-left: 0;
