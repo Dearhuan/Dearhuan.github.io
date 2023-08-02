@@ -1,6 +1,6 @@
 ---
 prev: /tools/loan-canlendar.md
-next: /tools/jsTool.md
+next: /tools/chatGPT.md
 ---
 
 # 油价计算器

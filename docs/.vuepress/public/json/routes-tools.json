@@ -28,6 +28,10 @@
     "link": "/tools/oilPriceCalculator.md"
   },
   {
+    "text": "chatGPT",
+    "link": "/tools/chatGPT.md"
+  },
+  {
     "text": "Js工具代码示例",
     "link": "/tools/jsTool.md"
   },

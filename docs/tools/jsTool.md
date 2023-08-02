@@ -1,5 +1,5 @@
 ---
-prev: /tools/oilPriceCalculator.md
+prev: /tools/chatGPT.md
 next: /tools/ts-file-tool.md
 ---
 

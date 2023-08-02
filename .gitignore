@@ -27,3 +27,5 @@ node_modules/
 *.tsbuildinfo
 
 # tsconfig.json
+
+*.test
