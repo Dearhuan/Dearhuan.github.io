@@ -217,6 +217,8 @@ linkList.value = [{"title": "20220904-091108","link": "./20220904-091108.html"},
 {"title": "20230729-013811","link": "./20230729-013811.html"},
 {"title": "20230730-014204","link": "./20230730-014204.html"},
 {"title": "20230731-014358","link": "./20230731-014358.html"},
+{"title": "20230801-015058","link": "./20230801-015058.html"},
+{"title": "20230802-013628","link": "./20230802-013628.html"},
 ]
 
 const handleClick = (link) => {
@@ -232,34 +234,12 @@ const handleClick = (link) => {
 </script>
 
 <style lang="scss" scoped>
-$count: 260;
-@function randomNum ($max, $min: 0, $u: 1) {
-  @return ($min + random($max)) * $u;
-}
-
-@function randomColor () {
-  @return rgb(randomNum(255), randomNum(255), randomNum(255));
-}
 .btn-box {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
-  cursor: pointer;
-
-  button {
-    color: #fff;
-    flex-shrink: 0;
-    border-radius: 30px;
-    border: none;
-  }
-  @for $i from 1 to $count {
-    button:nth-child(#{$i}) {
-      width: #{randomNum(140, 120)}px;
-      background: randomColor();
-    }
-  }
+  max-height: 750px;
+  overflow: scroll;
 }
 .el-button + .el-button {
   margin-left: 0;
