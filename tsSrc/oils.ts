@@ -187,4 +187,4 @@ export default {
   fs.writeFileSync(writePath, markdown)
 }
 
-// runTask()
+runTask()

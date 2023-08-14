@@ -159,4 +159,4 @@ export default {
 </script>`;
     fs_1.default.writeFileSync(writePath, markdown);
 };
-// runTask()
+runTask();
