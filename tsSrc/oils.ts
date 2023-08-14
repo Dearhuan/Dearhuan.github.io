@@ -14,12 +14,7 @@ const rootPath = path.resolve(__dirname, '../../../')
 
 const mdPath = rootPath + `/docs/${base}`
 
-const jsonFilePath = `${rootPath}/docs/.vuepress/public/json/oilPrice.json`
-
-const arr = [
-  { city: '北京', '92h': '7.66', '95h': '8.16', '98h': '9.14', '0h': '7.37' },
-  { city: '上海', '92h': '7.63', '95h': '8.12', '98h': '9.12', '0h': '7.31' }
-]
+const jsonFilePath = `${mdPath}/oilPrice.json`
 
 const getOilInfo = () => {
   const requestUrl = `${OIL_URL}?key=${OIL_KEY}`
