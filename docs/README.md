@@ -9,12 +9,14 @@ actions:
     type: primary
 features: 
   - title: 工具
-    details: 'Here are some tools'
+    details: 'Here Are Some Tools'
   - title: 记录
-    details: 'Just some essays'
+    details: 'Just Some Essays'
   - title: 海外疫情数据
-    details: 'Overseas epidemic data'
+    details: 'Overseas Epidemic Data'
   - title: 国内疫情数据
-    details: 'Domestic epidemic data'
+    details: 'Domestic Epidemic Data'
+  - title: 油价趋势
+    details: 'Oil Price In GD'
 footer: MIT Licensed | Copyright © 2022-present Hello
 ---

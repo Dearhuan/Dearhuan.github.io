@@ -8,6 +8,7 @@ const toolsRoutes = require('./public/json/routes-tools.json')
 const notesRoutes = require('./public/json/routes-notes.json')
 const overseasRoutes = require('./public/json/others.json')
 const chinaRoutes = require('./public/json/chinaRoutes.json')
+const oilsRoutes = require('./public/json/oils.json')
 
 console.log(overseasRoutes)
 console.log(chinaRoutes)
@@ -52,6 +53,10 @@ module.exports = {
       {
         text: '国内疫情数据',
         children: chinaRoutes
+      },
+      {
+        text: '油价趋势',
+        children: oilsRoutes
       }
     ],
     slidebarDepth: 2,

@@ -211,34 +211,12 @@ const handleClick = (link) => {
 </script>
 
 <style lang="scss" scoped>
-$count: ${fileList.length};
-@function randomNum ($max, $min: 0, $u: 1) {
-  @return ($min + random($max)) * $u;
-}
-
-@function randomColor () {
-  @return rgb(randomNum(255), randomNum(255), randomNum(255));
-}
 .btn-box {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 10px;
-  cursor: pointer;
-
-  button {
-    color: #fff;
-    flex-shrink: 0;
-    border-radius: 30px;
-    border: none;
-  }
-  @for $i from 1 to $count {
-    button:nth-child(#{$i}) {
-      width: #{randomNum(140, 120)}px;
-      background: randomColor();
-    }
-  }
+  max-height: 750px;
+  overflow: scroll;
 }
 .el-button + .el-button {
   margin-left: 0;
