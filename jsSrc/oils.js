@@ -10,7 +10,7 @@ const OIL_URL = 'http://apis.juhe.cn/gnyj/query';
 const OIL_KEY = 'b8757c3851968e979f533f27fc7969c7';
 const Filter_City = '广东';
 const base = 'oils';
-const rootPath = path_1.default.resolve(__dirname, '../../../');
+const rootPath = path_1.default.resolve(__dirname, '../');
 const mdPath = rootPath + `/docs/${base}`;
 const jsonFilePath = `${mdPath}/oilPrice.json`;
 const getOilInfo = () => {

@@ -10,7 +10,7 @@ const Filter_City = '广东'
 
 const base = 'oils'
 
-const rootPath = path.resolve(__dirname, '../../../')
+const rootPath = path.resolve(__dirname, '../')
 
 const mdPath = rootPath + `/docs/${base}`
 
