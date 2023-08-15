@@ -2,6 +2,17 @@ import fs from 'fs'
 import path from 'path'
 import axios from 'axios'
 
+interface OilItem {
+  date: string
+  price: string
+  change: string
+}
+
+interface OilResItem {
+  city: string
+  '92h': string
+}
+
 const OIL_URL = 'http://apis.juhe.cn/gnyj/query'
 
 const OIL_KEY = 'b8757c3851968e979f533f27fc7969c7'
@@ -16,7 +27,7 @@ const mdPath = rootPath + `/docs/${base}`
 
 const jsonFilePath = `${mdPath}/oilPrice.json`
 
-const getOilInfo = () => {
+const getOilInfo = (): Promise<OilResItem[]> => {
   const requestUrl = `${OIL_URL}?key=${OIL_KEY}`
   return new Promise((resolve, reject) => {
     axios
@@ -30,8 +41,8 @@ const getOilInfo = () => {
   })
 }
 
-const dateFormater = (formater, time) => {
-  let date = time ? new Date(time) : new Date(),
+const dateFormater = (formater: string, time: Date) => {
+  const date = time ? new Date(time) : new Date(),
     Y = date.getFullYear() + '',
     M = date.getMonth() + 1,
     D = date.getDate(),
@@ -52,17 +63,17 @@ const getNowSeconds = () => {
   //本地时间 + 本地时间与格林威治时间的时间差 + GMT+8与格林威治的时间差
   return new Date(
     new Date().getTime() +
-    new Date().getTimezoneOffset() * 60 * 1000 +
-    8 * 60 * 60 * 1000
+      new Date().getTimezoneOffset() * 60 * 1000 +
+      8 * 60 * 60 * 1000
   )
 }
 
-const readDataList = (path) => {
+const readDataList = (path: string) => {
   const list = JSON.parse(fs.readFileSync(path, 'utf-8'))
   return list
 }
 
-const writeDataList = (path, data) => {
+const writeDataList = (path: string, data: unknown) => {
   fs.writeFileSync(path, JSON.stringify(data))
 }
 
@@ -76,25 +87,20 @@ const runTask = async () => {
   console.log(data)
   console.log(result)
   const lastDataPrice = data[data.length - 1]['price']
+  const oil_92h = Number(result_GD['92h'])
   const change =
-    lastDataPrice > result_GD['price']
-      ? `-${lastDataPrice - result_GD['price']}`
-      : `+${result_GD['price'] - lastDataPrice}`
-  if (data[data.length - 1]['price'] != result_GD['price']) {
+    lastDataPrice > oil_92h
+      ? `-${lastDataPrice - oil_92h}`
+      : `+${oil_92h - lastDataPrice}`
+  if (lastDataPrice != oil_92h) {
     data.push({
       date: dateFormater('YYYY-MM-DD', getNowSeconds()),
-      price: result_GD['price'],
+      price: oil_92h,
       change: change
     })
     writeDataList(jsonFilePath, data)
     writeMarkdown(data)
   }
-}
-
-interface OilItem {
-  date: string
-  price: string
-  change: string
 }
 
 const writeMarkdown = (list: OilItem[]) => {

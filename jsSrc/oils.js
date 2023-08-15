@@ -27,7 +27,7 @@ const getOilInfo = () => {
     });
 };
 const dateFormater = (formater, time) => {
-    let date = time ? new Date(time) : new Date(), Y = date.getFullYear() + '', M = date.getMonth() + 1, D = date.getDate(), H = date.getHours(), m = date.getMinutes(), s = date.getSeconds();
+    const date = time ? new Date(time) : new Date(), Y = date.getFullYear() + '', M = date.getMonth() + 1, D = date.getDate(), H = date.getHours(), m = date.getMinutes(), s = date.getSeconds();
     return formater
         .replace(/YYYY|yyyy/g, Y)
         .replace(/YY|yy/g, Y.substr(2, 2))
@@ -59,13 +59,14 @@ const runTask = async () => {
     console.log(data);
     console.log(result);
     const lastDataPrice = data[data.length - 1]['price'];
-    const change = lastDataPrice > result_GD['price']
-        ? `-${lastDataPrice - result_GD['price']}`
-        : `+${result_GD['price'] - lastDataPrice}`;
-    if (data[data.length - 1]['price'] != result_GD['price']) {
+    const oil_92h = Number(result_GD['92h']);
+    const change = lastDataPrice > oil_92h
+        ? `-${lastDataPrice - oil_92h}`
+        : `+${oil_92h - lastDataPrice}`;
+    if (lastDataPrice != oil_92h) {
         data.push({
             date: dateFormater('YYYY-MM-DD', getNowSeconds()),
-            price: result_GD['price'],
+            price: oil_92h,
             change: change
         });
         writeDataList(jsonFilePath, data);
