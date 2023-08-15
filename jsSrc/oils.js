@@ -48,6 +48,7 @@ const readDataList = (path) => {
     return list;
 };
 const writeDataList = (path, data) => {
+    console.log('正在写入JSON...');
     fs_1.default.writeFileSync(path, JSON.stringify(data));
 };
 const runTask = async () => {
@@ -57,12 +58,13 @@ const runTask = async () => {
     })[0];
     const data = readDataList(jsonFilePath);
     console.log(data);
-    console.log(result);
-    const lastDataPrice = data[data.length - 1]['price'];
+    console.log(result_GD);
+    const lastDataPrice = Number(data[data.length - 1]['price']);
     const oil_92h = Number(result_GD['92h']);
     const change = lastDataPrice > oil_92h
-        ? `-${lastDataPrice - oil_92h}`
-        : `+${oil_92h - lastDataPrice}`;
+        ? `-${(lastDataPrice - oil_92h).toFixed(2)}`
+        : `+${(oil_92h - lastDataPrice).toFixed(2)}`;
+    console.log(lastDataPrice, oil_92h, change);
     if (lastDataPrice != oil_92h) {
         data.push({
             date: dateFormater('YYYY-MM-DD', getNowSeconds()),
@@ -74,6 +76,7 @@ const runTask = async () => {
     }
 };
 const writeMarkdown = (list) => {
+    console.log('正在写入Markdown...');
     const writePath = `${mdPath}/oils.md`;
     const markdown = `# 广州汽油价格趋势
 

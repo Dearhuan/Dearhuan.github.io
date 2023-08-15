@@ -55,7 +55,7 @@ module.exports = {
         children: chinaRoutes
       },
       {
-        text: '油价趋势',
+        text: '油价趋势数据',
         children: oilsRoutes
       }
     ],

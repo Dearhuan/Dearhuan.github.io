@@ -16,7 +16,7 @@ features:
     details: 'Overseas Epidemic Data'
   - title: 国内疫情数据
     details: 'Domestic Epidemic Data'
-  - title: 油价趋势
-    details: 'Oil Price In GD'
+  - title: 油价趋势数据
+    details: 'Oil Price Trend Data'
 footer: MIT Licensed | Copyright © 2022-present Hello
 ---
