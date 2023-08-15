@@ -247,7 +247,7 @@ export default {
         type: 'category',
         data: [${city_list
           .map((item) => {
-            return item.city
+            return `"${item.city}",`
           })
           .join('')}]
       },
@@ -264,7 +264,7 @@ export default {
           },
           data: [${city_list
             .map((item) => {
-              return item['92h']
+              return `"${item['92h']}",`
             })
             .join('')}]
         },
@@ -280,7 +280,7 @@ export default {
           },
           data: [${city_list
             .map((item) => {
-              return item['95h']
+              return `"${item['95h']}",`
             })
             .join('')}]
         },
@@ -296,7 +296,7 @@ export default {
           },
           data: [${city_list
             .map((item) => {
-              return item['98h']
+              return `"${item['98h']}",`
             })
             .join('')}]
         },
@@ -312,7 +312,7 @@ export default {
           },
           data: [${city_list
             .map((item) => {
-              return item['0h']
+              return `"${item['0h']}",`
             })
             .join('')}]
         }
