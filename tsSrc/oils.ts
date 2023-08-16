@@ -130,6 +130,7 @@ const writeMarkdown = (gd_list: OilItem[], city_list: OilResItem[]) => {
       })
     )
   )
+
   const markdown = `# 汽油价格趋势数据
 
 |日期|92号汽油|涨跌幅度|95号汽油|涨跌幅度|
@@ -140,193 +141,194 @@ ${gd_list
   })
   .join('')}
 
-<div id="oil_box" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div>
+  <MyChart :option="firstOption" :style="firstStyle" />
+  <MyChart :option="secondOption" />
+  <OilCalculator :oils="oils"/>
+</div>
 
-<div id="oil_city_box" style="width:100%;height:800px;margin-bottom:10px;"></div>
+<script setup lang="ts">
+import { ref } from 'vue'
 
-<script>
-import * as echarts from 'echarts'
-export default {
-  data() {
-    return {
-
+const firstStyle = {
+  'height': '300px'
+}
+const firstOption = {
+  title: {
+    text: '广州汽油价格变动趋势'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#6a7985'
+      }
     }
   },
-  mounted () {
-    this['oil_box'] = echarts.init(document.getElementById('oil_box'))
-    this['oil_city_box'] = echarts.init(document.getElementById('oil_city_box'))
-
-    const option = {
-      title: {
-        text: '广州汽油价格变动趋势'
+  legend: {
+    top: 20,
+    data: [{ name: '92号汽油', icon: 'rect' }, { name: '95号汽油', icon: 'rect' }]
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: [${gd_list
+      .map((item) => {
+        return `"${item.date}",`
+      })
+      .join('')}]
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: '92号汽油',
+      type: 'line',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
       },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
-        }
+      data: [${gd_list
+        .map((item) => {
+          return `"${item['92_price']}",`
+        })
+        .join('')}]
+    },
+    {
+      name: '95号汽油',
+      type: 'line',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
       },
-      legend: {
-        top: 20,
-        data: [{name: '92号汽油',icon: 'rect'}, {name: '95号汽油',icon: 'rect'}]
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: [${gd_list
-          .map((item) => {
-            return `"${item.date}",`
-          })
-          .join('')}]
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '92号汽油',
-          type: 'line',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${gd_list
-            .map((item) => {
-              return `"${item['92_price']}",`
-            })
-            .join('')}]
-        },
-        {
-          name: '95号汽油',
-          type: 'line',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${gd_list
-            .map((item) => {
-              return `"${item['95_price']}",`
-            })
-            .join('')}]
-        }
-      ]
+      data: [${gd_list
+        .map((item) => {
+          return `"${item['95_price']}",`
+        })
+        .join('')}]
     }
-
-    const option_city = {
-      title: {
-        text: '城市油价总览'
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        top: 30
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'value'
-      },
-      yAxis: {
-        type: 'category',
-        data: [${city_list
-          .map((item) => {
-            return `"${item.city}",`
-          })
-          .join('')}]
-      },
-      series: [
-        {
-          name: '92汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${city_list
-            .map((item) => {
-              return `"${item['92h']}",`
-            })
-            .join('')}]
-        },
-        {
-          name: '95汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${city_list
-            .map((item) => {
-              return `"${item['95h']}",`
-            })
-            .join('')}]
-        },
-        {
-          name: '98汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${city_list
-            .map((item) => {
-              return `"${item['98h']}",`
-            })
-            .join('')}]
-        },
-        {
-          name: '0号柴油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [${city_list
-            .map((item) => {
-              return `"${item['0h']}",`
-            })
-            .join('')}]
-        }
-      ]
-    }
-    this['oil_box'].setOption(option)
-    this['oil_city_box'].setOption(option_city)
-
-    window.onresize = () => {
-      this['oil_box'].resize()
-      this['oil_city_box'].resize()
-    }
-  }
+  ]
 }
+
+const secondOption = {
+  title: {
+    text: '城市油价总览'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {
+    top: 30
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value'
+  },
+  yAxis: {
+    type: 'category',
+    data: [${city_list
+      .map((item) => {
+        return `"${item.city}",`
+      })
+      .join('')}]
+  },
+  series: [
+    {
+      name: '92汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [${city_list
+        .map((item) => {
+          return `"${item['92h']}",`
+        })
+        .join('')}]
+    },
+    {
+      name: '95汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [${city_list
+        .map((item) => {
+          return `"${item['95h']}",`
+        })
+        .join('')}]
+    },
+    {
+      name: '98汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [${city_list
+        .map((item) => {
+          return `"${item['98h']}",`
+        })
+        .join('')}]
+    },
+    {
+      name: '0号柴油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [${city_list
+        .map((item) => {
+          return `"${item['0h']}",`
+        })
+        .join('')}]
+    }
+  ]
+}
+
+const lastOils = gd_list[gd_list.length - 1]
+const oils = [
+  {
+    price: lastOils['92_price'],
+    rate: lastOils['92_change'],
+    name: '92号汽油'
+  },
+  {
+    price: lastOils['95_price'],
+    rate: lastOils['95_change'],
+    name: '95号汽油'
+  },
+]
 </script>`
 
   fs.writeFileSync(writePath, markdown)

@@ -100,7 +100,7 @@ ${gd_list
     })
         .join('')}
 
-<div id="oil_box" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<div id="oil_box" style="width:100%;height:300px;margin-bottom:10px;"></div>
 
 <div id="oil_city_box" style="width:100%;height:800px;margin-bottom:10px;"></div>
 

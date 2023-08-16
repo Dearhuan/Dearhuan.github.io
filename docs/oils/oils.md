@@ -19,163 +19,162 @@
 |2023-06-28|7.56|+0.06|8.13|-0.05|
 |2023-07-12|7.68|+0.12|8.32|+0.13|
 |2023-07-26|7.90|+0.20|8.56|+0.43|
-|2023-08-09|8.01|+0.20|8.07|+0.21|
-|2023-08-15|8.1|+0.09|8.77|+0.70|
+|2023-08-09|8.10|+0.18|8.77|+0.21|
 
+<div>
+  <MyChart :option="firstOption" :style="firstStyle" />
+  <MyChart :option="secondOption" />
+  <OilCalculator :oils="oils"/>
+</div>
 
-<div id="oil_box" style="width:100%;height:500px;margin-bottom:10px;"></div>
+<script setup lang="ts">
+import { ref } from 'vue'
 
-<div id="oil_city_box" style="width:100%;height:800px;margin-bottom:10px;"></div>
-
-<script>
-import * as echarts from 'echarts'
-export default {
-  data() {
-    return {
-
+const firstStyle = {
+  'height': '300px'
+}
+const firstOption = {
+  title: {
+    text: '广州汽油价格变动趋势'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#6a7985'
+      }
     }
   },
-  mounted () {
-    this['oil_box'] = echarts.init(document.getElementById('oil_box'))
-    this['oil_city_box'] = echarts.init(document.getElementById('oil_city_box'))
-
-    const option = {
-      title: {
-        text: '广州汽油价格变动趋势'
+  legend: {
+    top: 20,
+    data: [{ name: '92号汽油', icon: 'rect' }, { name: '95号汽油', icon: 'rect' }]
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data: ["2022-12-05", "2022-12-19", "2023-01-03", "2023-01-17", "2023-02-03", "2023-02-17", "2023-03-03", "2023-03-17", "2023-03-31", "2023-04-17", "2023-04-28", "2023-05-16", "2023-05-30", "2023-06-13", "2023-06-28", "2023-07-12", "2023-07-26", "2023-08-09", "2023-08-15",]
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      name: '92号汽油',
+      type: 'line',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
       },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985'
-          }
-        }
+      data: ["7.99", "7.60", "7.80", "7.64", "7.81", "7.81", "7.81", "7.73", "7.46", "7.90", "7.77", "7.47", "7.55", "7.50", "7.56", "7.68", "7.90", "8.01", "8.1",]
+    },
+    {
+      name: '95号汽油',
+      type: 'line',
+      areaStyle: {},
+      emphasis: {
+        focus: 'series'
       },
-      legend: {
-        top: 20,
-        data: [{name: '92号汽油',icon: 'rect'}, {name: '95号汽油',icon: 'rect'}]
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-        data: ["2022-12-05","2022-12-19","2023-01-03","2023-01-17","2023-02-03","2023-02-17","2023-03-03","2023-03-17","2023-03-31","2023-04-17","2023-04-28","2023-05-16","2023-05-30","2023-06-13","2023-06-28","2023-07-12","2023-07-26","2023-08-09","2023-08-15",]
-      },
-      yAxis: {
-        type: 'value'
-      },
-      series: [
-        {
-          name: '92号汽油',
-          type: 'line',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: ["7.99","7.60","7.80","7.64","7.81","7.81","7.81","7.73","7.46","7.90","7.77","7.47","7.55","7.50","7.56","7.68","7.90","8.01","8.1",]
-        },
-        {
-          name: '95号汽油',
-          type: 'line',
-          areaStyle: {},
-          emphasis: {
-            focus: 'series'
-          },
-          data: ["8.65","8.24","8.45","8.28","8.46","8.46","8.46","8.37","8.08","8.56","8.42","8.09","8.18","8.00","8.13","8.32","8.56","8.07","8.77",]
-        }
-      ]
+      data: ["8.65", "8.24", "8.45", "8.28", "8.46", "8.46", "8.46", "8.37", "8.08", "8.56", "8.42", "8.09", "8.18", "8.00", "8.13", "8.32", "8.56", "8.07", "8.77",]
     }
-
-    const option_city = {
-      title: {
-        text: '城市油价总览'
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      legend: {
-        top: 30
-      },
-      grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-      },
-      xAxis: {
-        type: 'value'
-      },
-      yAxis: {
-        type: 'category',
-        data: ['广东','山东','广西','山西','贵州','陕西','海南','四川','河北','西藏','河南','新疆','黑龙江','吉林','云南','湖北','浙江','湖南','北京','上海','江苏','天津','重庆','江西','辽宁','安徽','内蒙古','福建','宁夏','甘肃','青海']
-      },
-      series: [
-        {
-          name: '92汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [8.10,8.04,8.13,8.02,8.21,7.96,9.19,8.17,8.07,8.95,8.09,7.85,8.04,8.04,8.22,8.09,8.05,8.02,8.08,8.04,8.05,8.07,8.14,8.03,8.05,8.03,8.01,8.04,7.97,8.08,8.03]
-        },
-        {
-          name: '95汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [8.77,8.63,8.79,8.66,8.67,8.41,9.76,8.73,8.53,9.47,8.63,8.41,8.61,8.67,8.83,8.66,8.56,8.53,8.60,8.55,8.56,8.53,8.60,8.63,8.58,8.59,8.55,8.58,8.43,8.62,8.61]
-        },
-        {
-          name: '98汽油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [9.91,9.35,9.93,9.36,9.57,11.04,11.06,9.49,9.36,10.55,9.29,9.39,9.76,9.45,9.51,9.70,9.37,9.33,9.58,9.55,10.06,9.81,9.68,10.13,9.35,9.61,9.38,9.58,9.60,9.38]
-        },
-        {
-          name: '0号柴油',
-          type: 'bar',
-          stack: 'total',
-          label: {
-            show: true
-          },
-          emphasis: {
-            focus: 'series'
-          },
-          data: [7.75,7.66,7.80,7.82,7.85,7.64,7.83,7.79,7.75,8.28,7.73,7.52,7.54,7.66,7.82,7.74,7.73,7.82,7.80,7.73,7.71,7.75,7.81,7.80,7.65,7.79,7.62,7.74,7.63,7.65,7.67]
-        }
-      ]
-    }
-    this['oil_box'].setOption(option)
-    this['oil_city_box'].setOption(option_city)
-
-    window.onresize = () => {
-      this['oil_box'].resize()
-      this['oil_city_box'].resize()
-    }
-  }
+  ]
 }
+
+const secondOption = {
+  title: {
+    text: '城市油价总览'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {
+    top: 30
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value'
+  },
+  yAxis: {
+    type: 'category',
+    data: ['广东', '山东', '广西', '山西', '贵州', '陕西', '海南', '四川', '河北', '西藏', '河南', '新疆', '黑龙江', '吉林', '云南', '湖北', '浙江', '湖南', '北京', '上海', '江苏', '天津', '重庆', '江西', '辽宁', '安徽', '内蒙古', '福建', '宁夏', '甘肃', '青海']
+  },
+  series: [
+    {
+      name: '92汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [8.10, 8.04, 8.13, 8.02, 8.21, 7.96, 9.19, 8.17, 8.07, 8.95, 8.09, 7.85, 8.04, 8.04, 8.22, 8.09, 8.05, 8.02, 8.08, 8.04, 8.05, 8.07, 8.14, 8.03, 8.05, 8.03, 8.01, 8.04, 7.97, 8.08, 8.03]
+    },
+    {
+      name: '95汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [8.77, 8.63, 8.79, 8.66, 8.67, 8.41, 9.76, 8.73, 8.53, 9.47, 8.63, 8.41, 8.61, 8.67, 8.83, 8.66, 8.56, 8.53, 8.60, 8.55, 8.56, 8.53, 8.60, 8.63, 8.58, 8.59, 8.55, 8.58, 8.43, 8.62, 8.61]
+    },
+    {
+      name: '98汽油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [9.91, 9.35, 9.93, 9.36, 9.57, 11.04, 11.06, 9.49, 9.36, 10.55, 9.29, 9.39, 9.76, 9.45, 9.51, 9.70, 9.37, 9.33, 9.58, 9.55, 10.06, 9.81, 9.68, 10.13, 9.35, 9.61, 9.38, 9.58, 9.60, 9.38]
+    },
+    {
+      name: '0号柴油',
+      type: 'bar',
+      stack: 'total',
+      label: {
+        show: true
+      },
+      emphasis: {
+        focus: 'series'
+      },
+      data: [7.75, 7.66, 7.80, 7.82, 7.85, 7.64, 7.83, 7.79, 7.75, 8.28, 7.73, 7.52, 7.54, 7.66, 7.82, 7.74, 7.73, 7.82, 7.80, 7.73, 7.71, 7.75, 7.81, 7.80, 7.65, 7.79, 7.62, 7.74, 7.63, 7.65, 7.67]
+    }
+  ]
+}
+
+const oils = [
+    {
+      price: '8.10',
+      rate: '+0.18',
+      name: '92号汽油'
+    },
+    {
+      price: '8.77',
+      rate: '+0.21',
+      name: '95号汽油'
+    }
+  ]
+
 </script>
