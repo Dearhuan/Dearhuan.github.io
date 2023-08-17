@@ -133,6 +133,8 @@ const writeMarkdown = (gd_list: OilItem[], city_list: OilResItem[]) => {
 
   const markdown = `# 汽油价格趋势数据
 
+## 广州汽油价格变动表
+
 |日期|92号汽油|涨跌幅度|95号汽油|涨跌幅度|
 |:--:|---:|---:|---:|---:|
 ${gd_list
