@@ -106,6 +106,10 @@ linkList.value = [
         "title": "一款简洁实用优雅的个人博客系统",
         "link": "https://github.com/Mereithhh/vanblog"
       },
+      {
+        "title": "天天基金网 NodeJS 版 API",
+        "link": "https://kouchao.github.io/TiantianFundApi/"
+      },
     ]
   },
   {

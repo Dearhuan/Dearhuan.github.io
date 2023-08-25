@@ -318,7 +318,12 @@ const secondOption = {
   ]
 }
 
-const lastOils = gd_list[gd_list.length - 1]
+const arr = [${gd_list
+    .map((item) => {
+      return item
+    })
+    .join('')}]
+const lastOils = arr[arr.length - 1]
 const oils = [
   {
     price: lastOils['92_price'],
