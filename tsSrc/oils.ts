@@ -318,21 +318,15 @@ const secondOption = {
   ]
 }
 
-const arr = [${gd_list
-    .map((item) => {
-      return item
-    })
-    .join('')}]
-const lastOils = arr[arr.length - 1]
 const oils = [
   {
-    price: lastOils['92_price'],
-    rate: lastOils['92_change'],
+    price: ${gd_list[gd_list.length - 1]['92_price']},
+    rate: ${gd_list[gd_list.length - 1]['92_change']},
     name: '92号汽油'
   },
   {
-    price: lastOils['95_price'],
-    rate: lastOils['95_change'],
+    price: ${gd_list[gd_list.length - 1]['95_price']},
+    rate: ${gd_list[gd_list.length - 1]['95_change']},
     name: '95号汽油'
   },
 ]

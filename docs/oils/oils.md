@@ -167,17 +167,15 @@ const secondOption = {
     }
   ]
 }
-
-const lastOils = gd_list[gd_list.length - 1]
 const oils = [
   {
-    price: lastOils['92_price'],
-    rate: lastOils['92_change'],
+    price: '8.14',
+    rate: '+0.04',
     name: '92号汽油'
   },
   {
-    price: lastOils['95_price'],
-    rate: lastOils['95_change'],
+    price: '8.82',
+    rate: '+0.05',
     name: '95号汽油'
   },
 ]
