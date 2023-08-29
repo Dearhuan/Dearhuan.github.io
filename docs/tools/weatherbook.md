@@ -1,6 +1,6 @@
 ---
 prev: /tools/cashbook.md
-next: /tools/fundbook.md
+next: /tools/city-weather.md
 ---
 # 自制天气本
 

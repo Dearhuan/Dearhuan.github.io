@@ -1,5 +1,5 @@
 ---
-prev: /tools/cashbook.md
+prev: /tools/city-weather.md
 next: /tools/oilbook.md
 ---
 # 自制基金本
