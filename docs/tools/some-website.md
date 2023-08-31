@@ -66,20 +66,32 @@ linkList.value = [
         "link": "https://dearhuan.github.io/chartNcov/"
       },
       {
-        "title": "记账本",
+        "title": "记记账呗",
         "link": "https://dearhuan.gitee.io/vip"
       },
       {
-        "title": "基金本",
+        "title": "基金涨了吗",
         "link": "https://dearhuan.github.io/swiper-fund/#/fund"
       },
       {
-        "title": "天气本",
+        "title": "天气怎么样",
         "link": "https://dearhuan.github.io/swiper-fund/#/weather"
       },
       {
-        "title": "油价本",
+        "title": "天气时间轴",
+        "link": "https://dearhuan.github.io/swiper-fund/#//weather/amap"
+      },
+      {
+        "title": "油价跌了吗",
         "link": "https://dearhuan.github.io/swiper-fund/#/oil"
+      },
+      {
+        "title": "油价算一算",
+        "link": "https://dearhuan.github.io/swiper-fund/#/oilTool"
+      },
+      {
+        "title": "今天吃什么",
+        "link": "https://dearhuan.github.io/swiper-fund/#/menu"
       },
       {
         "title": "烹饪记录",
