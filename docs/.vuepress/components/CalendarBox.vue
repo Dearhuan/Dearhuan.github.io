@@ -24,7 +24,7 @@
         </div>
         <div class="sub-total flex-box">
           <div class="sub-item blue">{{ `总计${item.paidItem + item.unPaidItem}期:${(item.paidItem + item.unPaidItem) * Number(money)}` }}</div>
-          <div class="sub-item green">{{ `已还${item.paidItem}期:${(item.paidItem) * Number(money)}` }}</div>
+          <div class="sub-item green">{{ `已还${item.paidItem}期:${((item.paidItem) * Number(money)).toFixed(2)}` }}</div>
           <div class="sub-item orange">{{ `待还${item.unPaidItem}期:${(item.unPaidItem) * Number(money)}` }}</div>
         </div>
       </div>
