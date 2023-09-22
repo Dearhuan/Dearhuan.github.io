@@ -153,7 +153,7 @@ ${gd_list
 import { ref } from 'vue'
 
 const firstStyle = {
-  'height': '300px'
+  'height': '400px'
 }
 const firstOption = {
   title: {
@@ -320,13 +320,13 @@ const secondOption = {
 
 const oils = [
   {
-    price: ${gd_list[gd_list.length - 1]['92_price']},
-    rate: ${gd_list[gd_list.length - 1]['92_change']},
+    price: '${gd_list[gd_list.length - 1]['92_price']}',
+    rate: '${gd_list[gd_list.length - 1]['92_change']}',
     name: '92号汽油'
   },
   {
-    price: ${gd_list[gd_list.length - 1]['95_price']},
-    rate: ${gd_list[gd_list.length - 1]['95_change']},
+    price: '${gd_list[gd_list.length - 1]['95_price']}',
+    rate: '${gd_list[gd_list.length - 1]['95_change']}',
     name: '95号汽油'
   },
 ]

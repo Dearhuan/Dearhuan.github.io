@@ -36,7 +36,7 @@
 import { ref } from 'vue'
 
 const firstStyle = {
-  'height': '300px'
+  'height': '400px'
 }
 const firstOption = {
   title: {
@@ -169,16 +169,15 @@ const secondOption = {
   ]
 }
 
-const lastOils = gd_list[gd_list.length - 1]
 const oils = [
   {
-    price: lastOils['92_price'],
-    rate: lastOils['92_change'],
+    price: '8.45',
+    rate: '+0.31',
     name: '92号汽油'
   },
   {
-    price: lastOils['95_price'],
-    rate: lastOils['95_change'],
+    price: '9.15',
+    rate: '+0.33',
     name: '95号汽油'
   },
 ]
