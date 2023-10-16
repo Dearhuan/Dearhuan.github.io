@@ -312,7 +312,7 @@ const targetDateFormat = computed(() => {
     monthString = '0' + monthNumber;
   }
   return `${targetDate.value.getFullYear()}.${monthString}`;
-});
+}); 
 
 watch(targetDate, (newVal) => {
   emits("update:modelValue", newVal);

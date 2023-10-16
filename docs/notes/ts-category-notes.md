@@ -1,8 +1,10 @@
 ---
 prev: 
-  text: '磨砂玻璃渐变背景-CSS-doodle'
-  link: /notes/css-doodle.html
-next: /notes/ts-demo.md
+  text: 'React笔记'
+  link: /notes/react-category-notes.html
+next: 
+  text: 'TypeScript类型体操'
+  link: /notes/ts-category-typing.md
 ---
 <!-- <template> -->
   <div v-for="(item, i) in linkList" :key="i">

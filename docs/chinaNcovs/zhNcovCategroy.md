@@ -10,7 +10,8 @@ next:
   <div class="btn-box">
     <my-button v-for="(item, i) in linkList"
                :key="i"
-               :type="i % 2 == 0 ? 'primary' : 'danger'"
+               :color="getRandomColor()"
+               :plain="getRandomNum(0,100) % 2 == 0 ? true : false"
                @click="handleClick(item.link)">{{ item.title }}</my-button>
   </div>
 </div>
@@ -306,6 +307,21 @@ const handleClick = (link) => {
   a.click()
   document.body.removeChild(a)
 }
+
+const getRandomColor = () => {
+  let r = Math.floor(Math.random()*256);
+  let g = Math.floor(Math.random()*256);
+  let b = Math.floor(Math.random()*256);
+  let color = '#'+r.toString(16)+g.toString(16)+b.toString(16);
+  if (color.length !== 7) {
+    return getRandomColor()
+  }
+  return color
+};
+
+const getRandomNum = (min, max) => {
+  return parseInt(Math.random() * (max - min + 1) + min)
+};
 </script>
 
 <style lang="scss" scoped>

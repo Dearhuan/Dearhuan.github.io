@@ -1,8 +1,8 @@
 ---
 prev: /notes/skeleton-vue.md
 next: 
-  text: '虚拟列表'
-  link: /notes/virtual-scroll-list.html
+  text: 'html导出pdf'
+  link: /notes/html2pdf.html
 ---
 # html2canvas生成海报
 <!-- <template> -->
