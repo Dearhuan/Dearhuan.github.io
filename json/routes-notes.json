@@ -100,6 +100,10 @@
     "link": "/notes/dom2svg.md"
   },
   {
+    "text": "html导出pdf",
+    "link": "/notes/html2pdf.md"
+  },
+  {
     "text": "虚拟列表",
     "link": "/notes/virtual-scroll-list.md"
   },
@@ -206,6 +210,20 @@
   {
     "text": "磨砂玻璃渐变背景-CSS-doodle",
     "link": "/notes/css-doodle.md"
+  },
+  {
+    "text": "React笔记",
+    "link": "/notes/react-category-notes.md",
+    "children": [
+      {
+        "text": "React使用pdfjs示例",
+        "link": "/notes/react-pdfjs.md"
+      },
+      {
+        "text": "父组件调用函数组件形式的子组件方法",
+        "link": "/notes/react-forwardRef.md"
+      }
+    ]
   },
   {
     "text": "TypeScript笔记",
