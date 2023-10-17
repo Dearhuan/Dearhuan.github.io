@@ -10,8 +10,7 @@ next:
   <div class="btn-box">
     <my-button v-for="(item, i) in linkList"
                :key="i"
-               :color="getRandomColor()"
-               :plain="getRandomNum(0,100) % 2 == 0 ? true : false"
+               :type="i % 2 == 0 ? 'primary' : 'danger'"
                @click="handleClick(item.link)">{{ item.title }}</my-button>
   </div>
 </div>
@@ -295,6 +294,7 @@ linkList.value = [{"title": "20220904-091108","link": "./20220904-091108.html"},
 {"title": "20231014-012633","link": "./20231014-012633.html"},
 {"title": "20231015-013404","link": "./20231015-013404.html"},
 {"title": "20231016-013128","link": "./20231016-013128.html"},
+{"title": "20231017-013006","link": "./20231017-013006.html"},
 ]
 
 const handleClick = (link) => {
@@ -307,21 +307,6 @@ const handleClick = (link) => {
   a.click()
   document.body.removeChild(a)
 }
-
-const getRandomColor = () => {
-  let r = Math.floor(Math.random()*256);
-  let g = Math.floor(Math.random()*256);
-  let b = Math.floor(Math.random()*256);
-  let color = '#'+r.toString(16)+g.toString(16)+b.toString(16);
-  if (color.length !== 7) {
-    return getRandomColor()
-  }
-  return color
-};
-
-const getRandomNum = (min, max) => {
-  return parseInt(Math.random() * (max - min + 1) + min)
-};
 </script>
 
 <style lang="scss" scoped>
