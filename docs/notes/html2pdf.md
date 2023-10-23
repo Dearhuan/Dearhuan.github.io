@@ -1,8 +1,6 @@
 ---
 prev: /notes/dom2svg.md
-next: 
-  text: '虚拟列表'
-  link: /notes/virtual-scroll-list.html
+next: /notes/watermark.md
 ---
 # html导出PDF
 

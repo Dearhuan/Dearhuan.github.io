@@ -128,6 +128,10 @@ linkList.value = [
     title: '他人博客',
     children: [
       {
+        "title": "Herrylo`s Blog",
+        "link": "https://herrylo.github.io/"
+      },
+      {
         "title": "Mereith's Blog",
         "link": "https://www.mereith.com"
       },

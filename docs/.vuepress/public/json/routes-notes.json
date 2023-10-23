@@ -104,6 +104,10 @@
     "link": "/notes/html2pdf.md"
   },
   {
+    "text": "水印【防篡改】",
+    "link": "/notes/watermark.md"
+  },
+  {
     "text": "虚拟列表",
     "link": "/notes/virtual-scroll-list.md"
   },
