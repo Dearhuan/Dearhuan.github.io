@@ -119,7 +119,7 @@ const getMonthOption = (months: string[], year: number) => {
       isUnFinished = true
     }
     if ((new Date(`${year}-${itemMonth}-${currentDate.getDate()}`).getMonth() > new Date(`${startYear}-${startMonth - 1}-${startDay}`).getMonth()) &&
-      (new Date(`${year}-${itemMonth + 1}-${currentDate.getDate()}`) < currentDate)) {
+      (new Date(`${year}-${itemMonth}-${currentDate.getDate()}`) < currentDate)) {
       isUnFinished = true
       isUnRelated = true
     }
@@ -180,6 +180,7 @@ onMounted(() => {
     item.paidItem = paidItem
     item.unPaidItem = unPaidItem
   })
+  console.log(list.value, '---')
   paidMoney.value = paidCount * Number(props.money)
   
   const startDate = new Date(props.startDate)
