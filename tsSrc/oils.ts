@@ -2,6 +2,58 @@ import fs from 'fs'
 import path from 'path'
 import axios from 'axios'
 
+const APPID = 'wx8aa79622b548aba2'
+
+const APPSECRET = '475bccc49e499619a83cce8a0e236562'
+
+const USER_ID = 'oN_Np67LMDL4EE4yCSWVQB2SwoFs'
+
+const TEMPLATE_ID = 'VH3fSCDJhC_WLQTeyLmUXmiO6zMBMfR5ijhRU2cDohQ'
+
+let ACCESS_TOKEN: string
+
+// 第一步，获取ACCESS_TOKEN
+const GET_ACCESS_TOKEN_URL = `https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${APPID}&secret=${APPSECRET}`
+
+const getAccessToken = (): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    axios
+      .request({
+        method: 'GET',
+        url: GET_ACCESS_TOKEN_URL
+      })
+      .then((res) => {
+        console.log(res.data)
+        res.data.access_token
+          ? resolve(res.data.access_token)
+          : reject(res.data.errmsg)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
+}
+
+const sendTemplateMsg = async (data: any) => {
+  const url = `https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=${ACCESS_TOKEN}`
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, {
+        touser: USER_ID,
+        template_id: TEMPLATE_ID,
+        url: 'http://weixin.qq.com/download',
+        data: data
+      })
+      .then((res) => {
+        console.log(res.data, '===')
+        res.data.errcode == 0 ? resolve('ok') : reject('failed')
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  })
+}
+
 interface OilItem {
   date: string
   '92_price': string
@@ -84,6 +136,8 @@ const writeDataList = (path: string, data: unknown) => {
 }
 
 const runTask = async () => {
+  // 获取微信 ACCESS_TOKEN
+  ACCESS_TOKEN = await getAccessToken()
   // 获取油价信息
   const result = await getOilInfo()
   // 获取广东省油价信息
@@ -114,6 +168,20 @@ const runTask = async () => {
       '92_change': oil_92_change,
       '95_price': `${oil_95_price}`,
       '95_change': oil_95_change
+    })
+    sendTemplateMsg({
+      keyword1: {
+        value: oil_92_price
+      },
+      keyword2: {
+        value: oil_92_change
+      },
+      keyword3: {
+        value: oil_95_price
+      },
+      keyword4: {
+        value: oil_95_change
+      }
     })
     writeDataList(jsonFilePath, data)
     writeMarkdown(data, result)
