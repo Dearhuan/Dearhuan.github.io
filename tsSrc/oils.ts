@@ -171,16 +171,20 @@ const runTask = async () => {
     })
     sendTemplateMsg({
       keyword1: {
-        value: oil_92_price
+        value: oil_92_price,
+        color: '#65c8fe'
       },
       keyword2: {
-        value: oil_92_change
+        value: oil_92_change,
+        color: '#113c71'
       },
       keyword3: {
-        value: oil_95_price
+        value: oil_95_price,
+        color: '#9698e2'
       },
       keyword4: {
-        value: oil_95_change
+        value: oil_95_change,
+        color: '#BB4E75'
       }
     })
     writeDataList(jsonFilePath, data)
