@@ -70,6 +70,10 @@ linkList.value = [
         "link": "https://dearhuan.gitee.io/vip"
       },
       {
+        "title": "图片压缩【PNG】",
+        "link": "https://dearhuan.gitee.io/png-compress"
+      },
+      {
         "title": "基金涨了吗",
         "link": "https://dearhuan.github.io/swiper-fund/#/fund"
       },

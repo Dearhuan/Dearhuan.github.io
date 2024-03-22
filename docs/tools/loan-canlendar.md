@@ -5,7 +5,7 @@ next: /tools/oilPriceCalculator.md
 
 # 分期日历本
 
-<CalendarBox title="房贷分期" money="5099.84" start-date="2023-04-24" end-date="2053-03-24"/>
+<CalendarBox title="房贷分期" money="5000" start-date="2023-04-24" end-date="2053-03-24"/>
 
 <CalendarBox title="汽车分期" money="2488.89" start-date="2023-04-24" end-date="2026-03-24"/>
 
