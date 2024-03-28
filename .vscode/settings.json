@@ -18,7 +18,7 @@
   "prettier.singleQuote": true, // #使用单引号替代双引号
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true, // #让函数(名)和后面的括号之间加个空格
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.fixAll.eslint": true
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
   },
 }

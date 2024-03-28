@@ -66,5 +66,9 @@
   {
     "text": "中国城市经纬度",
     "link": "/tools/china-city-lxly.md"
+  },
+  {
+    "text": "高德地图驾车路线规划",
+    "link": "/tools/amap-driving.md"
   }
 ]
