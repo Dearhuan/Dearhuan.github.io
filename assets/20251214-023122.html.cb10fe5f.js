@@ -1,0 +1,1 @@
+import{_ as e,o as _,c}from"./app.72277a83.js";const r={};function t(o,a){return _(),c("div")}var s=e(r,[["render",t],["__file","20251214-023122.html.vue"]]);export{s as default};
