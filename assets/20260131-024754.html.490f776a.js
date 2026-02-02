@@ -1,0 +1,1 @@
+const t=JSON.parse('{"key":"v-2d4bdc5f","path":"/chinaNcovs/20260131-024754.html","title":"","lang":"en-US","frontmatter":{},"excerpt":"","headers":[],"git":{"updatedTime":1769916598000,"contributors":[{"name":"GitHub Action","email":"actions@github.com","commits":1}]},"filePathRelative":"chinaNcovs/20260131-024754.md"}');export{t as data};
