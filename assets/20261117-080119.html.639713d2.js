@@ -1,0 +1,1 @@
+import{_ as e,o as _,c}from"./app.fac541e9.js";const r={};function t(o,a){return _(),c("div")}var s=e(r,[["render",t],["__file","20261117-080119.html.vue"]]);export{s as default};
